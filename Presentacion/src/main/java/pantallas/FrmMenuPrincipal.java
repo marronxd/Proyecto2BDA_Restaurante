@@ -56,6 +56,6 @@ public class FrmMenuPrincipal extends JFrame{
         // Botones de acceso a roles
         JPanel panelOpciones = new JPanel(new GridLayout(1,2,25,25));
         panelOpciones.setBorder(BorderFactory.createEmptyBorder(20,40,40,40));
-        
+         
     }
 }
