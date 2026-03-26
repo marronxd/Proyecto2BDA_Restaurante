@@ -77,10 +77,11 @@ public class FrmMenuPrincipal extends JFrame{
         panelOpciones.add(btnAdministrador);
         add(panelOpciones, BorderLayout.CENTER);
         
-        
+        /**
         // Interacciones con los eventos
         btnAdministrador.addActionListener(e -> {
            coordinador 
         });
+        */
     }
 }

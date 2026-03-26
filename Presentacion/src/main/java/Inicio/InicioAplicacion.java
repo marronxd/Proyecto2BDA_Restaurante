@@ -26,6 +26,7 @@ public class InicioAplicacion {
         
         // Abrimos la pantalla inicial
         coordinador.IniciarSistema();
+        
     }    
     
 }
