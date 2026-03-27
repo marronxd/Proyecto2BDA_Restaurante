@@ -4,10 +4,27 @@
  */
 package pantallas;
 
+import Controladores.CoordinadorFrames;
+import javax.swing.*;
+import utilerias.FramesUtileria;
+
 /**
  *
  * @author aaron
  */
-public class FrmMenuAdministrador {
+public class FrmMenuAdministrador extends FrmPlantillaAdmin{
+    
+    
+    private final CoordinadorFrames coordinador;
+    
+    
+    //crear frame principal
+    public FrmMenuAdministrador(CoordinadorFrames coordinador){
+        super("Menu Administrador");
+        this.coordinador = coordinador;
+        
+        cuerpoEstructura();
+    }
+
     
 }

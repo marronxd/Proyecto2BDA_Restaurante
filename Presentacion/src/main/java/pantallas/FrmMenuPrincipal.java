@@ -4,6 +4,7 @@
  */
 package pantallas;
 import utilerias.BotonUtileria;
+import utilerias.ColoresUtileria;
 import Controladores.CoordinadorFrames;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,9 +27,6 @@ public class FrmMenuPrincipal extends JFrame{
     private String iconoAdministrador = "/IconoAdmin.png";
     private String iconoEmpleado = "/Empleado.png";
     
-    // adicional para colores
-    private Color colorFondo = Color.decode("#FFFCF9");
-    private Color colorTitulo = Color.decode("#783939");
     // Inyectar dependencia/ objeto coordinador
     private final CoordinadorFrames coordinadorFrames;
     
@@ -51,7 +49,7 @@ public class FrmMenuPrincipal extends JFrame{
         // Agregar los exit and close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // para centrar la ventana en el escritorio
-        setForeground(colorFondo);
+        setForeground(ColoresUtileria.getFONDO());
         // separar título de las opciones
         setLayout(new BorderLayout(20,20));
     }
@@ -60,7 +58,7 @@ public class FrmMenuPrincipal extends JFrame{
         // en la parte superior, esto es el título del sistema
         JLabel lblTitulo = new JLabel("Menú del sistema", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Angkor", Font.BOLD, 18)); // configuración de letras
-        lblTitulo.setForeground(colorTitulo);
+        lblTitulo.setForeground(ColoresUtileria.getCOLORTITULO());
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(30,0,10,0));
         add(lblTitulo, BorderLayout.NORTH);
         
@@ -72,16 +70,18 @@ public class FrmMenuPrincipal extends JFrame{
         JButton btnEmpleado = BotonUtileria.botonUtileriaMenu("Empleado", iconoEmpleado);
         JButton btnAdministrador = BotonUtileria.botonUtileriaMenu("Administrador", iconoAdministrador);
         
+        // Interacciones con los eventos
+        btnAdministrador.addActionListener(e -> {
+           coordinadorFrames.mostrarInicioSesion();
+        });
+        
         
         panelOpciones.add(btnEmpleado);
         panelOpciones.add(btnAdministrador);
         add(panelOpciones, BorderLayout.CENTER);
         
-        /**
-        // Interacciones con los eventos
-        btnAdministrador.addActionListener(e -> {
-           coordinador 
-        });
-        */
+        
+
+        
     }
 }

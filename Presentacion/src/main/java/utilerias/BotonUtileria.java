@@ -60,15 +60,25 @@ public class BotonUtileria {
         
     public static JButton botonUtileriaGenérico(String texto){
         JButton boton = new JButton(texto);
-        // acomodo de la imagen y el texto
         boton.setVerticalTextPosition(SwingConstants.BOTTOM);
         boton.setHorizontalTextPosition(SwingConstants.CENTER);
 
         // estandarizar formatos para el boton
-        boton.setFont(new Font("Angkor", Font.BOLD, 13));
+        boton.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 13));
         boton.setBorderPainted(true);
         boton.setFocusPainted(false);
         return boton;
      }
     
+    public static JButton botonSidebar(String texto){
+        JButton boton = new JButton(texto);
+        boton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        boton.setHorizontalTextPosition(SwingConstants.CENTER);
+        boton.setForeground(ColoresUtileria.getCOLORVERDE());
+        // estandarizar formatos para el boton
+        boton.setFont(new Font("Angkor", Font.BOLD, 13));
+        boton.setBorderPainted(true);
+        boton.setFocusPainted(false);
+        return boton;
+    }
 }
