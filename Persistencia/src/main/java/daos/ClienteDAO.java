@@ -3,7 +3,6 @@ package daos;
 import conexion.ConexionBD;
 import entidades.Cliente;
 import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 /**
  *
