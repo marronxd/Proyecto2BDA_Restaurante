@@ -64,7 +64,7 @@ public class UtileriasPaneles {
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // 4. IMPORTANTE: Definir el ancho del scroll
-        scroll.setPreferredSize(new java.awt.Dimension(200, 0));
+        scroll.setPreferredSize(new java.awt.Dimension(150, 0));
 
         return scroll;
     }

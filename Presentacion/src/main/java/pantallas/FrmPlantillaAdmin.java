@@ -53,7 +53,7 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         btnComandas = BotonUtileria.botonSidebar("Comandas");
         btnProductos = BotonUtileria.botonSidebar("Productos");
         btnIngredientes = BotonUtileria.botonSidebar("Ingredientes");
-        btnClientesFrecuentes = BotonUtileria.botonSidebar("Clientes Frecuentes");
+        btnClientesFrecuentes = BotonUtileria.botonSidebar("Clientes\n Frecuentes");
         btnReportes = BotonUtileria.botonSidebar("Reportes");
         
         // agregar los botones al menu
