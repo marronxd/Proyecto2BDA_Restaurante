@@ -55,4 +55,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.mycompany.persistencia.Persistencia</exec.mainClass>
     </properties>
+    <name>persistencia</name>
 </project>

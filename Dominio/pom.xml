@@ -19,4 +19,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.mycompany.dominio.Dominio</exec.mainClass>
     </properties>
+    <name>dominio</name>
 </project>
