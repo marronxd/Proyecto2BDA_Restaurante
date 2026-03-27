@@ -10,3 +10,4 @@ nbdist/
 
 # Ignorar archivos compilados de Java
 *.class
+/Persistencia/nbproject/
