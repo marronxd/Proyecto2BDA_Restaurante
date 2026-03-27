@@ -48,4 +48,30 @@ public class ClienteDAO {
             return null;
         }
     }
+    
+    public List<Cliente> buscarPorTelefono(String tel){
+        //creamos la conexion a la BD
+        EntityManager em = ConexionBD.crearConexion();
+        try {
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.telefono = :telefono", Cliente.class)
+                           .setParameter("telefono", tel)
+                           .getResultList();
+            return clientes;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Cliente> buscarPorCorreo(String corr){
+        //creamos la conexion a la BD
+        EntityManager em = ConexionBD.crearConexion();
+        try {
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.correo = :correo", Cliente.class)
+                           .setParameter("correo", corr)
+                           .getResultList();
+            return clientes;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
