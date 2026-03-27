@@ -1,11 +1,16 @@
 pantallas\FrmPlantillaAdmin.class
+pantallas\pnlBuscador$1.class
 utilerias\UtileriasPaneles.class
-pantallas\FrmClienteFrecuenteAdmin.class
 utilerias\BotonUtileria.class
+pantallas\pnlClienteFrecuente$1.class
+pantallas\pnlClienteFrecuente.class
+pantallas\pnlBuscador.class
 utilerias\ColoresUtileria.class
+pantallas\pnlClienteFrecuente$2.class
 utilerias\FramesUtileria.class
 pantallas\FrmInicioSesion.class
 pantallas\FrmMenuPrincipal.class
 Controladores\CoordinadorFrames.class
 pantallas\FrmMenuAdministrador.class
 Inicio\InicioAplicacion.class
+pantallas\pnlBuscador$2.class

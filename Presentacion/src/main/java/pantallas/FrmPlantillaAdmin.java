@@ -48,7 +48,6 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         // creacion del panel que contendra las funciones de cada opcion
         panelContenido = new JPanel(new BorderLayout());
         panelContenido.setBackground(ColoresUtileria.getFONDO());
-        
         // crear los botones del sidebar
         btnComandas = BotonUtileria.botonSidebar("Comandas");
         btnProductos = BotonUtileria.botonSidebar("Productos");
@@ -98,5 +97,17 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, ColoresUtileria.getCOLORLINEA()));
         panel.add(titulo, BorderLayout.NORTH);
         return panel;
+    }
+    
+    /**
+     * Metod auxiliar para que el coordinador haga su chamba al 100
+     * @param nuevoPanel el panel por el que vamos a reemplazar el contenido
+     */
+    public void setNuevoContenido(JPanel nuevoPanel) {
+        System.out.println("Medida del cuadro gris: " + this.panelContenido.getSize());
+        this.panelContenido.removeAll(); // quita todo
+        this.panelContenido.add(nuevoPanel, BorderLayout.CENTER); // seteamos el nuevo
+        this.panelContenido.revalidate(); //valida si cambio el cotnenido
+        this.panelContenido.repaint();    // redibuja el contenido
     }
 }

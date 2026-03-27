@@ -8,6 +8,7 @@ import java.awt.Frame;
 import pantallas.FrmInicioSesion;
 import pantallas.FrmMenuAdministrador;
 import pantallas.FrmMenuPrincipal;
+import pantallas.pnlClienteFrecuente;
 
 /**
  *
@@ -18,6 +19,10 @@ public class CoordinadorFrames {
     private FrmMenuPrincipal frmMenuPrincipal;
     private FrmMenuAdministrador frmMenuAdministrador;
     private FrmInicioSesion frmInicioSesion;
+   
+    // mostrar paneles para los frames de administrador
+    private pnlClienteFrecuente pnlClienteFrecuente;
+    
     public CoordinadorFrames(){
     
     }
@@ -75,10 +80,26 @@ public class CoordinadorFrames {
         if(frmInicioSesion != null){
             frmInicioSesion.dispose(); // libera recursos al destruir la vetnana
         }
+        if (frmMenuAdministrador != null){
+            frmMenuAdministrador.dispose();
+        }
         // verificar si existe, si sí, mostrar ventana y madnarla pal frente
         if(frmMenuPrincipal != null){
             frmMenuPrincipal.setVisible(true);
             frmMenuPrincipal.toFront();
         }
+    }
+    /**
+     * Mostrar las funciones del paneld e clientes frecuentes
+     */
+    public void mostrarFuncionesClientesFrecuentes(){
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+        if (pnlClienteFrecuente == null){
+            pnlClienteFrecuente = new pnlClienteFrecuente(this);
+        }
+        frmMenuAdministrador.setNuevoContenido(pnlClienteFrecuente);
+        pnlClienteFrecuente.setVisible(true);
     }
 }

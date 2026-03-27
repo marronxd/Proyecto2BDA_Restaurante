@@ -90,7 +90,7 @@ public class FrmInicioSesion extends JFrame{
                 coordinador.mostrarMenuAdministrador();
                 
             }else{
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña inválido: " + contraRecuperada + "\n"+ userRecuperado,
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña inválido:\n" + "Contraseña: " + contraRecuperada + "\n"+ "Usuario:" + userRecuperado,
                     "Error de autenticación", 
                     JOptionPane.ERROR_MESSAGE);
             }

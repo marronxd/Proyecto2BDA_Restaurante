@@ -14,15 +14,21 @@ import utilerias.FramesUtileria;
  */
 public class FrmMenuAdministrador extends FrmPlantillaAdmin{
     
-    private final CoordinadorFrames coordinador;
+    private final CoordinadorFrames coordinadorF;
     
     
     //crear frame principal
     public FrmMenuAdministrador(CoordinadorFrames coordinador){
         super("Menu Administrador");
-        this.coordinador = coordinador;
+        this.coordinadorF = coordinador;
         
         cuerpoEstructura();
+        
+        btnClientesFrecuentes.addActionListener(e ->{
+            coordinadorF.mostrarFuncionesClientesFrecuentes();
+        });
+        
+        
     }
 
     
