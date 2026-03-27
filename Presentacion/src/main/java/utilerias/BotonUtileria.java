@@ -62,7 +62,7 @@ public class BotonUtileria {
         JButton boton = new JButton(texto);
         boton.setVerticalTextPosition(SwingConstants.BOTTOM);
         boton.setHorizontalTextPosition(SwingConstants.CENTER);
-
+ 
         // estandarizar formatos para el boton
         boton.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 13));
         boton.setBorderPainted(true);

@@ -1,10 +1,11 @@
 pantallas\FrmPlantillaAdmin.class
 utilerias\UtileriasPaneles.class
-pantallas\FrmMenuPrincipal.class
+pantallas\FrmClienteFrecuenteAdmin.class
 utilerias\BotonUtileria.class
-Controladores\CoordinadorFrames.class
-pantallas\FrmMenuAdministrador.class
-Inicio\InicioAplicacion.class
 utilerias\ColoresUtileria.class
 utilerias\FramesUtileria.class
 pantallas\FrmInicioSesion.class
+pantallas\FrmMenuPrincipal.class
+Controladores\CoordinadorFrames.class
+pantallas\FrmMenuAdministrador.class
+Inicio\InicioAplicacion.class

@@ -14,7 +14,6 @@ import utilerias.FramesUtileria;
  */
 public class FrmMenuAdministrador extends FrmPlantillaAdmin{
     
-    
     private final CoordinadorFrames coordinador;
     
     

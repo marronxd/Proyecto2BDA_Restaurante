@@ -88,7 +88,7 @@ public abstract class FrmPlantillaAdmin extends JFrame{
     private JPanel crearEncabezado() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(ColoresUtileria.getFONDO());
-        
+         
         // Le damos un poco de altura fija para que respire
         panel.setPreferredSize(new Dimension(0, 80));
         JLabel titulo = new JLabel("Restaurante Genérico", SwingConstants.CENTER);

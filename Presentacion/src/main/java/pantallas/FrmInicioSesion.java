@@ -80,7 +80,7 @@ public class FrmInicioSesion extends JFrame{
         this.add(pnlCentral, new GridBagConstraints());
 
         
-
+ 
         // acciones de los botones
         btnIniciar.addActionListener(e -> {
             // recuperar contraseñas y usuarios de los textFields

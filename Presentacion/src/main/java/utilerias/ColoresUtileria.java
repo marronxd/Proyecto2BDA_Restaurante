@@ -29,7 +29,7 @@ public class ColoresUtileria {
     public static Color getCOLORMENULATERAL() {
         return COLORMENULATERAL;
     }
-
+ 
     public static Color getFONDO() {
         return FONDO;
     }

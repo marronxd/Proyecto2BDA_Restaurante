@@ -38,7 +38,7 @@ public class CoordinadorFrames {
             // por seguridad ya no deberia estar la ventana con los datos, por eos el dispose
             // sobre el setvisible false
         }
-        
+         
         // inicializar o recuperar la instancia creada
         if(frmMenuAdministrador == null){
             frmMenuAdministrador = new FrmMenuAdministrador(this);

@@ -11,7 +11,7 @@ import Controladores.CoordinadorFrames;
  * @author aaron
  */
 public class InicioAplicacion {
-
+ 
     /**
      * @param args the command line arguments
      */

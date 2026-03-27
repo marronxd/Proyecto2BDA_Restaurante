@@ -48,7 +48,7 @@ public class FramesUtileria{
         frame.getContentPane().setBackground(ColoresUtileria.getFONDO());
         // NO ponemos layout aquí, dejamos que cada pantalla decida
     }
-
+ 
     public static String getFUENTE() {
         return FUENTE;
     }

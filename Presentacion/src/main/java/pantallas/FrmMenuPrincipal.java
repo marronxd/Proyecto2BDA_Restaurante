@@ -45,7 +45,7 @@ public class FrmMenuPrincipal extends JFrame{
     private void configurarVentana(){
         setTitle("Sistema de Restaurante");
         setSize(500, 350);
-        
+         
         // Agregar los exit and close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // para centrar la ventana en el escritorio
