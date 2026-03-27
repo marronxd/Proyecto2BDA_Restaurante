@@ -56,7 +56,7 @@ public class Cliente implements Serializable {
     private String correo;
     
     //atributo fecha registro, not null
-    @Temporal(TemporalType.DATE)
+    
     @Column(name = "fecha_registro", nullable = false)
     private LocalDate fechaRegistro;
 
