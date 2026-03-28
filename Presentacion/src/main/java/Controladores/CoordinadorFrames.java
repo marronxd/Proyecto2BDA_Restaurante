@@ -4,7 +4,10 @@
  */
 package Controladores;
 
+import controlador.CoordinadorNegocio;
+import dtos.ClienteDTO;
 import java.awt.Frame;
+import java.util.List;
 import pantallas.*;
 import pantallas.pnlClienteFrecuente;
 
@@ -14,18 +17,18 @@ import pantallas.pnlClienteFrecuente;
  */
 public class CoordinadorFrames {
     // inyeccion de ncoordinador negocio
-    //private CoordinadorNegocio negocio;
+    private CoordinadorNegocio coordinadorN;
     
     private FrmMenuPrincipal frmMenuPrincipal;
     private FrmMenuAdministrador frmMenuAdministrador;
     private FrmInicioSesion frmInicioSesion;
     private FrmEdicionClienteFrecuente frmEdicionCliente;
-   
+    private crearCliente notengotiemposorryprofe;
     // mostrar paneles para los frames de administrador
     private pnlClienteFrecuente pnlClienteFrecuente;
     
     public CoordinadorFrames(){
-    
+        this.coordinadorN = new CoordinadorNegocio();
     }
     /**
      * Método para iniciar el frame principal del menu
@@ -113,10 +116,32 @@ public class CoordinadorFrames {
             
             frmEdicionCliente = new FrmEdicionClienteFrecuente(frmMenuAdministrador,true ,this);
         }
+        
         frmEdicionCliente.setLocationRelativeTo(frmMenuAdministrador);
         frmEdicionCliente.toFront();
         frmEdicionCliente.setVisible(true);
         
+    }
+    
+    public List<ClienteDTO> solicitarBusqueda(String texto, String tipo){
+        return coordinadorN.filtraeClientes(texto, tipo);
+    }
+    
+    public void mostrarRegistroCliente(){
+        if(notengotiemposorryprofe == null){
+            
+            notengotiemposorryprofe = new crearCliente(frmMenuAdministrador,true ,this);
+        }
+        
+        notengotiemposorryprofe.setLocationRelativeTo(frmMenuAdministrador);
+        notengotiemposorryprofe.toFront();
+        notengotiemposorryprofe.setVisible(true);
+        
+    }
+    public void mostrarRegistro(ClienteDTO clienteAgregar){
+        if (clienteAgregar != null) {
+            coordinadorN.registrarCliente(clienteAgregar);
+        }
     }
     
 }

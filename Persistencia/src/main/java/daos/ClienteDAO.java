@@ -36,6 +36,36 @@ public class ClienteDAO {
         }
     }
     
+        /**
+     * guardar un cliente en la BD
+     * @param cliente a guardad
+     * @return cliente guardado
+     */
+    public void Eliminar(Cliente cliente){
+        
+        EntityManager em = ConexionBD.crearConexion();
+        
+        try {
+            em.getTransaction().begin();
+            em.find(Cliente.class, cliente);
+             Cliente clienteGestionado = em.find(Cliente.class, cliente.getId());
+
+            if (clienteGestionado != null) {
+                em.remove(clienteGestionado);
+            }
+            em.getTransaction().commit(); 
+            
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+                
+            }
+            throw e;
+        }finally{
+            em.close(); 
+        }
+    }
+    
     /**
      * busca a todos los clientes, sin filtros
      * @return 
@@ -65,8 +95,8 @@ public class ClienteDAO {
         
         EntityManager em = ConexionBD.crearConexion();
         try {
-            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nombres = :nombre", Cliente.class)
-                           .setParameter("nombre", nom)
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nombres like :nombre", Cliente.class)
+                           .setParameter("nombre", "%" + nom + "%")
                            .getResultList();
             return clientes;
         } catch (Exception e) {
@@ -83,8 +113,8 @@ public class ClienteDAO {
         
         EntityManager em = ConexionBD.crearConexion();
         try {
-            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.telefono = :telefono", Cliente.class)
-                           .setParameter("telefono", tel)
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.telefono like :telefono", Cliente.class)
+                           .setParameter("telefono", "%"+  tel+"%")
                            .getResultList();
             return clientes;
         } catch (Exception e) {
@@ -102,8 +132,8 @@ public class ClienteDAO {
         
         EntityManager em = ConexionBD.crearConexion();
         try {
-            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.correo = :correo", Cliente.class)
-                           .setParameter("correo", corr)
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.correo like :correo", Cliente.class)
+                           .setParameter("correo", "%" +corr + "%")
                            .getResultList();
             return clientes;
         } catch (Exception e) {

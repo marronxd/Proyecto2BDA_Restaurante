@@ -15,12 +15,25 @@ import objetosnegocio.ClienteBO;
  */
 public class CoordinadorNegocio {
     
-    private ClienteBO cliente;
+    private final ClienteBO cliente;
 
     public CoordinadorNegocio() {
+        this.cliente = ClienteBO.getInstance();
     }
     
-    public List<ClienteDTO> filtrarTodosClientes(){
-        return cliente.obtenerTodos();
+    public List<ClienteDTO> filtraeClientes(String texto, String tipo){
+        if(texto == null || texto.isEmpty()){
+            return cliente.obtenerTodos();
+        }
+        return switch(tipo){
+            case "Nombre" -> cliente.buscarPorNombre(texto);
+            case "Numero" -> cliente.buscarPorTelefono(texto);
+            case "Correo" -> cliente.buscarPorCorreo(texto);
+            default -> cliente.obtenerTodos();
+        };
+    }
+    
+    public ClienteDTO registrarCliente(ClienteDTO clienteAgregar){
+        return cliente.registrarCliente(clienteAgregar);
     }
 }

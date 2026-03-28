@@ -19,18 +19,18 @@ import utilerias.UtileriasPaneles;
  *
  * @author aaron
  */
-public class FrmEdicionClienteFrecuente extends JDialog{
-    private CoordinadorFrames coordinadorF;
+public class crearCliente extends JDialog{
+        private CoordinadorFrames coordinadorF;
     private ClienteDTO clienteActual;
     // Componentes (Cajas de texto) todos junto y ya
     private JTextField txtNombre, txtApellidoP, txtApellidoM, txtTelefono, txtPuntos;
     
-    public FrmEdicionClienteFrecuente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
+    public crearCliente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
         super(parent, modal);
         this.coordinadorF = coordinadorF;
         
         // 1. Configuración básica usando tu utilería
-        FramesUtileria.configurarVentanaGestion(this, "Modificacion de datos");
+        FramesUtileria.configurarVentanaGestion(this, "egistro de cliente");
         this.setSize(400, 450); // ajuste de tamaño
         this.setLayout(new BorderLayout());
 
@@ -95,16 +95,24 @@ public class FrmEdicionClienteFrecuente extends JDialog{
      */
     private void guardarCambios() {
         // Actualizamos el objeto con lo que hay en los campos
-        clienteActual.setNombres(txtNombre.getText());
-        clienteActual.setApellidoPaterno(txtApellidoP.getText());
-        clienteActual.setApellidoMaterno(txtApellidoM.getText());
-        clienteActual.setTelefono(txtTelefono.getText());
+        if (this.clienteActual == null) {
+        this.clienteActual = new ClienteDTO();
+    }
+
+        // Ahora ya no lanzará NullPointerException
+        this.clienteActual.setNombres(txtNombre.getText());
+        this.clienteActual.setApellidoPaterno(txtApellidoP.getText());
+        this.clienteActual.setApellidoMaterno(txtApellidoM.getText());
+        this.clienteActual.setTelefono(txtTelefono.getText());
+
+        // Si es nuevo, inicializamos puntos en 0
+        if(this.clienteActual.getPuntos() == null) {
+            this.clienteActual.setPuntos(0.0);
+        }
         
-        // El coordinador de negocio se encargará de la persistencia
-        // coordinadorF.getCoordinadorNegocio().actualizarCliente(clienteActual);
-        
+
         JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
-        this.dispose();
+        this.setVisible(false);
     }
 
     public ClienteDTO getClienteActual() {

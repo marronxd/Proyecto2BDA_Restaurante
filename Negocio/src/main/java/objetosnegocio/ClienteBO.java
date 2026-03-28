@@ -101,4 +101,7 @@ public class ClienteBO {
         return ClienteAdapter.ClienteADTOLista(clienteDAO.buscarPorCorreo(correo));
     }
     
+    /**
+     * eliminar cliente
+     */
 }

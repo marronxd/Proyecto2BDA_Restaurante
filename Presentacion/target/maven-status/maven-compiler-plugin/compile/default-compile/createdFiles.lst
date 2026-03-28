@@ -9,13 +9,13 @@ pantallas\pnlBuscador.class
 pantallas\pnlBuscador$3.class
 utilerias\ColoresUtileria.class
 pantallas\pnlClienteFrecuente$2.class
+pantallas\crearCliente.class
 utilerias\FramesUtileria.class
 pantallas\FrmInicioSesion.class
 pantallas\pnlBuscador$4.class
 pantallas\FrmMenuPrincipal.class
 pantallas\pnlClienteFrecuente$3.class
 Controladores\CoordinadorFrames.class
-pantallas\pnlBuscador$5.class
 pantallas\FrmMenuAdministrador.class
 Inicio\InicioAplicacion.class
 pantallas\pnlBuscador$2.class

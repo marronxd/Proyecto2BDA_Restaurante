@@ -29,7 +29,6 @@ public class FramesUtileria{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         
-        // Aplicamos el color de fondo global que ya definiste en ColoresUtileria
         frame.getContentPane().setBackground(ColoresUtileria.getFONDO());
         
         // Establecemos el layout base para el menú lateral
@@ -46,7 +45,6 @@ public class FramesUtileria{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(ColoresUtileria.getFONDO());
-        // NO ponemos layout aquí, dejamos que cada pantalla decida
     }
   
     public static String getFUENTE() {
@@ -59,10 +57,9 @@ public class FramesUtileria{
      */
     public static void configurarVentanaGestion(JDialog dialogo, String titulo) {
         dialogo.setTitle(titulo);
-        dialogo.setResizable(false); // Por lo general los diálogos no se estiran
+        dialogo.setResizable(false); 
         dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialogo.setLocationRelativeTo(null); // Centrar en pantalla
-        // Aquí puedes agregar el icono o colores que ya usas en el de JFrame
     }
     
     

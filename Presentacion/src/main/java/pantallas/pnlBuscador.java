@@ -5,8 +5,8 @@
 package pantallas;
 
 import Controladores.CoordinadorFrames;
-import controlador.CoordinadorNegocio;
-
+import dtos.ClienteDTO;
+import java.util.List;
 /**
  *
  * @author aaron
@@ -14,7 +14,6 @@ import controlador.CoordinadorNegocio;
 public class pnlBuscador extends javax.swing.JPanel {
 
     private CoordinadorFrames coordinadorF;
-    private CoordinadorNegocio coordinadorN;
     /**
      * Creates new form pnlBuscador
      */
@@ -22,12 +21,7 @@ public class pnlBuscador extends javax.swing.JPanel {
         this.coordinadorF = coordinadorF;
         initComponents();
         tablaBusqueda.setDefaultEditor(Object.class, null);
-        // Agregamos el "escuchador" manualmente para que detecte las teclas
-        entradaFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                entradaFiltroKeyReleased(evt);
-            }
-        });
+
     }
 
     /**
@@ -107,34 +101,41 @@ public class pnlBuscador extends javax.swing.JPanel {
     }//GEN-LAST:event_entradaFiltroActionPerformed
 
     private void entradaFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entradaFiltroKeyReleased
-        coordinadorF.mostrarGestionCliente();
-        coordinadorN.filtrarTodosClientes();
-// 1. Datos dummy (un arreglo de arreglos para simular las columnas de tu tabla)
-        Object[][] datosDummy = {
-            {"Aaron", "Burciaga", "Gomez", "123456", "aaron@mail.com", "100"},
-            {"Juan", "Perez", "Rodriguez", "654321", "juan@mail.com", "50"},
-            {"Maria", "Lopez", "Sosa", "987654", "maria@mail.com", "200"},
-            {"Marron", "XD", "Meme", "000000", "marron@mail.com", "999"}
-        };
+      
 
         // 2. Lo que el usuario escribió
-        String filtro = entradaFiltro.getText().toLowerCase();
-
-        // 3. Obtener el modelo de tu tablaBusqueda
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaBusqueda.getModel();
-
-        // 4. Limpiar la tabla
-        modelo.setRowCount(0);
-
-        // 5. Filtrar por el nombre (columna 0) y llenar la tabla
-        for (Object[] cliente : datosDummy) {
-            String nombreCompleto = cliente[0].toString().toLowerCase();
-            if (nombreCompleto.contains(filtro)) {
-                modelo.addRow(cliente);
-            }
-        }
+        String textofiltro = entradaFiltro.getText().toLowerCase().trim();
+        //2.1 
+        String tipoFiltro = FiltroClientes.getSelectedItem().toString();
+        
+         // 3 pedir lista
+         List<ClienteDTO> resultados = coordinadorF.solicitarBusqueda(textofiltro, tipoFiltro);
+       
+        llenarTabla(resultados);
     }//GEN-LAST:event_entradaFiltroKeyReleased
 
+    private void llenarTabla(List<ClienteDTO> lista) {
+        // 1. Obtenemos el modelo de la tabla que creó NetBeans
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaBusqueda.getModel();
+
+        // 2. Limpiamos todas las filas existentes (incluyendo los datos dummy)
+        modelo.setRowCount(0);
+
+        // 3. Si la lista no es nula, recorremos y agregamos
+        if (lista != null) {
+            for (ClienteDTO cliente : lista) {
+                Object[] fila = {
+                    cliente.getNombres(),
+                    cliente.getApellidoPaterno(),
+                    cliente.getApellidoMaterno(),
+                    cliente.getTelefono(),
+                    cliente.getCorreo(),
+                    cliente.getPuntos() // O el dato que quieras mostrar al final
+                };
+                modelo.addRow(fila);
+            }
+        }
+    }
     private void tablaBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaBusquedaMouseClicked
         if(evt.getClickCount() == 2){
             // para seleccionar una fila entera

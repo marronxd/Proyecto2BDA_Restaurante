@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -73,4 +75,5 @@ public class UtileriasPaneles {
         // Creamos un borde que solo pinte el lado derecho (Right) con un gris suave
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, new Color(0, 0, 0, 110)));
     }
+    
 }
