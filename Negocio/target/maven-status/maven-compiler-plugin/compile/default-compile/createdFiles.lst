@@ -1,1 +1,4 @@
 com\mycompany\negocio\Negocio.class
+objetosnegocio\ClienteBO.class
+adaptadores\ClienteAdapter.class
+controlador\CoordinadorNegocio.class

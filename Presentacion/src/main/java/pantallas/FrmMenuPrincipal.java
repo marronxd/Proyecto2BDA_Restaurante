@@ -38,7 +38,7 @@ public class FrmMenuPrincipal extends JFrame{
         configurarVentana();
         inicializarComponentes();
     }
-    
+     
     /**
      * Configuración de las ventanas
      */
@@ -79,9 +79,6 @@ public class FrmMenuPrincipal extends JFrame{
         panelOpciones.add(btnEmpleado);
         panelOpciones.add(btnAdministrador);
         add(panelOpciones, BorderLayout.CENTER);
-        
-        
-
         
     }
 }

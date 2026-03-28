@@ -15,7 +15,7 @@ import utilerias.FramesUtileria;
 public class FrmMenuAdministrador extends FrmPlantillaAdmin{
     
     private final CoordinadorFrames coordinadorF;
-    
+     
     
     //crear frame principal
     public FrmMenuAdministrador(CoordinadorFrames coordinador){

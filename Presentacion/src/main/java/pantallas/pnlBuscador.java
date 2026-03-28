@@ -4,17 +4,30 @@
  */
 package pantallas;
 
+import Controladores.CoordinadorFrames;
+import controlador.CoordinadorNegocio;
+
 /**
  *
  * @author aaron
  */
 public class pnlBuscador extends javax.swing.JPanel {
 
+    private CoordinadorFrames coordinadorF;
+    private CoordinadorNegocio coordinadorN;
     /**
      * Creates new form pnlBuscador
      */
-    public pnlBuscador() {
+    public pnlBuscador(CoordinadorFrames coordinadorF) {
+        this.coordinadorF = coordinadorF;
         initComponents();
+        tablaBusqueda.setDefaultEditor(Object.class, null);
+        // Agregamos el "escuchador" manualmente para que detecte las teclas
+        entradaFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                entradaFiltroKeyReleased(evt);
+            }
+        });
     }
 
     /**
@@ -46,6 +59,11 @@ public class pnlBuscador extends javax.swing.JPanel {
                 entradaFiltroActionPerformed(evt);
             }
         });
+        entradaFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                entradaFiltroKeyReleased(evt);
+            }
+        });
         add(entradaFiltro);
 
         FiltroClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Nombre", "Correo", "Numero" }));
@@ -70,6 +88,11 @@ public class pnlBuscador extends javax.swing.JPanel {
         tablaBusqueda.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tablaBusqueda.setMinimumSize(new java.awt.Dimension(836, 536));
         tablaBusqueda.setPreferredSize(new java.awt.Dimension(836, 536));
+        tablaBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaBusquedaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaBusqueda);
 
         add(jScrollPane1);
@@ -83,6 +106,48 @@ public class pnlBuscador extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_entradaFiltroActionPerformed
 
+    private void entradaFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entradaFiltroKeyReleased
+        coordinadorF.mostrarGestionCliente();
+        coordinadorN.filtrarTodosClientes();
+// 1. Datos dummy (un arreglo de arreglos para simular las columnas de tu tabla)
+        Object[][] datosDummy = {
+            {"Aaron", "Burciaga", "Gomez", "123456", "aaron@mail.com", "100"},
+            {"Juan", "Perez", "Rodriguez", "654321", "juan@mail.com", "50"},
+            {"Maria", "Lopez", "Sosa", "987654", "maria@mail.com", "200"},
+            {"Marron", "XD", "Meme", "000000", "marron@mail.com", "999"}
+        };
+
+        // 2. Lo que el usuario escribió
+        String filtro = entradaFiltro.getText().toLowerCase();
+
+        // 3. Obtener el modelo de tu tablaBusqueda
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaBusqueda.getModel();
+
+        // 4. Limpiar la tabla
+        modelo.setRowCount(0);
+
+        // 5. Filtrar por el nombre (columna 0) y llenar la tabla
+        for (Object[] cliente : datosDummy) {
+            String nombreCompleto = cliente[0].toString().toLowerCase();
+            if (nombreCompleto.contains(filtro)) {
+                modelo.addRow(cliente);
+            }
+        }
+    }//GEN-LAST:event_entradaFiltroKeyReleased
+
+    private void tablaBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaBusquedaMouseClicked
+        if(evt.getClickCount() == 2){
+            // para seleccionar una fila entera
+            int fila = tablaBusqueda.getSelectedRow();
+            if(fila != -1){
+               
+                // PENDIENTE HASTA CONECTAR LA LOGICA CON LA PRESENTACION
+                coordinadorF.mostrarGestionCliente();
+                
+            }
+        }
+    }//GEN-LAST:event_tablaBusquedaMouseClicked
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> FiltroClientes;

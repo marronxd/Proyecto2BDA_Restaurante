@@ -44,11 +44,11 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         panelMenuLateral.setBackground(ColoresUtileria.getCOLORMENULATERAL());
         
         UtileriasPaneles.configurarSideBar(panelMenuLateral);
-        
+         
         // creacion del panel que contendra las funciones de cada opcion
         panelContenido = new JPanel(new BorderLayout());
         panelContenido.setBackground(ColoresUtileria.getFONDO());
-        // crear los botones del sidebar
+         // crear los botones del sidebar
         btnComandas = BotonUtileria.botonSidebar("Comandas");
         btnProductos = BotonUtileria.botonSidebar("Productos");
         btnIngredientes = BotonUtileria.botonSidebar("Ingredientes");

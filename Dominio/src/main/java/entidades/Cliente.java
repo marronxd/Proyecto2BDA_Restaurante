@@ -15,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -44,7 +42,7 @@ public class Cliente implements Serializable {
     private String apellidoPaterno;
     
     //atributo apellidoMaterno, not null
-    @Column(name = "apellido_materno", nullable = false, length = 100)
+    @Column(name = "apellido_materno", nullable = true, length = 100)
     private String apellidoMaterno;
     
     //atributo telefono, not null
@@ -82,6 +80,15 @@ public class Cliente implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.fechaRegistro = fechaRegistro;
+    }
+    // todo menso correo y fecha
+
+    public Cliente(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
     }
     
     //----------GET Y SET

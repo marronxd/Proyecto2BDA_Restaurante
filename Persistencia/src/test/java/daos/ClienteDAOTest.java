@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author piña
  */
 public class ClienteDAOTest {
-
+    
     //Preparacion
     private ClienteDAO instance;
 
@@ -31,7 +31,6 @@ public class ClienteDAOTest {
         instance = new ClienteDAO();
     }
     //Test de cada metodo
-
     @Test
     public void testGuardar() {
         System.out.println("Ejecutando: guardar");
@@ -46,7 +45,6 @@ public class ClienteDAOTest {
         assertNotNull(result.getId(), "La base de datos debería haber generado un ID");
         assertEquals("Danna", result.getNombres());
     }
-
     @Test
     public void testBuscarPorNombre() {
         System.out.println("Prueba Individual: buscarPorNombre");

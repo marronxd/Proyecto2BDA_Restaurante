@@ -6,7 +6,7 @@ package pantallas;
 
 import Controladores.CoordinadorFrames;
 import java.awt.BorderLayout;
-
+ 
 /**
  *
  * @author aaron
@@ -19,7 +19,7 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
     public pnlClienteFrecuente(CoordinadorFrames coordinadorF) {
         this.coordinadorF = coordinadorF;
         initComponents();
-        pnlBuscador bs = new pnlBuscador();
+        pnlBuscador bs = new pnlBuscador(this.coordinadorF);
         bs.setSize(736,433);
         bs.setLocation(0,0);
         content.removeAll();
@@ -41,6 +41,7 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
         regresarMenuBoton = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         registrarClienteBoton = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         setMaximumSize(new java.awt.Dimension(800, 400));
@@ -63,27 +64,37 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
             }
         });
 
+        eliminar.setText("Eliminar Cliente");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(435, Short.MAX_VALUE)
+                .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registrarClienteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(regresarMenuBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regresarMenuBoton)
-                    .addComponent(registrarClienteBoton))
-                .addContainerGap())
+                    .addComponent(registrarClienteBoton)
+                    .addComponent(eliminar))
+                .addGap(35, 35, 35))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -97,9 +108,14 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
        coordinadorF.rergesarAlMenu();
     }//GEN-LAST:event_regresarMenuBotonActionPerformed
 
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content;
+    private javax.swing.JButton eliminar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton registrarClienteBoton;
     private javax.swing.JButton regresarMenuBoton;

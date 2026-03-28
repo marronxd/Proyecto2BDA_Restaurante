@@ -50,10 +50,6 @@ public class ClienteBO {
             throw new IllegalArgumentException("El apellido paterno es obligatorio");
         }
         
-        if (dto.getApellidoMaterno() == null) {
-            throw new IllegalArgumentException("El apellido materno es obligatorio");
-        }
-        
         if (dto.getTelefono() == null) {
             throw new IllegalArgumentException("El telefono es obligatorio");
         }

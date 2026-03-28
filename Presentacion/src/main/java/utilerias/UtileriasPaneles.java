@@ -53,7 +53,7 @@ public class UtileriasPaneles {
 
         // 1. Quitar el borde del scroll para que no se vea el cuadro gris
         scroll.setBorder(null);
-         
+          
         // Poner efecto de sombreado
         scroll.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(0, 0, 0, 20)));
         // 2. Hacer que el fondo del scroll sea transparente o del mismo color crema

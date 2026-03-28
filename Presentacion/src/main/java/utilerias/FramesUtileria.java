@@ -48,11 +48,22 @@ public class FramesUtileria{
         frame.getContentPane().setBackground(ColoresUtileria.getFONDO());
         // NO ponemos layout aquí, dejamos que cada pantalla decida
     }
- 
+  
     public static String getFUENTE() {
         return FUENTE;
     }
-    
+    /**
+     * Genera un dialog para solicitud de campos para el usuario
+     * @param dialogo
+     * @param titulo 
+     */
+    public static void configurarVentanaGestion(JDialog dialogo, String titulo) {
+        dialogo.setTitle(titulo);
+        dialogo.setResizable(false); // Por lo general los diálogos no se estiran
+        dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialogo.setLocationRelativeTo(null); // Centrar en pantalla
+        // Aquí puedes agregar el icono o colores que ya usas en el de JFrame
+    }
     
     
 }

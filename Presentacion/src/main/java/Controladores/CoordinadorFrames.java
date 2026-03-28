@@ -5,9 +5,7 @@
 package Controladores;
 
 import java.awt.Frame;
-import pantallas.FrmInicioSesion;
-import pantallas.FrmMenuAdministrador;
-import pantallas.FrmMenuPrincipal;
+import pantallas.*;
 import pantallas.pnlClienteFrecuente;
 
 /**
@@ -15,10 +13,13 @@ import pantallas.pnlClienteFrecuente;
  * @author aaron
  */
 public class CoordinadorFrames {
+    // inyeccion de ncoordinador negocio
+    //private CoordinadorNegocio negocio;
     
     private FrmMenuPrincipal frmMenuPrincipal;
     private FrmMenuAdministrador frmMenuAdministrador;
     private FrmInicioSesion frmInicioSesion;
+    private FrmEdicionClienteFrecuente frmEdicionCliente;
    
     // mostrar paneles para los frames de administrador
     private pnlClienteFrecuente pnlClienteFrecuente;
@@ -88,7 +89,7 @@ public class CoordinadorFrames {
             frmMenuPrincipal.setVisible(true);
             frmMenuPrincipal.toFront();
         }
-    }
+    } 
     /**
      * Mostrar las funciones del paneld e clientes frecuentes
      */
@@ -102,4 +103,20 @@ public class CoordinadorFrames {
         frmMenuAdministrador.setNuevoContenido(pnlClienteFrecuente);
         pnlClienteFrecuente.setVisible(true);
     }
+    public void cancelarGestionClienteFrecuente(){
+        if(frmEdicionCliente != null){
+            frmEdicionCliente.dispose();
+        }
+    }
+    public void mostrarGestionCliente(){
+        if(frmEdicionCliente == null){
+            
+            frmEdicionCliente = new FrmEdicionClienteFrecuente(frmMenuAdministrador,true ,this);
+        }
+        frmEdicionCliente.setLocationRelativeTo(frmMenuAdministrador);
+        frmEdicionCliente.toFront();
+        frmEdicionCliente.setVisible(true);
+        
+    }
+    
 }
