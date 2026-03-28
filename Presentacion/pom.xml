@@ -13,15 +13,15 @@
         <exec.mainClass>com.mycompany.presentacion.Presentacion</exec.mainClass>
     </properties>
     <name>presentacion</name>
-    <dependencies>
+    <dependencies>   
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Negocio</artifactId>
+            <artifactId>DTO</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>DTO</artifactId>
+            <artifactId>Negocio</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
