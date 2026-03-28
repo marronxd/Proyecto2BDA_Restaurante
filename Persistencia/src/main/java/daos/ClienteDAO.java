@@ -37,6 +37,26 @@ public class ClienteDAO {
     }
     
     /**
+     * busca a todos los clientes, sin filtros
+     * @return 
+     */
+    public List<Cliente> obtenerTodos() {
+        
+        EntityManager em = ConexionBD.crearConexion();
+    
+        try {
+            List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c", Cliente.class)
+                .getResultList();
+        
+        return clientes;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+    /**
      * buscar un cliente por nombre
      * @param nom nombre a buscar en los reguitros
      * @return en caso de encontrara coincidencias un cliente en caso contrario null
