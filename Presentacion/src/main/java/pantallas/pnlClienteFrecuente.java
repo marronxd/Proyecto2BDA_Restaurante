@@ -58,6 +58,7 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
             }
         });
 
+        content.setForeground(new java.awt.Color(255, 252, 249));
         content.setLayout(new java.awt.BorderLayout());
 
         registrarClienteBoton.setText("RegistrarCliente");

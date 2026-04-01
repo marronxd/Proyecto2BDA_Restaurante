@@ -5,6 +5,7 @@
 package utilerias;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.net.URL;
@@ -34,6 +35,9 @@ public class BotonUtileria {
                 boton.setIcon(new ImageIcon(imgEscalada));
             }
         }
+        // simple estética de los botones para dar retroalimentación al usuario de que es
+        // un componente interactuable
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return boton;
     }
     
@@ -50,6 +54,10 @@ public class BotonUtileria {
         boton.setVerticalTextPosition(SwingConstants.BOTTOM);
         boton.setHorizontalTextPosition(SwingConstants.CENTER);
         
+        // simple estética de los botones para dar retroalimentación al usuario de que es
+        // un componente interactuable
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
         // estandarizar formatos para el boton
         boton.setFont(new Font("Angkor", Font.BOLD, 13));
         boton.setForeground(Color.decode("#6D816B"));
@@ -62,6 +70,10 @@ public class BotonUtileria {
         JButton boton = new JButton(texto);
         boton.setVerticalTextPosition(SwingConstants.BOTTOM);
         boton.setHorizontalTextPosition(SwingConstants.CENTER);
+        
+        // simple estética de los botones para dar retroalimentación al usuario de que es
+        // un componente interactuable
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
   
         // estandarizar formatos para el boton
         boton.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 13));
@@ -75,6 +87,11 @@ public class BotonUtileria {
         boton.setVerticalTextPosition(SwingConstants.BOTTOM);
         boton.setHorizontalTextPosition(SwingConstants.CENTER);
         boton.setForeground(ColoresUtileria.getCOLORVERDE());
+        
+        // simple estética de los botones para dar retroalimentación al usuario de que es
+        // un componente interactuable
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
         // estandarizar formatos para el boton
         boton.setFont(new Font("Angkor", Font.BOLD, 13));
         boton.setBorderPainted(true);

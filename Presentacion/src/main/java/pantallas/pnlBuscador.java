@@ -39,12 +39,14 @@ public class pnlBuscador extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaBusqueda = new javax.swing.JTable();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de busqueda de clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de busqueda de clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 1, 12))); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(836, 533));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setText("Buscar clientes:");
-        add(jLabel1);
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 26, 100, -1));
 
         entradaFiltro.setColumns(20);
         entradaFiltro.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -58,16 +60,19 @@ public class pnlBuscador extends javax.swing.JPanel {
                 entradaFiltroKeyReleased(evt);
             }
         });
-        add(entradaFiltro);
+        add(entradaFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 23, -1, -1));
 
+        FiltroClientes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         FiltroClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Nombre", "Correo", "Numero" }));
         FiltroClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FiltroClientesActionPerformed(evt);
             }
         });
-        add(FiltroClientes);
+        add(FiltroClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 23, -1, -1));
 
+        tablaBusqueda.setBackground(new java.awt.Color(255, 252, 249));
+        tablaBusqueda.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         tablaBusqueda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -89,7 +94,7 @@ public class pnlBuscador extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaBusqueda);
 
-        add(jScrollPane1);
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 50, 830, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void FiltroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltroClientesActionPerformed

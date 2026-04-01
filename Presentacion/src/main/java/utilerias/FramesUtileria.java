@@ -5,6 +5,8 @@
 package utilerias;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.net.URL;
 import javax.swing.*;
 
 /**
@@ -13,7 +15,7 @@ import javax.swing.*;
  */
 public class FramesUtileria{
     
-    private static final String FUENTE = "Angkor";
+    private static final String FUENTE = "Roboto";
     
     public FramesUtileria(){
         
@@ -62,5 +64,11 @@ public class FramesUtileria{
         dialogo.setLocationRelativeTo(null); // Centrar en pantalla
     }
     
+    public static Image configurarIconos(String rutaURL, int coordenadaX, int CoordenadaY){
+        URL mRuta = FramesUtileria.class.getResource(rutaURL);
+        ImageIcon imagen = new ImageIcon(mRuta);
+        Image imagenRescalada = imagen.getImage().getScaledInstance(coordenadaX, CoordenadaY, Image.SCALE_SMOOTH);
+        return imagenRescalada;
+    }
     
 }

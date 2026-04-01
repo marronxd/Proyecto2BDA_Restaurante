@@ -57,7 +57,7 @@ public class FrmMenuPrincipal extends JFrame{
     private void inicializarComponentes(){
         // en la parte superior, esto es el título del sistema
         JLabel lblTitulo = new JLabel("Menú del sistema", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Angkor", Font.BOLD, 18)); // configuración de letras
+        lblTitulo.setFont(new Font("Roboto", Font.BOLD, 18)); // configuración de letras
         lblTitulo.setForeground(ColoresUtileria.getCOLORTITULO());
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(30,0,10,0));
         add(lblTitulo, BorderLayout.NORTH);
