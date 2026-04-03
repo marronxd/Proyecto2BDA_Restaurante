@@ -5,8 +5,9 @@
 package pantallas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import javax.swing.*;
 import utilerias.BotonUtileria;
 import utilerias.ColoresUtileria;
@@ -28,6 +29,9 @@ public abstract class FrmPlantillaAdmin extends JFrame{
     protected JButton btnComandas, btnProductos, btnIngredientes, 
             btnClientesFrecuentes, btnReportes;
     
+    
+    // valor auxiliar para representar el espacio sobre ejes y que tendrá cada boton
+    private final int ESPACIOYBOTON = 40;
     /*
         cONSTRUCTOR DE PLANTILLA
     */
@@ -42,9 +46,20 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         panelMenuLateral = new JPanel();
         // tunear al panel lateral
         panelMenuLateral.setBackground(ColoresUtileria.getCOLORMENULATERAL());
-        
         UtileriasPaneles.configurarSideBar(panelMenuLateral);
-         
+
+        // agregar un lbelsito para ponerle un texto pro
+        JLabel encabezadoMenuLateral = new JLabel(""); // no supe como alinearlo en el centro y chat me dijo que ponga el swing aca xd
+        //configuracion del label
+        encabezadoMenuLateral.setForeground(ColoresUtileria.getCOLORTITULO());
+        encabezadoMenuLateral.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 25));
+        
+        panelMenuLateral.add(encabezadoMenuLateral);
+        encabezadoMenuLateral.setMaximumSize(new Dimension(Integer.MAX_VALUE, 90));
+        encabezadoMenuLateral.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // agregar una linea separatoria entre las opciones y un logito kwai
+        panelMenuLateral.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        
         // creacion del panel que contendra las funciones de cada opcion
         panelContenido = new JPanel(new BorderLayout());
         panelContenido.setBackground(ColoresUtileria.getFONDO());
@@ -54,6 +69,15 @@ public abstract class FrmPlantillaAdmin extends JFrame{
         btnIngredientes = BotonUtileria.botonSidebar("Ingredientes");
         btnClientesFrecuentes = BotonUtileria.botonSidebar("Clientes\n Frecuentes");
         btnReportes = BotonUtileria.botonSidebar("Reportes");
+        
+        // configurar el tamaño que va a tomar los botones
+        // en este caso, todo el ancho del menu
+        btnComandas.setMaximumSize(new Dimension(Integer.MAX_VALUE, ESPACIOYBOTON));
+        btnProductos.setMaximumSize(new Dimension(Integer.MAX_VALUE, ESPACIOYBOTON));
+        btnIngredientes.setMaximumSize(new Dimension(Integer.MAX_VALUE, ESPACIOYBOTON));
+        btnClientesFrecuentes.setMaximumSize(new Dimension(Integer.MAX_VALUE, ESPACIOYBOTON));
+        btnReportes.setMaximumSize(new Dimension(Integer.MAX_VALUE, ESPACIOYBOTON));
+        
         
         // agregar los botones al menu
         panelMenuLateral.add(btnComandas);

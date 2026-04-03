@@ -1,9 +1,9 @@
 pantallas\pnlClienteFrecuente$1.class
-pantallas\FrmEdicionClienteFrecuente.class
 pantallas\pnlClienteFrecuente.class
 pantallas\FrmInicioSesion.class
 pantallas\FrmMenuPrincipal.class
 Controladores\CoordinadorFrames.class
+pantallas\pnlBuscador$5.class
 Inicio\InicioAplicacion.class
 pantallas\pnlBuscador$2.class
 pantallas\FrmPlantillaAdmin.class
@@ -11,12 +11,15 @@ pantallas\pnlBuscador$1.class
 utilerias\UtileriasPaneles.class
 utilerias\BotonUtileria.class
 Controladores\CoordinadorNegocio.class
+pantallas\DlgEdicionClienteFrecuente.class
 pantallas\FrmInicioSesion$2.class
 pantallas\pnlBuscador.class
 pantallas\pnlBuscador$3.class
 utilerias\ColoresUtileria.class
+excepciones\FachadaException.class
 pantallas\pnlClienteFrecuente$2.class
 pantallas\crearCliente.class
+utilerias\BotonUtileria$1.class
 utilerias\FramesUtileria.class
 pantallas\pnlBuscador$4.class
 pantallas\pnlClienteFrecuente$3.class

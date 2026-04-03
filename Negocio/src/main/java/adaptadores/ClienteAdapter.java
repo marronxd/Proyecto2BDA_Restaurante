@@ -73,7 +73,7 @@ public class ClienteAdapter {
         
         Cliente cliente = new Cliente();
 
-        if ("Frecuente".equalsIgnoreCase(dto.getTipoCliente())) {
+        if ("ClienteFrecuente".equalsIgnoreCase(dto.getTipoCliente()) || "Frecuente".equalsIgnoreCase(dto.getTipoCliente())) {
             ClienteFrecuente cf = new ClienteFrecuente();
             cf.setPuntos(dto.getPuntos() != null ? dto.getPuntos() : 0.0);
             cf.setTotalGastado(dto.getTotalGastado() != null ? dto.getTotalGastado() : 0.0);
@@ -81,7 +81,9 @@ public class ClienteAdapter {
         } else {
             cliente = new Cliente();
         }
-
+        if(dto.getId() != null){
+            cliente.setId(dto.getId());
+        }
         cliente.setNombres(dto.getNombres());
         cliente.setApellidoPaterno(dto.getApellidoPaterno());
         cliente.setApellidoMaterno(dto.getApellidoMaterno());
@@ -91,4 +93,7 @@ public class ClienteAdapter {
 
         return cliente;
     }
+    
+    
+    
 }

@@ -81,7 +81,7 @@
     </dependencies>
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>com.mycompany.persistencia.Persistencia</exec.mainClass>
+        <exec.mainClass>com.mycompany.persistencia.InsertsMasivos</exec.mainClass>
     </properties>
     <name>persistencia</name>
 </project>

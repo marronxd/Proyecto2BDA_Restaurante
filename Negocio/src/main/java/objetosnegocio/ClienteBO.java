@@ -8,6 +8,9 @@ import adaptadores.ClienteAdapter;
 import daos.ClienteDAO;
 import dtos.ClienteDTO;
 import entidades.Cliente;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -104,4 +107,43 @@ public class ClienteBO {
     /**
      * eliminar cliente
      */
+    
+    /**
+     * Buscar cliente. Regresa un cliente que coincida con la entrada del usuario
+     * - AA
+     */
+    public ClienteDTO buscarClienteId(Long id) throws NegocioException {
+        try{
+            ClienteDTO Buscado = ClienteAdapter.ClienteADTO(clienteDAO.obtenerCliente(id));
+            return Buscado;
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
+    
+    /**
+     * 
+     */
+    public ClienteDTO ActualizarCliente(ClienteDTO clienteActualizado) throws NegocioException{
+        try{
+            // sacar primero el cliente dto actual
+            ClienteDTO actual = buscarClienteId(clienteActualizado.getId());
+            clienteActualizado.setId(actual.getId());
+            // asignarle los datos modificados
+            if(clienteActualizado.getFechaRegistro() == null){
+                clienteActualizado.setFechaRegistro(actual.getFechaRegistro());
+            }
+            
+            // convertir a entidad
+            Cliente actualizado = ClienteAdapter.DTOAEntity(clienteActualizado);
+            
+            // guardar el cleinte modificado
+            Cliente guardado = clienteDAO.actualizarCliente(actualizado);
+            //mandarlo al dao
+            return ClienteAdapter.ClienteADTO(guardado);
+            
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    } 
 }

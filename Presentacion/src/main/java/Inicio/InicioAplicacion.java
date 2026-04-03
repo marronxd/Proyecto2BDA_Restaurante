@@ -7,7 +7,7 @@ package Inicio;
 import Controladores.CoordinadorFrames;
 
 /**
- *
+ * Clase que ejecuta el programa
  * @author aaron
  */
 public class InicioAplicacion {

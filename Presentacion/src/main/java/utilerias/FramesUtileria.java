@@ -6,6 +6,7 @@ package utilerias;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.Component;
 import java.net.URL;
 import javax.swing.*;
 
@@ -71,4 +72,12 @@ public class FramesUtileria{
         return imagenRescalada;
     }
     
+    
+    public static void crearOptionPaneError(Component padre, String cuerpo, String titulo){
+        JOptionPane.showMessageDialog(padre, cuerpo, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void crearOptionPaneExito(Component padre, String cuerpo, String titulo){
+        JOptionPane.showMessageDialog(padre, cuerpo, titulo, JOptionPane.OK_OPTION);
+    }
 }

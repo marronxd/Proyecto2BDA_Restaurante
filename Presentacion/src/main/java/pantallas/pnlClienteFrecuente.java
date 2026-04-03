@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class pnlClienteFrecuente extends javax.swing.JPanel {
     private CoordinadorFrames coordinadorF;
-    private FrmEdicionClienteFrecuente xd;
     /**
      * Creates new form pnlClienteFrecuente
      */
@@ -105,13 +104,7 @@ public class pnlClienteFrecuente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrarClienteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarClienteBotonActionPerformed
-      coordinadorF.mostrarRegistroCliente();
-      
-        ClienteDTO clienteExtraido = xd.getClienteActual();
-        if (clienteExtraido != null) {
-            //peridr al coordinador que lo mande a la base de datos
-            coordinadorF.mostrarRegistro(clienteExtraido);
-        }
+
         // cliente guardado
         JOptionPane.showMessageDialog(this, "Cliente guardado con éxito");
     }//GEN-LAST:event_registrarClienteBotonActionPerformed

@@ -1,4 +1,5 @@
 com\mycompany\negocio\Negocio.class
 objetosnegocio\ClienteBO.class
 adaptadores\ClienteAdapter.class
+excepciones\NegocioException.class
 controlador\CoordinadorNegocio.class

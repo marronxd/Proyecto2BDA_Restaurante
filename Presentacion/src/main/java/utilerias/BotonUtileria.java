@@ -8,7 +8,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -59,7 +62,7 @@ public class BotonUtileria {
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         // estandarizar formatos para el boton
-        boton.setFont(new Font("Angkor", Font.BOLD, 13));
+        boton.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 13));
         boton.setForeground(Color.decode("#6D816B"));
         boton.setBorderPainted(true);
          boton.setFocusPainted(false);
@@ -92,8 +95,38 @@ public class BotonUtileria {
         // un componente interactuable
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
+        // alinear botones para que empiecen desde donde mismo
+        boton.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        // dejar espacio en el boton
+        boton.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        
+        // quitarles los bordes y rellenos 
+        boton.setContentAreaFilled(false);
+        boton.setBorderPainted(false); // quitar bordes
+        boton.setFocusPainted(false);
+        boton.setOpaque(false);
+
+        // agregar evento para cuando el botón pase por encima de un componente, cambie de color
+        boton.addMouseListener(new MouseAdapter(){ // se hace override y se crea nueva instancia
+                                         // porque modifico el comportamiento
+            // Cuando entre al evento
+            @Override
+            public void mouseEntered(MouseEvent e){
+                boton.setContentAreaFilled(true);
+                boton.setBackground(ColoresUtileria.getCOLORLINEA());
+                boton.repaint();
+            }
+            // cuando salga del evento
+            @Override
+            public void mouseExited(MouseEvent e){
+                boton.setContentAreaFilled(false);
+                boton.repaint();
+            }
+            
+        });
         // estandarizar formatos para el boton
-        boton.setFont(new Font("Angkor", Font.BOLD, 13));
+        boton.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 13));
         boton.setBorderPainted(true);
         boton.setFocusPainted(false);
         return boton;

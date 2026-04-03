@@ -6,13 +6,17 @@ package Controladores;
 
 import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
+import excepciones.FachadaException;
+import excepciones.NegocioException;
 import java.awt.Frame;
 import java.util.List;
 import pantallas.*;
 import pantallas.pnlClienteFrecuente;
+import utilerias.FramesUtileria;
 
 /**
- *
+ * Esta clase se encarga de coordinar el flujo entre frames, paneles y cualquier elemento 
+ * grafico que vea el usuario.
  * @author aaron
  */
 public class CoordinadorFrames {
@@ -22,7 +26,7 @@ public class CoordinadorFrames {
     private FrmMenuPrincipal frmMenuPrincipal;
     private FrmMenuAdministrador frmMenuAdministrador;
     private FrmInicioSesion frmInicioSesion;
-    private FrmEdicionClienteFrecuente frmEdicionCliente;
+    private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private crearCliente notengotiemposorryprofe;
     // mostrar paneles para los frames de administrador
     private pnlClienteFrecuente pnlClienteFrecuente;
@@ -39,7 +43,9 @@ public class CoordinadorFrames {
         }
         frmMenuPrincipal.setVisible(true);
     }
-    
+    /**
+     * Regresa al menu pincipal desde el m,enu del administrador
+     */
     public void mostrarMenuAdministrador(){
         //ocultar menu main
         if(frmInicioSesion != null){
@@ -58,7 +64,9 @@ public class CoordinadorFrames {
         frmMenuAdministrador.setVisible(true);
         frmMenuAdministrador.toFront();
     }
-    
+    /**
+     * Muestra la pantalla de inicio de sesion donde el usuario valida su usuario
+     */
     public void mostrarInicioSesion(){
         //ocultar menu main
         if(frmMenuPrincipal != null){
@@ -106,27 +114,57 @@ public class CoordinadorFrames {
         frmMenuAdministrador.setNuevoContenido(pnlClienteFrecuente);
         pnlClienteFrecuente.setVisible(true);
     }
+    /**
+     * Método que cancela la modificacion de un cliente, oculta la edicion e un cliente y desaparece 
+     * dicha interfaz grafica para liberar memoria
+     */
     public void cancelarGestionClienteFrecuente(){
-        if(frmEdicionCliente != null){
-            frmEdicionCliente.dispose();
+        if(dlgEdicionCliente != null){
+            dlgEdicionCliente.dispose();
         }
     }
-    public void mostrarGestionCliente(){
-        if(frmEdicionCliente == null){
-            
-            frmEdicionCliente = new FrmEdicionClienteFrecuente(frmMenuAdministrador,true ,this);
+    public void aceptarGestionClienteFrecuente(){
+        if(dlgEdicionCliente!= null){
+            dlgEdicionCliente.dispose();
         }
-        
-        frmEdicionCliente.setLocationRelativeTo(frmMenuAdministrador);
-        frmEdicionCliente.toFront();
-        frmEdicionCliente.setVisible(true);
-        
     }
     
+    /**
+     * Método que muestra la interfaz de gestion de cliente, donde el usuario puede editar un 
+     * cliente existente
+     */
+    public void mostrarGestionCliente(Long id){
+        if(dlgEdicionCliente == null){
+            
+            dlgEdicionCliente = new DlgEdicionClienteFrecuente(frmMenuAdministrador,true ,this);
+        }
+        
+        try{
+            ClienteDTO clienteObtenido = coordinadorN.obtenerCliente(id);
+            // mandar el cliente al dialogo de edicion
+            dlgEdicionCliente.cargarDatos(clienteObtenido);
+            
+            dlgEdicionCliente.setLocationRelativeTo(frmMenuAdministrador);
+            dlgEdicionCliente.toFront();
+            dlgEdicionCliente.setVisible(true);
+        }catch(NegocioException e){
+            FramesUtileria.crearOptionPaneError(dlgEdicionCliente, e.getMessage(), "Error de gestion");
+        }
+    }
+    /**
+     * Método que funciona como un intermediario para poder usar el coordinador de negocio
+     * tiene el porpósito de buscar clientes por filtros y por todos medios
+     * @param texto el texto que se busca coincidencia
+     * @param tipo el tipo de filtro que se recibe
+     * @return la lista de coincidencias
+     */
     public List<ClienteDTO> solicitarBusqueda(String texto, String tipo){
         return coordinadorN.filtraeClientes(texto, tipo);
     }
     
+    /**
+     * Método que muestra u // no funciona corregir
+     */
     public void mostrarRegistroCliente(){
         if(notengotiemposorryprofe == null){
             
@@ -138,10 +176,23 @@ public class CoordinadorFrames {
         notengotiemposorryprofe.setVisible(true);
         
     }
+    /**
+     * Método que registra un cliente // pendiente
+     * @param clienteAgregar 
+     */
     public void mostrarRegistro(ClienteDTO clienteAgregar){
         if (clienteAgregar != null) {
             coordinadorN.registrarCliente(clienteAgregar);
         }
+    }
+    
+    /**
+     * Metodo para enviar cambios a coordinadord e negocio
+     * @param cliente
+     * @return 
+     */
+    public void enviarCambios(ClienteDTO cliente) throws NegocioException{
+        coordinadorN.modificarClienteFrecuente(cliente);
     }
     
 }

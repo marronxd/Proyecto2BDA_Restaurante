@@ -2,8 +2,12 @@
 package daos;
 import conexion.ConexionBD;
 import entidades.Cliente;
+import entidades.ClienteFrecuente;
+import excepciones.PersistenciaException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 /**
  *
  * @author piña
@@ -138,6 +142,57 @@ public class ClienteDAO {
             return clientes;
         } catch (Exception e) {
             return null;
+        }
+    }
+    
+    /**
+     * Aaron
+     * Método que devuelve un cliente en base a un id
+     * @param id el id del cliente frecuente
+     * @return 
+     */
+    public ClienteFrecuente obtenerCliente(Long idBuscado) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+        try{
+           String sentenciaJPQL = """
+                                  Select cf from ClienteFrecuente cf where 
+                                  cf.id = :id
+                                  """;
+            TypedQuery<ClienteFrecuente> query = em.createQuery(sentenciaJPQL, ClienteFrecuente.class);
+            query.setParameter("id", idBuscado);
+            ClienteFrecuente clienteBuscado = query.getSingleResult();
+            return clienteBuscado;
+        }catch(Exception e){
+            throw new PersistenciaException("Cliente no registrado en la base de datos");
+        }finally{
+            em.close();
+        }
+    }
+    
+    /**
+     * aaron
+     * Método para actualizar un registro de cliente frecuente
+     */
+    public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+        try {
+           em.getTransaction().begin();
+        
+            // Esta línea hace toda la chamba:
+            // 1. Busca si el ID existe.
+            // 2. Compara qué cambió.
+            // 3. Ejecuta el SQL UPDATE necesario.
+            Cliente actualizado = em.merge(cliente); 
+
+            em.getTransaction().commit();
+            return actualizado;
+        }catch(Exception e){
+            if(em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error de busqueda: " + e.getMessage());
+        }finally{
+            em.close();
         }
     }
 }

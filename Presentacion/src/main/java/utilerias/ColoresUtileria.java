@@ -17,6 +17,7 @@ public class ColoresUtileria {
     private static final Color COLORVERDE = Color.decode("#6D816B");
     private static final Color COLORMENULATERAL = Color.decode("#FFF2E4");
     private static final Color COLORLINEA = Color.decode("#9A8166");
+    private static final Color COLORBLANCO = Color.decode("#FFFFFF");
     
     private ColoresUtileria(){
     
@@ -32,6 +33,10 @@ public class ColoresUtileria {
   
     public static Color getFONDO() {
         return FONDO;
+    }
+
+    public static Color getCOLORBLANCO() {
+        return COLORBLANCO;
     }
 
     public static Color getCOLORTITULO() {

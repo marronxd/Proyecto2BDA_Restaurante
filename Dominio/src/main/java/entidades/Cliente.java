@@ -55,7 +55,7 @@ public class Cliente implements Serializable {
     
     //atributo fecha registro, not null
     
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fecha_registro", nullable = true)
     private LocalDate fechaRegistro;
 
     //---------CONSTRUCTOREEEEEEESSS nota: fechaRegistro siempre debe ser un LocalDate.now() al registrar un cliente

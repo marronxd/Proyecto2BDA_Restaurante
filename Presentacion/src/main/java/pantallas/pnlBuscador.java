@@ -75,15 +75,23 @@ public class pnlBuscador extends javax.swing.JPanel {
         tablaBusqueda.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         tablaBusqueda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombres", "Apellido paterno", "Apellido Materno", "Telefono", "Correo", "Puntos de fidelidad"
+                "ID", "Nombres", "Apellido paterno", "Apellido Materno", "Telefono", "Correo", "Puntos de fidelidad"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tablaBusqueda.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         tablaBusqueda.setMinimumSize(new java.awt.Dimension(836, 536));
         tablaBusqueda.setPreferredSize(new java.awt.Dimension(836, 536));
@@ -130,6 +138,7 @@ public class pnlBuscador extends javax.swing.JPanel {
         if (lista != null) {
             for (ClienteDTO cliente : lista) {
                 Object[] fila = {
+                    cliente.getId(),
                     cliente.getNombres(),
                     cliente.getApellidoPaterno(),
                     cliente.getApellidoMaterno(),
@@ -147,8 +156,9 @@ public class pnlBuscador extends javax.swing.JPanel {
             int fila = tablaBusqueda.getSelectedRow();
             if(fila != -1){
                
-                // PENDIENTE HASTA CONECTAR LA LOGICA CON LA PRESENTACION
-                coordinadorF.mostrarGestionCliente();
+                // extraer el valor de la tabla que corresponde al id
+                Long idSeleccionado = Long.valueOf(tablaBusqueda.getValueAt(fila, 0).toString());
+                coordinadorF.mostrarGestionCliente(idSeleccionado);
                 
             }
         }

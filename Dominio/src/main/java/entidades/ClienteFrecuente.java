@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author luiscarlosbeltran
  */
 @Entity
-@Table(name = "cliente_frecuente")
+@Table(name = "clientes_frecuentes")
 @DiscriminatorValue("Frecuente")
 @PrimaryKeyJoinColumn(name = "id_cliente")
 public class ClienteFrecuente extends Cliente implements Serializable {
@@ -30,7 +30,7 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     private Double puntos;
 
     @Column(name = "total_gastado", nullable = false)
-    private Double totalGastado;
+    private Double totalGastado = 0.0;
     
     //---COSNTRUCTORES
     //vacio
