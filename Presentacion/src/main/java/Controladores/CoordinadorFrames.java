@@ -8,10 +8,11 @@ import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
 import excepciones.FachadaException;
 import excepciones.NegocioException;
+import java.awt.Component;
 import java.awt.Frame;
 import java.util.List;
 import pantallas.*;
-import pantallas.pnlClienteFrecuente;
+import pantallas.PnlClienteFrecuente;
 import utilerias.FramesUtileria;
 
 /**
@@ -29,7 +30,8 @@ public class CoordinadorFrames {
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private crearCliente notengotiemposorryprofe;
     // mostrar paneles para los frames de administrador
-    private pnlClienteFrecuente pnlClienteFrecuente;
+    private PnlClienteFrecuente pnlClienteFrecuente;
+    private PnlIngredientes pnlIngredientes;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -109,7 +111,7 @@ public class CoordinadorFrames {
             frmMenuAdministrador.setVisible(true);
         }
         if (pnlClienteFrecuente == null){
-            pnlClienteFrecuente = new pnlClienteFrecuente(this);
+            pnlClienteFrecuente = new PnlClienteFrecuente(this);
         }
         frmMenuAdministrador.setNuevoContenido(pnlClienteFrecuente);
         pnlClienteFrecuente.setVisible(true);
@@ -195,4 +197,26 @@ public class CoordinadorFrames {
         coordinadorN.modificarClienteFrecuente(cliente);
     }
     
+    
+    
+    // ----- Funciones para modulo ingredientes -----
+    
+    /**
+     * 
+     */
+    public void mostrarFuncionesIngredientes(){
+        // validar si esta creado o no por si las moscas
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true); // mostrarlo
+        }
+        // crear el panel de ingredientes si no existe
+        if(pnlIngredientes == null){
+            pnlIngredientes = new PnlIngredientes(this);
+        }
+        // como menu administrador gestiona el contenido que muestra, llamo al metodo
+        // que setea panel en el apartado donde sale el contenido
+        frmMenuAdministrador.setNuevoContenido(pnlIngredientes);
+        // hacer visible el panel
+        pnlIngredientes.setVisible(true);
+    }
 }

@@ -6,26 +6,33 @@ package pantallas;
 
 import Controladores.CoordinadorFrames;
 import dtos.ClienteDTO;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import utilerias.BotonUtileria;
 import utilerias.FramesUtileria;
 import utilerias.UtileriasPaneles;
 
 /**
- *
+ * Dialogo cuyo propísito es mostrar un formulario para que el usuario pueda registrar un 
+ * ingrediente. Mostrará los tipos de datos que pueda usar un ingrediente
  * @author aaron
  */
-public class crearCliente extends JDialog{
+public class DlgRegistrarIngrediente extends JDialog{
+    
     private CoordinadorFrames coordinadorF;
     private ClienteDTO clienteActual;
     // Componentes (Cajas de texto) todos junto y ya
     private JTextField txtNombre, txtApellidoP, txtApellidoM, txtTelefono, txtPuntos;
     
-    public crearCliente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
+    public DlgRegistrarIngrediente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
         super(parent, modal);
         this.coordinadorF = coordinadorF;
         

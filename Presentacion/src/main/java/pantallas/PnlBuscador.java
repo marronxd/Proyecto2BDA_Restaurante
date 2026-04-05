@@ -11,13 +11,13 @@ import java.util.List;
  *
  * @author aaron
  */
-public class pnlBuscador extends javax.swing.JPanel {
+public class PnlBuscador extends javax.swing.JPanel {
 
     private CoordinadorFrames coordinadorF;
     /**
      * Creates new form pnlBuscador
      */
-    public pnlBuscador(CoordinadorFrames coordinadorF) {
+    public PnlBuscador(CoordinadorFrames coordinadorF) {
         this.coordinadorF = coordinadorF;
         initComponents();
         tablaBusqueda.setDefaultEditor(Object.class, null);
@@ -102,7 +102,7 @@ public class pnlBuscador extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaBusqueda);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 50, 830, -1));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 50, 860, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void FiltroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltroClientesActionPerformed

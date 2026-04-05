@@ -1,3 +1,6 @@
-entidades\ClienteFrecuente.class
 com\mycompany\dominio\Dominio.class
 entidades\Cliente.class
+entidades\Ingrediente.class
+tiposDatosEnums\UnidadMedida.class
+entidades\ClienteFrecuente.class
+tiposDatosEnums\EstadoIngrediente.class

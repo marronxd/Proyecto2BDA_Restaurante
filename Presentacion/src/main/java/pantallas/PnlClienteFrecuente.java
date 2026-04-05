@@ -13,16 +13,20 @@ import javax.swing.JOptionPane;
  *
  * @author aaron
  */
-public class pnlClienteFrecuente extends javax.swing.JPanel {
+public class PnlClienteFrecuente extends javax.swing.JPanel {
     private CoordinadorFrames coordinadorF;
+    
+    // ----
+    private final int xSize = 736;
+    private final int ySize = 433;
     /**
      * Creates new form pnlClienteFrecuente
      */
-    public pnlClienteFrecuente(CoordinadorFrames coordinadorF) {
+    public PnlClienteFrecuente(CoordinadorFrames coordinadorF) {
         this.coordinadorF = coordinadorF;
         initComponents();
-        pnlBuscador bs = new pnlBuscador(this.coordinadorF);
-        bs.setSize(736,433);
+        PnlBuscador bs = new PnlBuscador(this.coordinadorF);
+        bs.setSize(xSize,ySize);
         bs.setLocation(0,0);
         content.removeAll();
         content.add(bs, BorderLayout.CENTER);
