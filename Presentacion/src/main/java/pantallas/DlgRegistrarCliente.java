@@ -19,13 +19,13 @@ import utilerias.UtileriasPaneles;
  *
  * @author aaron
  */
-public class crearCliente extends JDialog{
+public class DlgRegistrarCliente extends JDialog{
     private CoordinadorFrames coordinadorF;
     private ClienteDTO clienteActual;
     // Componentes (Cajas de texto) todos junto y ya
     private JTextField txtNombre, txtApellidoP, txtApellidoM, txtTelefono, txtPuntos;
     
-    public crearCliente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
+    public DlgRegistrarCliente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
         super(parent, modal);
         this.coordinadorF = coordinadorF;
         

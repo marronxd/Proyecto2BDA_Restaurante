@@ -28,7 +28,7 @@ public class CoordinadorFrames {
     private FrmMenuAdministrador frmMenuAdministrador;
     private FrmInicioSesion frmInicioSesion;
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
-    private crearCliente notengotiemposorryprofe;
+    private DlgRegistrarCliente notengotiemposorryprofe;
     // mostrar paneles para los frames de administrador
     private PnlClienteFrecuente pnlClienteFrecuente;
     private PnlIngredientes pnlIngredientes;
@@ -170,7 +170,7 @@ public class CoordinadorFrames {
     public void mostrarRegistroCliente(){
         if(notengotiemposorryprofe == null){
             
-            notengotiemposorryprofe = new crearCliente(frmMenuAdministrador,true ,this);
+            notengotiemposorryprofe = new DlgRegistrarCliente(frmMenuAdministrador,true ,this);
         }
         
         notengotiemposorryprofe.setLocationRelativeTo(frmMenuAdministrador);

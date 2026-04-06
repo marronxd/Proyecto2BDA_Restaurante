@@ -11,6 +11,7 @@ import javax.persistence.*;
  *
  * @author aaron
  */
+
 @Entity
 public class DetalleProducto implements Serializable{
     

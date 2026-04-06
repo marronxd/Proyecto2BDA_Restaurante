@@ -11,6 +11,7 @@ pantallas\FrmMenuPrincipal.class
 pantallas\PnlBuscadorIngrediente$4.class
 Controladores\CoordinadorFrames.class
 pantallas\PnlClienteFrecuente.class
+pantallas\DlgRegistrarCliente.class
 Inicio\InicioAplicacion.class
 pantallas\PnlBuscador$3.class
 pantallas\FrmPlantillaAdmin.class
@@ -24,11 +25,11 @@ pantallas\PnlBuscador$2.class
 pantallas\PnlClienteFrecuente$2.class
 utilerias\ColoresUtileria.class
 excepciones\FachadaException.class
-pantallas\crearCliente.class
 utilerias\BotonUtileria$1.class
 pantallas\PnlBuscadorIngrediente$2.class
 utilerias\FramesUtileria.class
 pantallas\PnlIngredientes.class
+pantallas\PnlBuscadorIngrediente$5.class
 pantallas\PnlBuscadorIngrediente.class
 pantallas\FrmInicioSesion$1.class
 pantallas\FrmMenuAdministrador.class

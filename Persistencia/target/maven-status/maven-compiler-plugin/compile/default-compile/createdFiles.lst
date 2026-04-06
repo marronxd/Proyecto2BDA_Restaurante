@@ -1,3 +1,4 @@
+daos\IngredienteDAO.class
 excepciones\PersistenciaException.class
 daos\ClienteDAO.class
 com\mycompany\persistencia\InsertsMasivos.class

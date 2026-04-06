@@ -69,6 +69,11 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
                 campoBusquedaActionPerformed(evt);
             }
         });
+        campoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoBusquedaKeyReleased(evt);
+            }
+        });
         add(campoBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 210, -1));
 
         ComboboxFiltros.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -131,6 +136,18 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
     private void ComboboxFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboboxFiltrosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboboxFiltrosActionPerformed
+
+    private void campoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBusquedaKeyReleased
+        
+        // extraer la entrada del usuario y normalizar
+        String textoFiltro = campoBusqueda.getText().toLowerCase().trim();
+        
+        // tambien el tipo de filtro
+        String tipoFiltro = ComboboxFiltros.getSelectedItem().toString();
+        
+        
+        // INCOMPLETO XD DEJA NOMAS TERMINO BO ARON DEL FUTURO
+    }//GEN-LAST:event_campoBusquedaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

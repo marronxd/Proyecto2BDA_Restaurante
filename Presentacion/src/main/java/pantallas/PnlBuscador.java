@@ -21,6 +21,9 @@ public class PnlBuscador extends javax.swing.JPanel {
         this.coordinadorF = coordinadorF;
         initComponents();
         tablaBusqueda.setDefaultEditor(Object.class, null);
+        // --- solo es para precargar la información
+        llenarTabla(coordinadorF.solicitarBusqueda("a", "Todos"));
+
 
     }
 
@@ -114,7 +117,6 @@ public class PnlBuscador extends javax.swing.JPanel {
     }//GEN-LAST:event_entradaFiltroActionPerformed
 
     private void entradaFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entradaFiltroKeyReleased
-      
 
         // 2. Lo que el usuario escribió
         String textofiltro = entradaFiltro.getText().toLowerCase().trim();
