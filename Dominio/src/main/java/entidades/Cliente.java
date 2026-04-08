@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -57,6 +59,13 @@ public class Cliente implements Serializable {
     
     @Column(name = "fecha_registro", nullable = true)
     private LocalDate fechaRegistro;
+    
+    
+    
+    //parte de la relacion a comanda
+    @OneToMany(mappedBy = "cliente")
+    private List<Comanda> comandas;
+    
 
     //---------CONSTRUCTOREEEEEEESSS nota: fechaRegistro siempre debe ser un LocalDate.now() al registrar un cliente
     //el vacio
@@ -83,8 +92,7 @@ public class Cliente implements Serializable {
     }
     // todo menso correo y fecha
 
-    public Cliente(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono) {
-        this.id = id;
+    public Cliente(String nombres, String apellidoPaterno, String apellidoMaterno, String telefono) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -147,6 +155,16 @@ public class Cliente implements Serializable {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    public List<Comanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(List<Comanda> comandas) {
+        this.comandas = comandas;
+    }
+    
+    
     
     
     
