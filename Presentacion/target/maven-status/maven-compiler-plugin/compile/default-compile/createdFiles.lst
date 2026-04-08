@@ -1,6 +1,7 @@
 pantallas\PnlClienteFrecuente$1.class
 pantallas\PnlBuscadorIngrediente$1.class
 pantallas\PnlBuscadorIngrediente$3.class
+pantallas\PnlBuscadorIngrediente$6.class
 pantallas\PnlBuscador$5.class
 pantallas\PnlBuscador.class
 pantallas\PnlBuscador$1.class
@@ -27,9 +28,11 @@ utilerias\ColoresUtileria.class
 excepciones\FachadaException.class
 utilerias\BotonUtileria$1.class
 pantallas\PnlBuscadorIngrediente$2.class
+pantallas\PnlBuscadorIngrediente$7.class
 utilerias\FramesUtileria.class
 pantallas\PnlIngredientes.class
 pantallas\PnlBuscadorIngrediente$5.class
 pantallas\PnlBuscadorIngrediente.class
 pantallas\FrmInicioSesion$1.class
 pantallas\FrmMenuAdministrador.class
+pantallas\DlgModificarIngrediente.class

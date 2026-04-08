@@ -32,6 +32,7 @@ public class IngredienteAdapter {
         ingredienteDTO.setUnidad_medida(ingrediente.getUnidad_medida().name());
         ingredienteDTO.setEstado(ingrediente.getEstado().name());
         ingredienteDTO.setUrl(ingrediente.getUrl_imagen());
+        ingredienteDTO.setImagen(ingrediente.getImagen());
         
         // --- regresar objeto dto construido ---
         return ingredienteDTO;
@@ -62,10 +63,14 @@ public class IngredienteAdapter {
         ingrediente.setEstado(EstadoIngrediente.valueOf(ingredienteDTO.getEstado()));
         
         // porque el url es opcional, puede ser null
-        if(ingrediente.getUrl_imagen() != null || !ingrediente.getUrl_imagen().isEmpty()){
-            ingrediente.setUrl_imagen(ingredienteDTO.getUrl());
+        if(ingredienteDTO.getUrl() != null){
+            if(!ingredienteDTO.getUrl().isEmpty()){
+                 ingrediente.setUrl_imagen(ingredienteDTO.getUrl());
+            }
         }
-        
+        if(ingredienteDTO.getImagen() != null){
+            ingrediente.setImagen(ingredienteDTO.getImagen());
+        }
         return ingrediente;
     }
     

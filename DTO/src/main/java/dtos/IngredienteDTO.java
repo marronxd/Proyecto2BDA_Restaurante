@@ -18,6 +18,7 @@ public class IngredienteDTO {
     private Double cantidad_stock;
     private String estado;
     private String url;
+    private byte[] imagen;
 
     // --- COnstructores ---
     public IngredienteDTO() {
@@ -45,12 +46,13 @@ public class IngredienteDTO {
      * @param estado
      * @param url 
      */
-    public IngredienteDTO(String nombre, String unidad_medida, Double cantidad_stock, String estado, String url) {
+    public IngredienteDTO(String nombre, String unidad_medida, Double cantidad_stock, String estado, String url, byte[] imagen) {
         this.nombre = nombre;
         this.unidad_medida = unidad_medida;
         this.cantidad_stock = cantidad_stock;
         this.estado = estado;
         this.url = url;
+        this.imagen = imagen;
     }
 
     /**
@@ -78,13 +80,14 @@ public class IngredienteDTO {
      * @param estado
      * @param url 
      */
-    public IngredienteDTO(Long id, String nombre, String unidad_medida, Double cantidad_stock, String estado, String url) {
+    public IngredienteDTO(Long id, String nombre, String unidad_medida, Double cantidad_stock, String estado, String url, byte[] imagen) {
         this.id = id;
         this.nombre = nombre;
         this.unidad_medida = unidad_medida;
         this.cantidad_stock = cantidad_stock;
         this.estado = estado;
         this.url = url;
+        this.imagen = imagen;
     }
 
     // --- getters y setters
@@ -135,9 +138,12 @@ public class IngredienteDTO {
     public void setUrl(String url) {
         this.url = url;
     }
-    
-    
-    
-    
-    
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
 }

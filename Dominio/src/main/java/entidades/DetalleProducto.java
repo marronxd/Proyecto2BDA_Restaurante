@@ -13,6 +13,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "detalles_productos")
 public class DetalleProducto implements Serializable{
     
     // --- Atributos base de la tabla intermedia

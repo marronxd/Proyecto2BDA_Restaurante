@@ -6,13 +6,18 @@ package Controladores;
 
 import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
+import dtos.IngredienteDTO;
 import excepciones.FachadaException;
 import excepciones.NegocioException;
 import java.awt.Component;
 import java.awt.Frame;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import pantallas.*;
 import pantallas.PnlClienteFrecuente;
+import tiposDatosEnums.EstadoIngrediente;
+import tiposDatosEnums.UnidadMedida;
 import utilerias.FramesUtileria;
 
 /**
@@ -29,9 +34,11 @@ public class CoordinadorFrames {
     private FrmInicioSesion frmInicioSesion;
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private DlgRegistrarCliente notengotiemposorryprofe;
-    // mostrar paneles para los frames de administrador
     private PnlClienteFrecuente pnlClienteFrecuente;
+    // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
+    private DlgRegistrarIngrediente dlgRegistrarIngrediente;
+    private DlgModificarIngrediente dlgModificarIngrediente;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -164,6 +171,9 @@ public class CoordinadorFrames {
         return coordinadorN.filtraeClientes(texto, tipo);
     }
     
+   
+    
+    
     /**
      * Método que muestra u // no funciona corregir
      */
@@ -202,7 +212,7 @@ public class CoordinadorFrames {
     // ----- Funciones para modulo ingredientes -----
     
     /**
-     * 
+     * método para mostrar al usuario el panel de ingredientes
      */
     public void mostrarFuncionesIngredientes(){
         // validar si esta creado o no por si las moscas
@@ -218,5 +228,139 @@ public class CoordinadorFrames {
         frmMenuAdministrador.setNuevoContenido(pnlIngredientes);
         // hacer visible el panel
         pnlIngredientes.setVisible(true);
+    }
+    
+    /**
+     * Metodo que muestra el dialogo de registro de ingrediente
+     */
+    public void mostrarFormularioRegistroIngrediente(){
+        if(dlgRegistrarIngrediente == null){
+            dlgRegistrarIngrediente = new DlgRegistrarIngrediente(frmMenuAdministrador, true, this);
+        }
+        
+        dlgRegistrarIngrediente.setVisible(true);
+        dlgRegistrarIngrediente.toFront();
+    }
+    
+    /**
+     * Método que muestra al usuario el formulario de edicion de un ingrediente
+     */
+    public void mostrarFormularioEdicionIngrediente(Long id){
+        dlgModificarIngrediente = new DlgModificarIngrediente(frmMenuAdministrador, true, this, id);
+        dlgModificarIngrediente.setVisible(true);
+        dlgModificarIngrediente.toFront();
+    }
+    
+    /**
+     * Método para cancelar y destruir la edicion de ingrediente
+     */
+    public void cancelarEdicionIngrediente(){
+        if(dlgModificarIngrediente != null){
+            dlgModificarIngrediente.dispose();
+        }
+    }
+    /**
+     * Método para ocultar el formulario de edicion y mostrar mensaje de exito 
+     */
+    public void aceptarEdicionIngrediente(){
+        if(dlgModificarIngrediente!= null){
+            dlgModificarIngrediente.dispose();
+            FramesUtileria.crearOptionPaneExito(pnlIngredientes, "Ingrediente actualizado.", "Operaciòn exitosa");
+        }
+    }
+    /**
+     * Método que tras cancelar la acción, destruye el formulario de registro
+     */
+    public void cancelarRegistroIngrediente(){
+        if(dlgRegistrarIngrediente != null){
+            dlgRegistrarIngrediente.dispose();
+        }
+    }
+    
+    /**
+     * Método que tras aceptar el registro, destruye el formulario y crea un mensaje
+     * retroalimentativo
+     */
+    public void aceptarRegistroIngrediente(){
+        if(dlgRegistrarIngrediente!= null){
+            dlgRegistrarIngrediente.dispose();
+            FramesUtileria.crearOptionPaneExito(pnlIngredientes, "Ingrediente registrado.", "Operaciòn exitosa");
+        }
+    }
+    
+     /**
+     * Método que solicita la busqueda de registros de ingredientes
+     * @param texto es el texto que el usuario introduce
+     * @param tipoFiltro es el filtro que se busca
+     * @return
+     * @throws NegocioException 
+     */
+    public List<IngredienteDTO> solicitarBusquedaIngrediente(String texto, String tipoFiltro) throws NegocioException{
+        return coordinadorN.filtrarIngrediente(texto, tipoFiltro);
+    }
+    
+    /**
+     * Método auxiliar para la gestion que hara el coordinador del negocio
+     * @param idIngrediente
+     * @throws NegocioException 
+     */
+    public void solicitarEliminarIngrediente(Long idIngrediente) throws NegocioException{
+        try {
+            coordinadorN.eliminarIngrediente(idIngrediente);
+            FramesUtileria.crearOptionPaneExito(pnlIngredientes, "Ingrediente con id: " + idIngrediente + " eliminado", "Registro eliminado");
+
+        } catch (NegocioException ex) {
+            FramesUtileria.crearOptionPaneError(pnlIngredientes, ex.getMessage(), "Operación fallida");
+        }
+    }
+    
+    /**
+     *  Método auxiliar para solicitar al coordinador de negocio que registre un ingrediente
+     * @param nombre
+     * @param cantidad
+     * @param unidad
+     * @param estado
+     * @param url
+     * @param imagen 
+     */
+    public void solicitarRegistrarIngrediente(String nombre, Double cantidad, UnidadMedida unidad, EstadoIngrediente estado, String url, byte[] imagen){
+        try {
+            coordinadorN.registrarIngrediente(nombre, cantidad, unidad, estado, url, imagen);
+            FramesUtileria.crearOptionPaneExito(dlgRegistrarIngrediente, "Ingrediente registrado exitosamente", "Registro guardado");
+        } catch (NegocioException ex) {
+             FramesUtileria.crearOptionPaneError(dlgRegistrarIngrediente, ex.getMessage(), "Operación fallida");
+        }
+    }
+    
+    /**
+     * Método auxiliar que solicita al coordinador de negocio obtener un ingrediente
+     * @param id
+     * @return 
+     */
+    public IngredienteDTO solicitarObtenerIngrediente(Long id){
+        try {
+            return coordinadorN.obtenerIngrediente(id);
+        } catch (NegocioException ex) {
+            FramesUtileria.crearOptionPaneError(pnlIngredientes, ex.getMessage(), "Operación fallida");
+        }
+        return null;
+    }
+    
+    /**
+     * Método auxiliar para solicitar actualización de un cliente en concreto
+     * @param id
+     * @param nombre
+     * @param cantidad
+     * @param unidad
+     * @param estado
+     * @param url
+     * @param imagen 
+     */
+    public void solicitarActualizarIngrediente(Long id, String nombre, Double cantidad, UnidadMedida unidad, EstadoIngrediente estado, String url, byte[] imagen){
+        try {
+            coordinadorN.modificarIngrediente(id, nombre, cantidad, unidad, estado, url, imagen);
+        } catch (NegocioException ex) {
+            FramesUtileria.crearOptionPaneError(pnlIngredientes, ex.getMessage(), "Operacion fallida");
+        }
     }
 }

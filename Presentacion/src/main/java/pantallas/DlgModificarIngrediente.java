@@ -5,6 +5,7 @@
 package pantallas;
 
 import Controladores.CoordinadorFrames;
+import dtos.IngredienteDTO;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
@@ -29,12 +30,11 @@ import utilerias.FramesUtileria;
 import utilerias.UtileriasPaneles;
 
 /**
- * Dialogo cuyo propísito es mostrar un formulario para que el usuario pueda registrar un 
- * ingrediente. Mostrará los tipos de datos que pueda usar un ingrediente
+ * Dialogo que sive como formulario para modificar un ingrediente existente
  * @author aaron
  */
-public class DlgRegistrarIngrediente extends JDialog{
-    
+public class DlgModificarIngrediente extends JDialog{
+        
     private CoordinadorFrames coordinadorF;
     // Componentes (Cajas de texto) todos junto y ya
     private JTextField txtNombre, txtCantidad, txtUrl;
@@ -51,14 +51,18 @@ public class DlgRegistrarIngrediente extends JDialog{
     // auxiliar para guardar la ruta del archivo que seleccione
     private File archivo;
     
+    // auxiliar para mantener el id del ingrediente que obtenemos
+    private Long idIngredienteActualizar;
+    
     // -- para que el usuario pueda cargar una imagen -- 
     // modal es que bloquea la interaccion con el fondo
-    public DlgRegistrarIngrediente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
+    public DlgModificarIngrediente(Frame parent, boolean modal, CoordinadorFrames coordinadorF, Long id) {
         super(parent, modal);
         this.coordinadorF = coordinadorF;
+        this.idIngredienteActualizar = id;
         
         // Configuración del formulario
-        FramesUtileria.configurarVentanaGestion(this, "Registro de ingredientes");
+        FramesUtileria.configurarVentanaGestion(this, "Actualizar de ingredientes");
         this.setSize(400, 450); // ajuste de tamaño
         this.setLayout(new BorderLayout());
 
@@ -77,6 +81,8 @@ public class DlgRegistrarIngrediente extends JDialog{
         txtCantidad = new JTextField();
         txtUrl = new JTextField();
         txtUrl.setEditable(false); // no se puede editar por el usuario, solo ver
+        
+       
         
         // --- agregar componentes al panel central o mas bien, del formulario ---
         
@@ -114,16 +120,19 @@ public class DlgRegistrarIngrediente extends JDialog{
         // --- Lo acomodamos abajo del buscador ---
         add(panelOpciones, BorderLayout.SOUTH);
         
+        // --- precargar datos ---
+        cargarDatos();
+        
         // --- Eventos de interacción ---
         
         // --- Boton de cancelar ---
         btnCancelar.addActionListener(e -> {
-            coordinadorF.cancelarRegistroIngrediente();
+            coordinadorF.cancelarEdicionIngrediente();
         });
         // --- Boton de aceptar el registro ---
         btnAceptar.addActionListener(e -> {
             guardarCambios();
-            coordinadorF.aceptarRegistroIngrediente();
+            coordinadorF.aceptarEdicionIngrediente();
         });
         // --- Boton de seleccionar imagen ---
         btnSeleccionImagen.addActionListener(e ->{
@@ -132,7 +141,7 @@ public class DlgRegistrarIngrediente extends JDialog{
                 this.archivo = fileChooser.getSelectedFile();
                 txtUrl.setText(archivo.getPath()); // al textfield se le setea la ruta del archivo
                 ImageIcon icon = new ImageIcon(archivo.getAbsolutePath());
-                Image imagen = icon.getImage().getScaledInstance(140, 180, Image.SCALE_SMOOTH); // reescalar la imagen
+                Image imagen = icon.getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH); // reescalar la imagen
                 lblImagenEscalada.setIcon(new ImageIcon(imagen)); // setear foto al lbl
             }
         });
@@ -141,7 +150,24 @@ public class DlgRegistrarIngrediente extends JDialog{
     }
 
     /**
-     * Recolecta los datos de los campos y se los pasa al coordinador
+     * Método auxiliar: Toma el ingrediente que se va a modificar y carga los datos en los campos
+     */
+    public void cargarDatos(){
+        IngredienteDTO ingredienteActualizar = coordinadorF.solicitarObtenerIngrediente(idIngredienteActualizar);
+        // --- setear campos a los textfield ---
+        txtNombre.setText(ingredienteActualizar.getNombre());
+        txtCantidad.setText(String.valueOf(ingredienteActualizar.getCantidad_stock())); // parseo a string
+        txtUrl.setText(ingredienteActualizar.getUrl());
+        // --- Setearle el valor que tiene de estado y unidad de medida al combobox ---
+        cbxEstado.setSelectedItem(ingredienteActualizar.getEstado());
+        cbxUnidadMedida.setSelectedItem(ingredienteActualizar.getUnidad_medida());
+        // --- setear la imagen al label ---
+        lblImagenEscalada.setIcon(UtileriasPaneles.configurarImagen(ingredienteActualizar.getImagen()));
+    }
+    
+    
+    /**
+     *  Método auxiliar: Recolecta los datos de los campos y se los pasa al coordinador
      */
     private void guardarCambios() {
         // sacar los datos binarios del archivo
@@ -152,13 +178,16 @@ public class DlgRegistrarIngrediente extends JDialog{
             } catch (IOException ex) {
                 System.err.println("Error al leer la imagen: " + ex.getMessage());
             }
+        }else{ // en los casos que se mantenga la misma imagen
+            datos = coordinadorF.solicitarObtenerIngrediente(idIngredienteActualizar).getImagen();
         }
         // Extraer los Enums haciendo un CAST
         UnidadMedida unidadSeleccionada = (UnidadMedida) cbxUnidadMedida.getSelectedItem();
         EstadoIngrediente estadoSeleccionado = (EstadoIngrediente) cbxEstado.getSelectedItem();
         
         // --- envio de informacion al coordinador ---
-        coordinadorF.solicitarRegistrarIngrediente(
+        coordinadorF.solicitarActualizarIngrediente(
+                idIngredienteActualizar,
                 txtNombre.getText(), 
                 Double.valueOf(txtCantidad.getText()), 
                 unidadSeleccionada, 

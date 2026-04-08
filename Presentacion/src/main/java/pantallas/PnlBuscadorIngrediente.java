@@ -5,7 +5,15 @@
 package pantallas;
 
 import Controladores.CoordinadorFrames;
+import dtos.IngredienteDTO;
+import excepciones.NegocioException;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.Icon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utilerias.UtileriasPaneles;
 
 /**
  *
@@ -18,12 +26,28 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
     // texto del textfield
     private final String TEXTOBUSCADOR = "Introduce texto...";
     
+    // auxiliar para la tabla de imagen
+    private final int COLUMNAIMAGEN = 5;
+    
     /**
      * Creates new form pnlBuscadorIngrediente
      */
     public PnlBuscadorIngrediente(CoordinadorFrames coordinadorF) {
         this.coordinadorFrames = coordinadorF;
         initComponents();
+        
+        // sobreescribir la columna de la imagen para poder mostrarla
+        tablaIngredientes.getColumnModel().getColumn(COLUMNAIMAGEN)
+                .setCellRenderer(tablaIngredientes.getDefaultRenderer(Icon.class));
+
+        // hacer un poquito mas grande cada fila para que se vea la imagen
+        tablaIngredientes.setRowHeight(55);
+        //pre rellenar la tabla
+        try {
+            llenarTabla(coordinadorF.solicitarBusquedaIngrediente("", "Todos"));
+        } catch (NegocioException ex) {
+            System.getLogger(PnlBuscadorIngrediente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     /**
@@ -64,6 +88,11 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
                 campoBusquedaFocusLost(evt);
             }
         });
+        campoBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoBusquedaMouseClicked(evt);
+            }
+        });
         campoBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoBusquedaActionPerformed(evt);
@@ -94,15 +123,21 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Unidad de medida", "Stock", "Estado", "Imagen"
+                "ID", "Nombre", "Stock", "Unidad de medida", "Estado", "Imagen"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tablaIngredientes.setToolTipText("");
+        tablaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaIngredientesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaIngredientes);
@@ -138,17 +173,96 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
     }//GEN-LAST:event_ComboboxFiltrosActionPerformed
 
     private void campoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBusquedaKeyReleased
-        
         // extraer la entrada del usuario y normalizar
         String textoFiltro = campoBusqueda.getText().toLowerCase().trim();
         
         // tambien el tipo de filtro
         String tipoFiltro = ComboboxFiltros.getSelectedItem().toString();
         
+        // pedir la lista
+        List<IngredienteDTO> resultados = new ArrayList<>();
+        try {
+            resultados = coordinadorFrames.solicitarBusquedaIngrediente(textoFiltro, tipoFiltro);
+        } catch (NegocioException ex) {
+            System.getLogger(PnlBuscadorIngrediente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        llenarTabla(resultados);
         
-        // INCOMPLETO XD DEJA NOMAS TERMINO BO ARON DEL FUTURO
     }//GEN-LAST:event_campoBusquedaKeyReleased
 
+    private void campoBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoBusquedaMouseClicked
+        
+
+    }//GEN-LAST:event_campoBusquedaMouseClicked
+
+    private void tablaIngredientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaIngredientesMouseClicked
+    }//GEN-LAST:event_tablaIngredientesMouseClicked
+    // --- Método auxiliar para refrescar la tabla --- nota: esta se usa para el contenedor de ingrediente
+    public void refrescarTabla() {
+        try {
+            // Obtenemos el texto actual del buscador por si el usuario estaba filtrando algo
+            String texto = campoBusqueda.getText().equals(TEXTOBUSCADOR) ? "" : campoBusqueda.getText();
+            String filtro = ComboboxFiltros.getSelectedItem().toString();
+
+            // Pedimos los datos actualizados al coordinador
+            List<IngredienteDTO> listaActualizada = coordinadorFrames.solicitarBusquedaIngrediente(texto, filtro);
+
+             // actualizar tabla
+            llenarTabla(listaActualizada);
+
+        } catch (NegocioException ex) {
+            // Manejo de error
+        }
+    }
+    
+    // --- Método auxiliar para llenar la tabla ---
+    
+    public void llenarTabla(List<IngredienteDTO> ingredientes){
+        // obtener modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tablaIngredientes.getModel();
+        
+        // limpiar filas existentes
+        modelo.setRowCount(0);
+        
+        // si la lista no es nula, se recorre
+        
+        if(ingredientes != null){
+            for (IngredienteDTO ingrediente : ingredientes){
+
+                
+                Object[] fila = {
+                    ingrediente.getId(),
+                    ingrediente.getNombre(),
+                    ingrediente.getCantidad_stock(),
+                    ingrediente.getUnidad_medida(),
+                    ingrediente.getEstado(),
+                    UtileriasPaneles.configurarImagen(ingrediente.getImagen())
+                };
+                modelo.addRow(fila);
+            }
+        }
+    }
+    /**
+     * Método que devuelve la tabla de ingredientes
+     * @return 
+     */
+    public JTable getTablaIngredientes() {
+        
+        return tablaIngredientes;
+    }
+
+    /**
+     * Metodo que obtiene el id seleccionado en la interaccion de la tabla
+     * @return 
+     */
+    public Long getIdSeleccionado(){
+        int fila = tablaIngredientes.getSelectedRow();
+        if(fila != -1){
+             // extraer el id
+            return Long.valueOf(tablaIngredientes.getValueAt(fila, 0).toString());
+        }
+        return  null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboboxFiltros;

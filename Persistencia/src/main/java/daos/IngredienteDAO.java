@@ -29,12 +29,9 @@ public class IngredienteDAO {
      * @return 
      */
     public List<Ingrediente> obtenerIngredientesFiltros(
-            String nombreFiltro,
-            UnidadMedida unidadFiltro) throws PersistenciaException{
-        // establecer entityManager
+            String textoFiltro,
+            String tipoFiltro) throws PersistenciaException{
         EntityManager em = ConexionBD.crearConexion();
-        
-       
         try{
              //Crear un criteria builder
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -50,15 +47,43 @@ public class IngredienteDAO {
             
             // --- se empieza a filtrar ---
             
-            // validaciones si eligieron filtrar nombre
-            if(nombreFiltro != null || !nombreFiltro.isEmpty()){
-                // obtenemos el nombre de la variable raiz, en este caso es "nombre"
-                filtros.add(cb.like(objeto.get("nombre"), "%" + nombreFiltro + "%"));
-            }
-            
-            // validacion si eligieron filtrar por unidad
-            if(unidadFiltro != null){
-                filtros.add(cb.equal(objeto.get("unidad_medida"), unidadFiltro));
+            if(textoFiltro != null && !textoFiltro.trim().isEmpty()){
+                String busqueda = textoFiltro.trim();
+                // segun el filtro seleccionado
+                switch(tipoFiltro){
+                    case "Nombre":
+                        filtros.add(cb.like(cb.lower(objeto.get("nombre")), "%" + textoFiltro.toLowerCase() + "%"));
+                        break;
+                    case "Unidad de medida":
+                            // Como la unidad es un ENUM, el texto debe coincidir con un valor del Enum
+                        try {
+                            // Normalizamos el texto que se recibe pq en la bd está como mayusculas pq el enum así lo puse
+                            String valorBusqueda = "%" + textoFiltro.trim().toUpperCase() + "%";
+
+                            // 2. ocn el cb.toString se convierte el enum en texto para poder hacer la comparación
+                            filtros.add(cb.like(cb.toString(objeto.get("unidad_medida")), valorBusqueda));
+                        } catch (Exception e) {
+                            throw new PersistenciaException("unidad no valida");
+                        }
+                        break;
+                    case "Todos":
+                        List<Predicate> opcionesOr = new ArrayList<>();
+
+                        // 1. Siempre buscamos por nombre (es la búsqueda más común)
+                        opcionesOr.add(cb.like(cb.lower(objeto.get("nombre")), "%" + busqueda.toLowerCase() + "%"));
+
+                        // 2. Intentamos por Unidad (sin lanzar excepción si falla)
+                        try {
+                            UnidadMedida unidadTodos = UnidadMedida.valueOf(busqueda.toUpperCase());
+                            opcionesOr.add(cb.equal(objeto.get("unidad_medida"), unidadTodos));
+                        } catch (Exception e) {
+                            // Silencio: si no es unidad válida, simplemente no sumamos este filtro al OR
+                        }
+
+                        // Agregamos al filtro principal usando OR
+                        filtros.add(cb.or(opcionesOr.toArray(new Predicate[0])));
+                        break;
+                }
             }
             
             // si eligieron todo, soloamente se filtra todo
@@ -100,7 +125,7 @@ public class IngredienteDAO {
             if(em.getTransaction().isActive()){
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al guardar el ingrediente en la base de datos :"+ e.getMessage());
+            throw new PersistenciaException("Error al guardar el ingrediente en la base de datos, posibles causas: Existencia de ingrediente");
         }finally{
             em.close();
         }
@@ -116,7 +141,6 @@ public class IngredienteDAO {
         EntityManager em = ConexionBD.crearConexion();
       
         try{
-  
             // empezar transaccion
             em.getTransaction().begin();
             
@@ -134,7 +158,7 @@ public class IngredienteDAO {
             if(em.getTransaction().isActive()){
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al eliminar. No puede borrarse in ingrediente usado en un producto activo. "+ e.getMessage());
+            throw new PersistenciaException("Error al eliminar. No puede borrarse un ingrediente usado en un producto activo.");
         }finally{
             em.close();
         }
@@ -184,7 +208,7 @@ public class IngredienteDAO {
             if(em.getTransaction().isActive()){
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al actualizar al ingrediente: " + e.getMessage());
+            throw new PersistenciaException("Posible causa, ingrediente existente.");
         }finally{
             em.close();
         }

@@ -21,6 +21,7 @@ public class FramesUtileria{
     public FramesUtileria(){
         
     }
+    
     /**
      * Configura las propiedades básicas de cualquier Frame del proyecto.
      * @param frame El JFrame que queremos configurar.
@@ -37,6 +38,7 @@ public class FramesUtileria{
         // Establecemos el layout base para el menú lateral
         frame.setLayout(new BorderLayout());
     }
+    
     /**
      * Frame para que que cada pantalla decida que tipod e layout tendrá, no viene definido
      * @param frame
@@ -65,6 +67,13 @@ public class FramesUtileria{
         dialogo.setLocationRelativeTo(null); // Centrar en pantalla
     }
     
+    /**
+     * Método para configurar iconos, se le asigna la ruta y el tamaño que tendra
+     * @param rutaURL
+     * @param coordenadaX
+     * @param CoordenadaY
+     * @return 
+     */
     public static Image configurarIconos(String rutaURL, int coordenadaX, int CoordenadaY){
         URL mRuta = FramesUtileria.class.getResource(rutaURL);
         ImageIcon imagen = new ImageIcon(mRuta);
@@ -72,12 +81,23 @@ public class FramesUtileria{
         return imagenRescalada;
     }
     
-    
+    /**
+     * Método que crea un optionpane de error
+     * @param padre
+     * @param cuerpo
+     * @param titulo 
+     */
     public static void crearOptionPaneError(Component padre, String cuerpo, String titulo){
         JOptionPane.showMessageDialog(padre, cuerpo, titulo, JOptionPane.ERROR_MESSAGE);
     }
     
+    /**
+     * Método que configura un option pane de exito aviso, mas bien
+     * @param padre
+     * @param cuerpo
+     * @param titulo 
+     */
     public static void crearOptionPaneExito(Component padre, String cuerpo, String titulo){
-        JOptionPane.showMessageDialog(padre, cuerpo, titulo, JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(padre, cuerpo, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 }

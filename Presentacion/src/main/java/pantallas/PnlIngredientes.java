@@ -5,18 +5,22 @@
 package pantallas;
 
 import Controladores.CoordinadorFrames;
+import excepciones.NegocioException;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import tiposDatosEnums.UnidadMedida;
 import utilerias.BotonUtileria;
 
 /**
- *
+ * Panel en el que contiene todas las funcionalidades de ingredientes
+ * Incluye la gestion del crud y el buscador de ingredientes
  * @author aaron
  */
 public class PnlIngredientes extends javax.swing.JPanel {
     
     private CoordinadorFrames coordinadorFrames;
     
+    // --- son medidas para el buscador d eingredientes ---
     private final int xSize = 736;
     private final int ySize = 433;
     /**
@@ -33,19 +37,41 @@ public class PnlIngredientes extends javax.swing.JPanel {
         // agregar botones creacion
         JButton btnEliminar = BotonUtileria.botonUtileriaGenérico("Eliminar");
         JButton btnRegistrar = BotonUtileria.botonUtileriaGenérico("Registrar ingrediente");
+        JButton btnModificar = BotonUtileria.botonUtileriaGenérico("Modificar");
         JButton btnVolverMenu = BotonUtileria.botonUtileriaGenérico("Regresar al menu");
+        JButton btnRefrescar = BotonUtileria.botonUtileriaGenérico("Refrescar");
         
-        // agregar acciones para estilizarlo más
-        btnEliminar.addActionListener(e->{});
-        btnRegistrar.addActionListener(e->{});
+        // --- BOTONES  ACCIONES ---
+
+        btnEliminar.addActionListener(e->{
+            try {
+                coordinadorF.solicitarEliminarIngrediente(buscadorIngrediente.getIdSeleccionado());
+                buscadorIngrediente.refrescarTabla();
+            } catch (NegocioException ex) {
+                System.getLogger(PnlIngredientes.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        });
         
+        btnModificar.addActionListener(e ->{
+            coordinadorF.mostrarFormularioEdicionIngrediente(buscadorIngrediente.getIdSeleccionado());
+        });
+        
+        btnRegistrar.addActionListener(e->{
+            coordinadorF.mostrarFormularioRegistroIngrediente();
+        });
+        
+        btnRefrescar.addActionListener(e ->{
+            buscadorIngrediente.refrescarTabla();
+        });
         
         btnVolverMenu.addActionListener(e ->{coordinadorF.rergesarAlMenu();});
         
         // agregar al panel 1
         jPanel1.add(btnEliminar);
         jPanel1.add(btnRegistrar);
+        jPanel1.add(btnModificar);
         jPanel1.add(btnVolverMenu);
+        jPanel1.add(btnRefrescar);
     }
 
     /**

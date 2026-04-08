@@ -6,7 +6,6 @@ import entidades.ClienteFrecuente;
 import excepciones.PersistenciaException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 /**
  *

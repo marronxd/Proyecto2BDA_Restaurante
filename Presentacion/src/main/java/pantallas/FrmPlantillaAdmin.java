@@ -128,7 +128,6 @@ public abstract class FrmPlantillaAdmin extends JFrame{
      * @param nuevoPanel el panel por el que vamos a reemplazar el contenido
      */
     public void setNuevoContenido(JPanel nuevoPanel) {
-        System.out.println("Medida del cuadro gris: " + this.panelContenido.getSize());
         this.panelContenido.removeAll(); // quita todo
         this.panelContenido.add(nuevoPanel, BorderLayout.CENTER); // seteamos el nuevo
         this.panelContenido.revalidate(); //valida si cambio el cotnenido

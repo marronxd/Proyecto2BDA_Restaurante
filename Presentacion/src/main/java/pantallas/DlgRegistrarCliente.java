@@ -16,7 +16,7 @@ import utilerias.FramesUtileria;
 import utilerias.UtileriasPaneles;
 
 /**
- *
+ * 
  * @author aaron
  */
 public class DlgRegistrarCliente extends JDialog{

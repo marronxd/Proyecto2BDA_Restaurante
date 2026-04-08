@@ -124,7 +124,7 @@ public class ClienteBO {
     /**
      * 
      */
-    public ClienteDTO ActualizarCliente(ClienteDTO clienteActualizado) throws NegocioException{
+    public ClienteDTO actualizarCliente(ClienteDTO clienteActualizado) throws NegocioException{
         try{
             // sacar primero el cliente dto actual
             ClienteDTO actual = buscarClienteId(clienteActualizado.getId());

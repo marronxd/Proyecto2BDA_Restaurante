@@ -1,5 +1,6 @@
+daos\ClienteDAO.class
 daos\IngredienteDAO.class
 excepciones\PersistenciaException.class
-daos\ClienteDAO.class
 com\mycompany\persistencia\InsertsMasivos.class
+com\mycompany\persistencia\InsertMasivoIngrediente.class
 conexion\ConexionBD.class

@@ -51,6 +51,10 @@ public class Ingrediente implements Serializable{
     @Column(name = "imagen", nullable = true)
     private String url_imagen;
     
+    @Lob
+    @Column(name = "imagen_peso", nullable = true) // sé que es menos eficiente guardar el peso
+    private  byte[] imagen;         // pero se me hizo más complejo guardar solo la ruta
+    
     // --- Conexion con la tabla intermedia ---
     
     @OneToMany(mappedBy = "ingrediente") 
@@ -73,12 +77,13 @@ public class Ingrediente implements Serializable{
      * @param estado
      * @param url_imagen 
      */
-    public Ingrediente(String nombre, UnidadMedida unidad_medida, Double cantidad_stock, EstadoIngrediente estado, String url_imagen) {
+    public Ingrediente(String nombre, UnidadMedida unidad_medida, Double cantidad_stock, EstadoIngrediente estado, String url_imagen, byte[] imagen) {
         this.nombre = nombre;
         this.unidad_medida = unidad_medida;
         this.cantidad_stock = cantidad_stock;
         this.estado = estado;
         this.url_imagen = url_imagen;
+        this.imagen = imagen;
     }
     
     /**
@@ -94,10 +99,8 @@ public class Ingrediente implements Serializable{
         this.cantidad_stock = cantidad_stock;
         this.estado = estado;
     }
-
     
     // -- SETTERS Y GETTERS
-    
     
     public Long getId() {
         return id;
@@ -154,11 +157,13 @@ public class Ingrediente implements Serializable{
     public void setDetalleProducto(List<DetalleProducto> detalleProducto) {
         this.detalleProducto = detalleProducto;
     }
-    
-    
-    
-    
-    
-    
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
     
 }

@@ -10,6 +10,8 @@ import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.util.List;
+import tiposDatosEnums.UnidadMedida;
 
 /**
  * Aqui se validan todas las reglas de negocio, a su vez, como en la capa de negocio solo me
@@ -42,7 +44,7 @@ public class IngredienteBO {
     }
     
     /**
-     * 
+     * Método para validar si un cliente se puede registrar o no
      * @param ingredienteDTO
      * @return 
      */
@@ -54,25 +56,91 @@ public class IngredienteBO {
         // -- Convertir de de dto a entidad
         
         Ingrediente ingrediente = IngredienteAdapter.convertirDTOAEntidad(ingredienteDTO);
+        Ingrediente registrado = null;
         try{
-            Ingrediente registrado = ingredienteDAO.registrarIngrediente(ingrediente);
+            registrado = ingredienteDAO.registrarIngrediente(ingrediente);
         }catch(PersistenciaException e){
             throw new NegocioException("No se pudo registrar el ingrediente: " + e.getMessage());
         }
-        return IngredienteAdapter.convertirEntidadADTO(ingrediente);
+        return IngredienteAdapter.convertirEntidadADTO(registrado);
     }
     
+    /**
+     * Método para eliminar un ingrediente
+     * @param id
+     * @return
+     * @throws NegocioException 
+     */
+    public IngredienteDTO eliminarIngrediente(Long id) throws NegocioException{
+        
+        if(id == null){
+            throw new NegocioException("Id nulo.");
+        }
+        Ingrediente eliminar = null;
+        try{
+            eliminar = ingredienteDAO.eliminarIngrediente(id);
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+        return IngredienteAdapter.convertirEntidadADTO(eliminar);
+    }
     
+    /**
+     * Método para obtener una lista de ingredientes
+     * @param nombre
+     * @param unidad
+     * @return
+     * @throws NegocioException 
+     */
+    public List<IngredienteDTO> buscarIngredientes(String nombre, String tipoFiltro) throws NegocioException{
+        try{
+            return IngredienteAdapter.convertirListaEntidadADTO(ingredienteDAO.obtenerIngredientesFiltros(nombre, tipoFiltro));
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
     
-
+    /**
+     * Método para obtener ingrediente mediante su id
+     * @param id
+     * @return
+     * @throws NegocioException 
+     */
+    public IngredienteDTO obtenerIngrediente(Long id) throws NegocioException{
+        if(id == null){
+            throw new NegocioException("Id vacío.");
+        }
+        try{
+            return IngredienteAdapter.convertirEntidadADTO(ingredienteDAO.obtenerIngredientePorID(id));
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
     
+    /**
+     * Método para actualizar un ingrediente en concreto
+     * @param ingredienteActualizado
+     * @return
+     * @throws NegocioException 
+     */
+    public IngredienteDTO actualizarIngrediente(IngredienteDTO ingredienteActualizado) throws NegocioException{
+        try{
+            // de dto a entidad
+            Ingrediente actualizado = IngredienteAdapter.convertirDTOAEntidad(ingredienteActualizado);
+            return IngredienteAdapter.convertirEntidadADTO(ingredienteDAO.actualizarIngrediente(actualizado));
+        }catch(PersistenciaException e){
+            throw new NegocioException("Error de actualización.");
+        }
+    }
     
     /**
      * Método auxiliar para validar las entradas
      * @return 
      */
     private boolean validarIngrediente(IngredienteDTO ingredienteDTO) throws NegocioException{
-        
+        if(ingredienteDTO == null){
+            throw new NegocioException("Usuario no valido.");
+        }
         if(ingredienteDTO.getNombre() == null){
             throw new NegocioException("Nombre es un campo obligatorio.");
         }
