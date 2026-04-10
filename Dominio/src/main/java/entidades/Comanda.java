@@ -7,6 +7,7 @@ package entidades;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -60,7 +61,8 @@ public class Comanda implements Serializable {
     private Cliente cliente;
     
     //relacion con detallecomanda
-    @OneToMany(mappedBy = "comanda")
+    //cascadas para casos de guardar, actualizar y eliminar
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<DetalleComanda> detalles;
     
     
@@ -132,6 +134,14 @@ public class Comanda implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<DetalleComanda> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleComanda> detalles) {
+        this.detalles = detalles;
     }
     
     
