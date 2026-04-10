@@ -21,11 +21,19 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    //atributo del precio
+    @Column(name = "precio", nullable = false)
+    private Double precio;
+    
     // porque los detalles se eliminan si el producto deja de exisitr
     @OneToMany(mappedBy = "producto",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<DetalleProducto> detalleProducto;
     public Producto() {
     }
+    
+    //relacion con detallecomanda
+    @OneToMany(mappedBy = "producto")
+    private List<DetalleComanda> detalles;
 
     public List<DetalleProducto> getDetalleProducto() {
         return detalleProducto;
@@ -33,6 +41,14 @@ public class Producto {
 
     public void setDetalleProducto(List<DetalleProducto> detalleProducto) {
         this.detalleProducto = detalleProducto;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
     

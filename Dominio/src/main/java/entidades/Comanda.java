@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import tiposDatosEnums.EstadoComanda;
 
@@ -56,6 +58,10 @@ public class Comanda implements Serializable {
     @ManyToOne
     @JoinColumn (name = "id_cliente")
     private Cliente cliente;
+    
+    //relacion con detallecomanda
+    @OneToMany(mappedBy = "comanda")
+    private List<DetalleComanda> detalles;
     
     
 
