@@ -70,6 +70,18 @@ public class ComandaDAO {
         }
     }
     
+    public Comanda buscarPorId(Long id) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+        
+        try{
+            return em.find(Comanda.class, id);
+        }catch (Exception e){
+            throw new PersistenciaException("Error al buscar comanda por id: " + e.getMessage());
+        } finally{
+            em.close();
+        }
+    }
+    
     /**
      * Metodo para buscar comandas registradas entre el rango de fechas especificado
      * @param inicio fecha inicial del rango
@@ -116,4 +128,28 @@ public class ComandaDAO {
         }
     }
     
+    /**
+     * metodo que se usa solo para calcular el numero consecutivo del folio
+     * cuenta las consultas que han habido en el dia y da el numero + 1
+     * @param fecha
+     * @return 
+     */
+    public int obtenerNumSigFolio(LocalDateTime fecha) throws PersistenciaException {
+        EntityManager em = ConexionBD.crearConexion();
+
+        try {
+            String fechaStr = fecha.format(
+                java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")
+            );
+
+            Long count = em.createQuery("SELECT COUNT(c) FROM Comanda c WHERE FUNCTION('DATE_FORMAT', c.fechaHora_Creacion, '%Y%m%d') = :fecha",
+                Long.class).setParameter("fecha", fechaStr).getSingleResult();
+            
+            return count.intValue() + 1;
+        }catch(Exception e){
+            throw new PersistenciaException("Error al relaizar la consulta: " +e.getMessage());
+        }finally {
+        em.close();
+        }
+    }
 }

@@ -107,32 +107,44 @@ public class MesaDAO {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException ("Error al eliminar mesa" + e.getMessage());
+            throw new PersistenciaException ("Error al eliminar la mesa" + e.getMessage());
         } finally {
             em.close();
         }
     }
     
-    //ahora que lo veo quizas no es necesario este metodo porque mesa ya tiene estado enum, lo dejare en comentarios aqui por si me sirve luego ;-;
-//    /**
-//     * Metodo para saber si una mesa esta disponible
-//     * o sea es una consulta que cuenta cuantas comandas asignadas a la mesa tienen el estado ACTIVA
-//     * @param id el id de la mesa a consultarle la disponibilidad
-//     * @return true si no se encuentran comandas activas, false en caso contrario
-//     * @throws PersistenciaException 
-//     */
-//    public boolean disponible(Long id) throws PersistenciaException{
-//        EntityManager em = ConexionBD.crearConexion();
-//        
-//        try {
-//            Long comandaActiva = em.createQuery("SELECT COUNT(c) FROM Comanda c WHERE c.mesa.id = :idMesa AND c.estado = :estado", Long.class)
-//                    .setParameter("idMesa", id).setParameter("estado", EstadoComanda.ABIERTA).getSingleResult();
-//
-//            return comandaActiva==0;
-//    }catch(Exception e){
-//        throw new PersistenciaException("Error al consultar la disponibilidad de la mesa: " + e.getMessage());
-//    }finally{
-//            em.close();
-//        }
-//    }
+    public Mesa buscarPorId(Long id) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+      
+        try{
+            Mesa buscado = em.find(Mesa.class, id);
+            return buscado;
+        }catch(Exception e){
+            throw new PersistenciaException("Error al buscar la mesa: " + e.getMessage());
+        }finally{
+            em.close();
+        }
+    } 
+    
+    /**
+     * Metodo para saber si una mesa esta disponible
+     * o sea es una consulta que cuenta cuantas comandas asignadas a la mesa tienen el estado ACTIVA
+     * @param id el id de la mesa a consultarle la disponibilidad
+     * @return true si no se encuentran comandas activas, false en caso contrario
+     * @throws PersistenciaException 
+     */
+    public boolean disponible(Long id) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+        
+        try {
+            Long comandaActiva = em.createQuery("SELECT COUNT(c) FROM Comanda c WHERE c.mesa.id = :idMesa AND c.estado = :estado", Long.class)
+                    .setParameter("idMesa", id).setParameter("estado", EstadoComanda.ABIERTA).getSingleResult();
+
+            return comandaActiva==0;
+    }catch(Exception e){
+        throw new PersistenciaException("Error al consultar la disponibilidad de la mesa: " + e.getMessage());
+    }finally{
+            em.close();
+        }
+    }
 }

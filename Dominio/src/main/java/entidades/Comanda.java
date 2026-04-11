@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -72,10 +73,11 @@ public class Comanda implements Serializable {
     }
 
     //constructor con todo, 
-    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion) {
+    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion, Mesa mesa) {
         this.estado = estado;
         this.folio = folio;
         this.fechaHora_Creacion = fechaHora_Creacion;
+        this.mesa = mesa;
     }
     
     //metodos get y set
@@ -144,7 +146,12 @@ public class Comanda implements Serializable {
         this.detalles = detalles;
     }
     
-    
-    
+    //metodo que genera automaticamente un folio
+    public String generarFolio(int numero){
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyyMMdd");
+        
+        folio = "OB-"+ LocalDateTime.now().format(formateador) +"-"+ numero;
+        return folio;
+    }
     
 }
