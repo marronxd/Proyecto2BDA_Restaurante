@@ -73,6 +73,9 @@ public class FrmMenuPrincipal extends JFrame{
            coordinadorFrames.mostrarInicioSesion();
         });
         
+        btnEmpleado.addActionListener(e -> {
+            coordinadorFrames.mostrarInicioSesionEmpleado();
+        });
         
         panelOpciones.add(btnEmpleado);
         panelOpciones.add(btnAdministrador);

@@ -6,6 +6,9 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import tiposDatosEnums.EstadoComanda;
 
@@ -57,6 +61,16 @@ public class Comanda implements Serializable {
     @JoinColumn (name = "id_cliente")
     private Cliente cliente;
     
+    //llave foranea a mesero
+    @ManyToOne
+    @JoinColumn(name = "id_mesero", nullable = false)
+    private Mesero mesero;
+    
+    //relacion con detallecomanda
+    //cascadas para casos de guardar, actualizar y eliminar
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<DetalleComanda> detalles;
+    
     
 
     //constructor vacio
@@ -64,10 +78,12 @@ public class Comanda implements Serializable {
     }
 
     //constructor con todo, 
-    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion) {
+    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion, Mesa mesa, Mesero mesero) {
         this.estado = estado;
         this.folio = folio;
         this.fechaHora_Creacion = fechaHora_Creacion;
+        this.mesa = mesa;
+        this.mesero = mesero;
     }
     
     //metodos get y set
@@ -127,8 +143,30 @@ public class Comanda implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public List<DetalleComanda> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleComanda> detalles) {
+        this.detalles = detalles;
+    }
     
-    
+    //metodo que genera automaticamente un folio
+    public String generarFolio(int numero){
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyyMMdd");
+        
+        folio = "OB-"+ LocalDateTime.now().format(formateador) +"-"+ numero;
+        return folio;
+    }
+
+    public Mesero getMesero() {
+        return mesero;
+    }
+
+    public void setMesero(Mesero mesero) {
+        this.mesero = mesero;
+    }
     
     
 }

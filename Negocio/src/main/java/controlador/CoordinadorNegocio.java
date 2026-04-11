@@ -8,9 +8,11 @@ import java.awt.Frame;
 import dtos.ClienteDTO;
 import dtos.IngredienteDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import java.util.List;
 import objetosnegocio.ClienteBO;
 import objetosnegocio.IngredienteBO;
+import objetosnegocio.MeseroBO;
 import tiposDatosEnums.EstadoIngrediente;
 import tiposDatosEnums.UnidadMedida;
 
@@ -23,10 +25,12 @@ public class CoordinadorNegocio {
     
     private final ClienteBO cliente;
     private final IngredienteBO ingrediente;
+    private final MeseroBO mesero;
     
     public CoordinadorNegocio() {
         this.cliente = ClienteBO.getInstance();
         this.ingrediente = IngredienteBO.obtenerInstancia();
+        this.mesero = MeseroBO.getInstance();
     }
     
     /**
@@ -130,6 +134,16 @@ public class CoordinadorNegocio {
         ingredienteDTO.setUrl(url);
         ingredienteDTO.setImagen(imagen);
         return ingrediente.actualizarIngrediente(ingredienteDTO);
+    }
+    
+    /**
+     * metodo para iniciar sesion como empleado
+     * @param codigo
+     * @throws NegocioException
+     * @throws PersistenciaException 
+     */
+    public void iniciarSesionMesero(String codigo) throws NegocioException, PersistenciaException {
+        mesero.iniciarSesion(codigo);
     }
     
 }
