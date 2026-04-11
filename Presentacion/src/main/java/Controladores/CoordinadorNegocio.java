@@ -5,8 +5,11 @@
 package Controladores;
 
 import dtos.ClienteDTO;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import java.util.List;
 import objetosnegocio.ClienteBO;
+import objetosnegocio.MeseroBO;
 
 /**
  *
@@ -16,9 +19,11 @@ public class CoordinadorNegocio {
     //clase que es como un intermediario entre presentacion y BO
     
     private final ClienteBO clienteBO;
+    private final MeseroBO meseroBO;
     
     public CoordinadorNegocio() {
         this.clienteBO = ClienteBO.getInstance();
+        this.meseroBO = MeseroBO.getInstance();
     }
     
     /**
@@ -64,6 +69,11 @@ public class CoordinadorNegocio {
      */
     public List<ClienteDTO> buscarClientePorCorreo(String correo) {
         return clienteBO.buscarPorCorreo(correo);
+    }
+    
+    
+    public void iniciarSesionMesero(String codigo) throws PersistenciaException, NegocioException{
+        meseroBO.iniciarSesion(codigo);
     }
     
 }

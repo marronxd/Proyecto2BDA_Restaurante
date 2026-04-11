@@ -26,12 +26,15 @@ public class ComandaDTO {
     
     //la relacion con detallecomanda, pueden ser varios y por eso es una lista
     private List<DetalleComandaDTO> detalles;
+    
+    //la relacion con mesero
+    private Long idMesero;
 
     public ComandaDTO() {
     }
 
     //constructor con todo
-    public ComandaDTO(Long id, String estado, String folio, LocalDateTime fechaHoraCreacion, Double totalAcumulado, Long idMesa, Long idCliente, List<DetalleComandaDTO> detalles) {
+    public ComandaDTO(Long id, String estado, String folio, LocalDateTime fechaHoraCreacion, Double totalAcumulado, Long idMesa, Long idCliente, List<DetalleComandaDTO> detalles, Long idMesero) {
         this.id = id;
         this.estado = estado;
         this.folio = folio;
@@ -40,10 +43,11 @@ public class ComandaDTO {
         this.idMesa = idMesa;
         this.idCliente = idCliente;
         this.detalles = detalles;
+        this.idMesero = idMesero;
     }
     
     //con todo menos cliente
-    public ComandaDTO(Long id, String estado, String folio, LocalDateTime fechaHoraCreacion, Double totalAcumulado, Long idMesa, List<DetalleComandaDTO> detalles) {
+    public ComandaDTO(Long id, String estado, String folio, LocalDateTime fechaHoraCreacion, Double totalAcumulado, Long idMesa, List<DetalleComandaDTO> detalles, Long idMesero) {
         this.id = id;
         this.estado = estado;
         this.folio = folio;
@@ -51,24 +55,27 @@ public class ComandaDTO {
         this.totalAcumulado = totalAcumulado;
         this.idMesa = idMesa;
         this.detalles = detalles;
+        this.idMesero = idMesero;
     }
     
 
     //constructor con algunos detalles iniciales + cliente
-    public ComandaDTO(String estado, String folio, LocalDateTime fechaHoraCreacion, Long idMesa, Long idCliente) {
+    public ComandaDTO(String estado, String folio, LocalDateTime fechaHoraCreacion, Long idMesa, Long idCliente, Long idMesero) {
         this.estado = estado;
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.idMesa = idMesa;
         this.idCliente = idCliente;
+        this.idMesero = idMesero;
     }
     
     //sin cliente
-    public ComandaDTO(String estado, String folio, LocalDateTime fechaHoraCreacion, Long idMesa) {
+    public ComandaDTO(String estado, String folio, LocalDateTime fechaHoraCreacion, Long idMesa, Long idMesero) {
         this.estado = estado;
         this.folio = folio;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.idMesa = idMesa;
+        this.idMesero = idMesero;
     }
 
     //get y set
@@ -134,6 +141,14 @@ public class ComandaDTO {
 
     public void setDetalles(List<DetalleComandaDTO> detalles) {
         this.detalles = detalles;
+    }
+
+    public Long getIdMesero() {
+        return idMesero;
+    }
+
+    public void setIdMesero(Long idMesero) {
+        this.idMesero = idMesero;
     }
     
     

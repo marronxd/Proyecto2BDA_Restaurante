@@ -11,10 +11,12 @@ import dtos.ComandaDTO;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import entidades.Mesa;
+import entidades.Mesero;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.time.LocalDateTime;
 import java.util.List;
+import sesiones.SesionMesero;
 import tiposDatosEnums.EstadoComanda;
 import tiposDatosEnums.EstadoMesa;
 
@@ -67,8 +69,17 @@ public class ComandaBO {
             throw new NegocioException("La mesa no esta disponible");
         }
         
+        Mesero meseroActual = SesionMesero.getMeseroActual();
+        
+        if(meseroActual == null){
+            throw new NegocioException("No se encontro un mesero registrado");
+        }
+        
         //convierte dto a entity con el metodo del adapter
         Comanda comanda = ComandaAdapter.DTOAEntity(dto);
+        
+        //asigna mesero
+        comanda.setMesero(meseroActual);
         
         //calcula el total acumulado
         double total = 0.0;

@@ -9,6 +9,7 @@ import entidades.Cliente;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import entidades.Mesa;
+import entidades.Mesero;
 import java.util.ArrayList;
 import java.util.List;
 import tiposDatosEnums.EstadoComanda;
@@ -43,6 +44,8 @@ public class ComandaAdapter {
         //mete los detalles usando el otro adapter que puse (DetalleComandaAdapter)
         dto.setDetalles(DetalleComandaAdapter.DetalleComandaAListaDTO(c.getDetalles()));
 
+        //mete el mesero
+        dto.setIdMesero(c.getMesero().getId());
         return dto;
     }
     
@@ -92,8 +95,12 @@ public class ComandaAdapter {
         for (DetalleComanda d : detalles) {
             d.setComanda(c);
         }
-
         c.setDetalles(detalles);
+        
+        //mesero
+        Mesero mesero = new Mesero();
+        mesero.setId(dto.getIdMesero());
+        c.setMesero(mesero);
 
         return c;
     }

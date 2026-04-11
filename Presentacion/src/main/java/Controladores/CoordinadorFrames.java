@@ -35,6 +35,7 @@ public class CoordinadorFrames {
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private DlgRegistrarCliente notengotiemposorryprofe;
     private PnlClienteFrecuente pnlClienteFrecuente;
+    private FrmInicioSesionEmpleado frmInicioSesionEmpleado;
     // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
@@ -362,5 +363,22 @@ public class CoordinadorFrames {
         } catch (NegocioException ex) {
             FramesUtileria.crearOptionPaneError(pnlIngredientes, ex.getMessage(), "Operacion fallida");
         }
+    }
+    
+    /**
+     * metodo para abrir la pantalla de inicio de sesion de empleados
+     */
+    public void mostrarInicioSesionEmpleado(){
+        if(frmMenuPrincipal!=null){
+            frmMenuPrincipal.setVisible(false);
+        }
+        
+        if(frmInicioSesionEmpleado == null){
+            frmInicioSesionEmpleado = new FrmInicioSesionEmpleado(this, coordinadorN);
+        }
+        
+        frmInicioSesionEmpleado.setVisible(true);
+        frmInicioSesionEmpleado.toFront();
+        
     }
 }

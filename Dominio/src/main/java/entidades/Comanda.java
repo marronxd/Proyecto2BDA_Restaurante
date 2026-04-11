@@ -61,6 +61,11 @@ public class Comanda implements Serializable {
     @JoinColumn (name = "id_cliente")
     private Cliente cliente;
     
+    //llave foranea a mesero
+    @ManyToOne
+    @JoinColumn(name = "id_mesero", nullable = false)
+    private Mesero mesero;
+    
     //relacion con detallecomanda
     //cascadas para casos de guardar, actualizar y eliminar
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
@@ -73,11 +78,12 @@ public class Comanda implements Serializable {
     }
 
     //constructor con todo, 
-    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion, Mesa mesa) {
+    public Comanda(EstadoComanda estado, String folio, LocalDateTime fechaHora_Creacion, Mesa mesa, Mesero mesero) {
         this.estado = estado;
         this.folio = folio;
         this.fechaHora_Creacion = fechaHora_Creacion;
         this.mesa = mesa;
+        this.mesero = mesero;
     }
     
     //metodos get y set
@@ -153,5 +159,14 @@ public class Comanda implements Serializable {
         folio = "OB-"+ LocalDateTime.now().format(formateador) +"-"+ numero;
         return folio;
     }
+
+    public Mesero getMesero() {
+        return mesero;
+    }
+
+    public void setMesero(Mesero mesero) {
+        this.mesero = mesero;
+    }
+    
     
 }
