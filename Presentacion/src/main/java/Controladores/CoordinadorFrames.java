@@ -35,6 +35,8 @@ public class CoordinadorFrames {
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private DlgRegistrarCliente notengotiemposorryprofe;
     private PnlClienteFrecuente pnlClienteFrecuente;
+    // --- Reportes ---
+    private PnlReportes pnlReportes;
     // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
@@ -207,6 +209,15 @@ public class CoordinadorFrames {
         coordinadorN.modificarClienteFrecuente(cliente);
     }
     
+    // --- Funciones para modulo de reportes ---
+    
+    public void mostrarFuncionesReportes(){
+        if(pnlReportes == null){
+            pnlReportes = new PnlReportes();
+        }
+        frmMenuAdministrador.setNuevoContenido(pnlReportes);
+        pnlReportes.setVisible(true);
+    }
     
     
     // ----- Funciones para modulo ingredientes -----

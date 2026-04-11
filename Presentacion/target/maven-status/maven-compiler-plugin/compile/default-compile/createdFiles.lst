@@ -21,6 +21,7 @@ utilerias\BotonUtileria.class
 Controladores\CoordinadorNegocio.class
 pantallas\PnlBuscador$4.class
 pantallas\DlgEdicionClienteFrecuente.class
+pantallas\PnlReportes.class
 pantallas\FrmInicioSesion$2.class
 pantallas\PnlBuscador$2.class
 pantallas\PnlClienteFrecuente$2.class
