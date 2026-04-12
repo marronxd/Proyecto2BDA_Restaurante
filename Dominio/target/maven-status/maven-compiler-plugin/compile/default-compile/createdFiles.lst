@@ -1,8 +1,0 @@
-com\mycompany\dominio\Dominio.class
-entidades\ClienteFrecuente.class
-tiposDatosEnums\EstadoIngrediente.class
-entidades\DetalleProducto.class
-entidades\Producto.class
-entidades\Cliente.class
-entidades\Ingrediente.class
-tiposDatosEnums\UnidadMedida.class
