@@ -40,7 +40,9 @@ public class CoordinadorFrames {
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private DlgRegistrarCliente notengotiemposorryprofe;
     private PnlClienteFrecuente pnlClienteFrecuente;
+
     private FrmInicioSesionEmpleado frmInicioSesionEmpleado;
+
     // --- Reportes ---
     private PnlReportes pnlReportes;
     // --- ingredientes ---
@@ -415,6 +417,7 @@ public class CoordinadorFrames {
         frmInicioSesionEmpleado.toFront();
         
     }
+
    
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws PersistenciaException, NegocioException{
         return coordinadorN.buscarComandasPorFecha(inicio, fin);
@@ -423,3 +426,6 @@ public class CoordinadorFrames {
     
     
 }
+
+
+
