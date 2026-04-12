@@ -41,6 +41,8 @@ public class CoordinadorFrames {
     private DlgRegistrarCliente notengotiemposorryprofe;
     private PnlClienteFrecuente pnlClienteFrecuente;
     private FrmInicioSesionEmpleado frmInicioSesionEmpleado;
+    // --- Reportes ---
+    private PnlReportes pnlReportes;
     // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
@@ -215,6 +217,15 @@ public class CoordinadorFrames {
         coordinadorN.modificarClienteFrecuente(cliente);
     }
     
+    // --- Funciones para modulo de reportes ---
+    
+    public void mostrarFuncionesReportes(){
+        if(pnlReportes == null){
+            pnlReportes = new PnlReportes();
+        }
+        frmMenuAdministrador.setNuevoContenido(pnlReportes);
+        pnlReportes.setVisible(true);
+    }
     
     
     // ----- Funciones para modulo ingredientes -----
@@ -404,7 +415,7 @@ public class CoordinadorFrames {
         frmInicioSesionEmpleado.toFront();
         
     }
-    
+   
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws PersistenciaException, NegocioException{
         return coordinadorN.buscarComandasPorFecha(inicio, fin);
     }

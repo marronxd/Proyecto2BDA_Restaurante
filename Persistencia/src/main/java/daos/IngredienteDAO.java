@@ -139,7 +139,7 @@ public class IngredienteDAO {
      */
     public Ingrediente eliminarIngrediente(Long idEliminar) throws PersistenciaException{
         EntityManager em = ConexionBD.crearConexion();
-      
+        
         try{
             // empezar transaccion
             em.getTransaction().begin();
