@@ -8,26 +8,68 @@
     </parent>
     <artifactId>Presentacion</artifactId>
     <packaging>jar</packaging>
+    
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.mycompany.presentacion.Presentacion</exec.mainClass>
     </properties>
+    
     <name>presentacion</name>
-    <dependencies>   
+
+    <dependencies>  
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>DTO</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.30</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Negocio</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE270</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-pdf</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>

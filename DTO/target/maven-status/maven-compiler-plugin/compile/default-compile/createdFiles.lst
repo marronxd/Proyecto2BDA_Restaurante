@@ -1,3 +1,6 @@
+dtos\ComandaDTO.class
+dtos\DetalleComandaDTO.class
+dtos\ReporteComandaDTO.class
+dtos\IngredienteDTO.class
 com\mycompany\dto\DTO.class
 dtos\ClienteDTO.class
-dtos\IngredienteDTO.class

@@ -39,14 +39,12 @@ public class PnlIngredientes extends javax.swing.JPanel {
         JButton btnRegistrar = BotonUtileria.botonUtileriaGenérico("Registrar ingrediente");
         JButton btnModificar = BotonUtileria.botonUtileriaGenérico("Modificar");
         JButton btnVolverMenu = BotonUtileria.botonUtileriaGenérico("Regresar al menu");
-        JButton btnRefrescar = BotonUtileria.botonUtileriaGenérico("Refrescar");
         
         // --- BOTONES  ACCIONES ---
 
         btnEliminar.addActionListener(e->{
             try {
                 coordinadorF.solicitarEliminarIngrediente(buscadorIngrediente.getIdSeleccionado());
-                buscadorIngrediente.refrescarTabla();
             } catch (NegocioException ex) {
                 System.getLogger(PnlIngredientes.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
@@ -59,10 +57,7 @@ public class PnlIngredientes extends javax.swing.JPanel {
         btnRegistrar.addActionListener(e->{
             coordinadorF.mostrarFormularioRegistroIngrediente();
         });
-        
-        btnRefrescar.addActionListener(e ->{
-            buscadorIngrediente.refrescarTabla();
-        });
+
         
         btnVolverMenu.addActionListener(e ->{coordinadorF.rergesarAlMenu();});
         
@@ -71,7 +66,6 @@ public class PnlIngredientes extends javax.swing.JPanel {
         jPanel1.add(btnRegistrar);
         jPanel1.add(btnModificar);
         jPanel1.add(btnVolverMenu);
-        jPanel1.add(btnRefrescar);
     }
 
     /**

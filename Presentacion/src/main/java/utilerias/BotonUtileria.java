@@ -46,6 +46,7 @@ public class BotonUtileria {
     
         public static JButton botonUtileriaMenu(String texto, String rutaIcono){
         JButton boton = new JButton(texto);
+        
         URL url = BotonUtileria.class.getResource(rutaIcono); // este es para buscar la ruta de la imagen
         if (rutaIcono != null) {
             ImageIcon iconoOriginal = new ImageIcon(url); // aca creamos la imagen con esa ruta

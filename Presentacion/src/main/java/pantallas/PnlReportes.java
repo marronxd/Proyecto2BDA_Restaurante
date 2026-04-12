@@ -4,19 +4,47 @@
  */
 package pantallas;
 
+import Controladores.CoordinadorFrames;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import utilerias.UtileriasPaneles;
 /**
  *
  * @author aaron
  */
 public class PnlReportes extends javax.swing.JPanel {
-
+    private CoordinadorFrames coordinadorFrame;
     /**
      * Creates new form pnlReportes
      */
-    public PnlReportes() {
+    public PnlReportes(CoordinadorFrames coordinadorF) {
+        this.coordinadorFrame = coordinadorF;
         initComponents();
+        JButton regresarMenu = utilerias.BotonUtileria.botonUtileriaGenérico("Regresar al menu");
+        JButton reporteComanda = utilerias.BotonUtileria.botonUtileriaGenérico("Reporte comanda");
+        JButton reporteClienteFrecuente = utilerias.BotonUtileria.botonUtileriaGenérico("Reporte cliente frecuente");
+        
+        jPanel2.add(reporteComanda);
+        jPanel2.add(reporteClienteFrecuente);
+        
+        jPanel1.add(regresarMenu);
+        
+        add(jPanel1, BorderLayout.SOUTH);
+        
+        regresarMenu.addActionListener(e ->{
+            coordinadorF.rergesarAlMenu();
+        });
+        
+        reporteComanda.addActionListener(e->{
+            coordinadorF.mostrarDatePicker();
+        });
     }
 
+    
+    
+    
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +54,22 @@ public class PnlReportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+
+        setLayout(new java.awt.BorderLayout());
+        add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+        add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

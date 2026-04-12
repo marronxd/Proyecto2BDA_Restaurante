@@ -14,12 +14,13 @@ import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utilerias.UtileriasPaneles;
-
+import observer.InventarioObserver;
+import objetosnegocio.IngredienteBO;
 /**
  *
  * @author aaron
  */
-public class PnlBuscadorIngrediente extends javax.swing.JPanel {
+public class PnlBuscadorIngrediente extends javax.swing.JPanel implements InventarioObserver{
 
     private CoordinadorFrames coordinadorFrames;
     
@@ -28,18 +29,16 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
     
     // auxiliar para la tabla de imagen
     private final int COLUMNAIMAGEN = 5;
-    
     /**
      * Creates new form pnlBuscadorIngrediente
      */
     public PnlBuscadorIngrediente(CoordinadorFrames coordinadorF) {
         this.coordinadorFrames = coordinadorF;
         initComponents();
-        
+        IngredienteBO.obtenerInstancia().suscribir(this);
         // sobreescribir la columna de la imagen para poder mostrarla
         tablaIngredientes.getColumnModel().getColumn(COLUMNAIMAGEN)
                 .setCellRenderer(tablaIngredientes.getDefaultRenderer(Icon.class));
-
         // hacer un poquito mas grande cada fila para que se vea la imagen
         tablaIngredientes.setRowHeight(55);
         //pre rellenar la tabla
@@ -50,6 +49,15 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * 
+     */
+    @Override
+    public void actualizarInventario() {
+        // notifica cuando haya cambio
+        refrescarTabla();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -228,8 +236,6 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
         
         if(ingredientes != null){
             for (IngredienteDTO ingrediente : ingredientes){
-
-                
                 Object[] fila = {
                     ingrediente.getId(),
                     ingrediente.getNombre(),
@@ -242,12 +248,12 @@ public class PnlBuscadorIngrediente extends javax.swing.JPanel {
             }
         }
     }
+    
     /**
      * Método que devuelve la tabla de ingredientes
      * @return 
      */
     public JTable getTablaIngredientes() {
-        
         return tablaIngredientes;
     }
 

@@ -106,5 +106,5 @@ public class IngredienteDAOTest {
 //        Ingrediente buscado = intancia.obtenerIngredientePorID(guardado.getId());
 //        assertEquals("Cebolla Morada", buscado.getNombre());
 //    }
-//    
+    
 }

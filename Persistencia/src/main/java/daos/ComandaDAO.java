@@ -11,6 +11,7 @@ import excepciones.PersistenciaException;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -150,6 +151,31 @@ public class ComandaDAO {
             throw new PersistenciaException("Error al relaizar la consulta: " +e.getMessage());
         }finally {
         em.close();
+        }
+    }
+    
+    
+    // --- Metodo para los reportes ---
+    
+    public List<Comanda> obtenerComandasFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaException{
+        EntityManager em = ConexionBD.crearConexion();
+        try {
+            System.out.println("Buscando entre: " + fechaInicio + " y " + fechaFin);
+            String sentenciaJPQL = """
+                                    select c from Comanda c
+                                    left join fetch c.cliente
+                                    left join fetch c.mesa
+                                    where c.fechaHora_Creacion between :fecha1 and :fecha2
+                                    """;
+            TypedQuery<Comanda> query = em.createQuery(sentenciaJPQL, Comanda.class);
+            query.setParameter("fecha1", fechaInicio);
+            query.setParameter("fecha2", fechaFin);
+            System.out.println("Comandas encontradas en DB: " +  query.getResultList());
+            return query.getResultList();
+        }catch(Exception e){
+            throw new PersistenciaException("Error al realizar la consulta: " + e.getMessage());
+        }finally {
+            em.close();
         }
     }
 }

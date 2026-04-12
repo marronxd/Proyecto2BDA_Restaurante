@@ -7,10 +7,13 @@ package controlador;
 import java.awt.Frame;
 import dtos.ClienteDTO;
 import dtos.IngredienteDTO;
+import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.time.LocalDateTime;
 import java.util.List;
 import objetosnegocio.ClienteBO;
+import objetosnegocio.ComandaBO;
 import objetosnegocio.IngredienteBO;
 import objetosnegocio.MeseroBO;
 import tiposDatosEnums.EstadoIngrediente;
@@ -26,11 +29,13 @@ public class CoordinadorNegocio {
     private final ClienteBO cliente;
     private final IngredienteBO ingrediente;
     private final MeseroBO mesero;
+    private final ComandaBO comanda;
     
     public CoordinadorNegocio() {
         this.cliente = ClienteBO.getInstance();
         this.ingrediente = IngredienteBO.obtenerInstancia();
         this.mesero = MeseroBO.getInstance();
+        this.comanda = ComandaBO.getInstance();
     }
     
     /**
@@ -144,6 +149,12 @@ public class CoordinadorNegocio {
      */
     public void iniciarSesionMesero(String codigo) throws NegocioException, PersistenciaException {
         mesero.iniciarSesion(codigo);
+    }
+    
+    
+    // --- Reportes ---
+    public List<ReporteComandaDTO> generarReporteComandas(LocalDateTime inicio, LocalDateTime fin) throws NegocioException{
+        return comanda.generarReporteComanda(inicio, fin);
     }
     
 }

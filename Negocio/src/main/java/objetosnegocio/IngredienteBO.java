@@ -10,7 +10,9 @@ import dtos.IngredienteDTO;
 import entidades.Ingrediente;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.util.ArrayList;
 import java.util.List;
+import observer.InventarioObserver;
 import tiposDatosEnums.UnidadMedida;
 
 /**
@@ -27,6 +29,9 @@ public class IngredienteBO {
     private static IngredienteBO objetoIngredienteBO;
     private final IngredienteDAO ingredienteDAO;
     
+    // --- patron observer, la lista ---
+    private final List<InventarioObserver> observadores = new ArrayList<>();
+    
     // --- constructor del objeto cliente bo ---
     
     private IngredienteBO(){
@@ -41,6 +46,25 @@ public class IngredienteBO {
             objetoIngredienteBO = new IngredienteBO();
         }
         return objetoIngredienteBO;
+    }
+    
+    // --- Métodos para la gestion de  los observadores
+    /**
+     * Este es como una subscripcion de yutu en la que una vez est´´es dentro
+     * recibiras notificaciones de los cambios
+     * @param observador 
+     */
+    public void  suscribir(InventarioObserver observador){
+        this.observadores.add(observador);
+    }
+    
+    /**
+     * esta es la notificacion que se activa cada que se sube un cambio
+     */
+    private void notificar(){
+        for(InventarioObserver obs: observadores){
+            obs.actualizarInventario();
+        }
     }
     
     /**
@@ -59,6 +83,7 @@ public class IngredienteBO {
         Ingrediente registrado = null;
         try{
             registrado = ingredienteDAO.registrarIngrediente(ingrediente);
+            notificar();
         }catch(PersistenciaException e){
             throw new NegocioException("No se pudo registrar el ingrediente: " + e.getMessage());
         }
@@ -79,6 +104,7 @@ public class IngredienteBO {
         Ingrediente eliminar = null;
         try{
             eliminar = ingredienteDAO.eliminarIngrediente(id);
+            notificar();
         }catch(PersistenciaException e){
             throw new NegocioException(e.getMessage());
         }
@@ -125,9 +151,17 @@ public class IngredienteBO {
      */
     public IngredienteDTO actualizarIngrediente(IngredienteDTO ingredienteActualizado) throws NegocioException{
         try{
-            // de dto a entidad
-            Ingrediente actualizado = IngredienteAdapter.convertirDTOAEntidad(ingredienteActualizado);
-            return IngredienteAdapter.convertirEntidadADTO(ingredienteDAO.actualizarIngrediente(actualizado));
+            // 1. Convertir DTO a Entidad
+        Ingrediente actualizado = IngredienteAdapter.convertirDTOAEntidad(ingredienteActualizado);
+        
+        // 2. Guardar en la base de datos PRIMERO
+        Ingrediente resultado = ingredienteDAO.actualizarIngrediente(actualizado);
+        
+        // 3. Notificar a los observadores DESPUÉS de persistir el cambio
+        notificar(); 
+        
+        // 4. Retornar el DTO resultante
+        return IngredienteAdapter.convertirEntidadADTO(resultado);
         }catch(PersistenciaException e){
             throw new NegocioException("Error de actualización.");
         }

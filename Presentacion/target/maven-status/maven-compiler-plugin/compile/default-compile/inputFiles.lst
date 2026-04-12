@@ -6,7 +6,9 @@ C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentac
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\DlgModificarIngrediente.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\DlgRegistrarCliente.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\DlgRegistrarIngrediente.java
+C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\DlgReporteComanda.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\FrmInicioSesion.java
+C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\FrmInicioSesionEmpleado.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\FrmMenuAdministrador.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\FrmMenuPrincipal.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\FrmPlantillaAdmin.java
@@ -17,5 +19,7 @@ C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentac
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\pantallas\PnlReportes.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\BotonUtileria.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\ColoresUtileria.java
+C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\FechaUtileria.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\FramesUtileria.java
+C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\GenerarReportesUtileria.java
 C:\Users\aaron\OneDrive\Documentos\NetBeansProjects\SistemaRestaurante\Presentacion\src\main\java\utilerias\UtileriasPaneles.java

@@ -7,10 +7,10 @@ package Controladores;
 import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
 import dtos.IngredienteDTO;
-import excepciones.FachadaException;
+import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
-import java.awt.Component;
-import java.awt.Frame;
+import java.time.LocalDateTime;
+import utilerias.GenerarReportesUtileria;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,6 +19,7 @@ import pantallas.PnlClienteFrecuente;
 import tiposDatosEnums.EstadoIngrediente;
 import tiposDatosEnums.UnidadMedida;
 import utilerias.FramesUtileria;
+import utilerias.UtileriasPaneles;
 
 /**
  * Esta clase se encarga de coordinar el flujo entre frames, paneles y cualquier elemento 
@@ -35,8 +36,10 @@ public class CoordinadorFrames {
     private DlgEdicionClienteFrecuente dlgEdicionCliente;
     private DlgRegistrarCliente notengotiemposorryprofe;
     private PnlClienteFrecuente pnlClienteFrecuente;
+    private FrmInicioSesionEmpleado frmInicioSesionEmpleado;
     // --- Reportes ---
     private PnlReportes pnlReportes;
+    private DlgReporteComanda dlgReporteComanda;
     // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
@@ -212,13 +215,42 @@ public class CoordinadorFrames {
     // --- Funciones para modulo de reportes ---
     
     public void mostrarFuncionesReportes(){
+        // validar si esta creado o no por si las moscas
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true); // mostrarlo
+        }
         if(pnlReportes == null){
-            pnlReportes = new PnlReportes();
+            pnlReportes = new PnlReportes(this);
         }
         frmMenuAdministrador.setNuevoContenido(pnlReportes);
         pnlReportes.setVisible(true);
     }
     
+    public void mostrarDatePicker(){
+        if(pnlReportes == null){
+            pnlReportes = new PnlReportes(this);
+        }
+        if(dlgReporteComanda == null){
+            dlgReporteComanda = new DlgReporteComanda(frmMenuAdministrador, true, this);
+        }
+        dlgReporteComanda.setVisible(true);
+        dlgReporteComanda.toFront();
+    }
+    
+    public void cancelarReporteComanda(){
+        if(dlgReporteComanda != null){
+            dlgReporteComanda.dispose();
+        }
+    }
+    public void solicitarReporteComanda(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+        try {
+            List<ReporteComandaDTO> reporte = coordinadorN.generarReporteComandas(fechaInicio, fechaFin);
+            GenerarReportesUtileria.lanzarReporte(reporte);
+            
+        } catch (NegocioException ex) {
+            FramesUtileria.crearOptionPaneError(pnlReportes, ex.getMessage(), "Operaion fallida");
+        }
+    }
     
     // ----- Funciones para modulo ingredientes -----
     

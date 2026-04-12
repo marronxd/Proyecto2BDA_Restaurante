@@ -5,9 +5,11 @@
 package objetosnegocio;
 
 import adaptadores.ComandaAdapter;
+import adaptadores.ReporteComandaAdapter;
 import daos.ComandaDAO;
 import daos.MesaDAO;
 import dtos.ComandaDTO;
+import dtos.ReporteComandaDTO;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import entidades.Mesa;
@@ -157,5 +159,24 @@ public class ComandaBO {
         
         Comanda resultado = comandaDAO.actualizarComanda(actualizada);       
         return ComandaAdapter.ComandaADTO(resultado);
+    }
+    
+    public List<ReporteComandaDTO> generarReporteComanda(LocalDateTime inicio, LocalDateTime fin) throws NegocioException{
+        try {
+            if(inicio == null){
+                throw new NegocioException("Fecha inicial no puede ser nula.");
+            }
+            if(fin == null){
+                throw new NegocioException("Fecha final no puede ser nula.");
+            }
+            // validacion si la inicial es menor a la final
+            if(inicio.isAfter(fin)){
+                throw new NegocioException("Fecha final no puede ser antes que la inicial.");
+            }
+            
+            return ReporteComandaAdapter.convertirListaEntidadADTO(comandaDAO.obtenerComandasFechas(inicio, fin));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 }
