@@ -6,11 +6,14 @@ package controlador;
 
 import java.awt.Frame;
 import dtos.ClienteDTO;
+import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.time.LocalDateTime;
 import java.util.List;
 import objetosnegocio.ClienteBO;
+import objetosnegocio.ComandaBO;
 import objetosnegocio.IngredienteBO;
 import objetosnegocio.MeseroBO;
 import tiposDatosEnums.EstadoIngrediente;
@@ -26,11 +29,13 @@ public class CoordinadorNegocio {
     private final ClienteBO cliente;
     private final IngredienteBO ingrediente;
     private final MeseroBO mesero;
+    private final ComandaBO comanda;
     
     public CoordinadorNegocio() {
         this.cliente = ClienteBO.getInstance();
         this.ingrediente = IngredienteBO.obtenerInstancia();
         this.mesero = MeseroBO.getInstance();
+        this.comanda = ComandaBO.getInstance();
     }
     
     /**
@@ -146,4 +151,7 @@ public class CoordinadorNegocio {
         mesero.iniciarSesion(codigo);
     }
     
+    public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws PersistenciaException, NegocioException{
+        return comanda.buscarPorRangoFechas(inicio, fin);
+    }
 }

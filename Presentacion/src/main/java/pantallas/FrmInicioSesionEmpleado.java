@@ -9,6 +9,7 @@ import controlador.CoordinadorNegocio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -71,9 +72,14 @@ public class FrmInicioSesionEmpleado extends JFrame {
         JLabel lblTitulo = new JLabel("Acceso Mesero");
         lblTitulo.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 32));
         lblTitulo.setForeground(ColoresUtileria.getCOLORTITULO());
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);;
+        
+        JLabel lblCodigo = new JLabel("Codigo de acceso:");
+        lblCodigo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField txtCodigo = new JTextField("Ingrese código de acceso...");
         txtCodigo.setMaximumSize(new Dimension(300, 35));
+        txtCodigo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         txtCodigo.addFocusListener(new FocusAdapter(){
             @Override
@@ -98,13 +104,14 @@ public class FrmInicioSesionEmpleado extends JFrame {
         pnlCentral.add(lblTitulo);
         pnlCentral.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        pnlCentral.add(new JLabel("Código de acceso:"));
+        pnlCentral.add(lblCodigo);
         pnlCentral.add(Box.createRigidArea(new Dimension(0, 5)));
         pnlCentral.add(txtCodigo);
 
         pnlCentral.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        JPanel pnlAcciones = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel pnlAcciones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlAcciones.setAlignmentX(Component.CENTER_ALIGNMENT);
         pnlAcciones.setOpaque(false);
         pnlAcciones.add(btnIniciar);
         pnlAcciones.add(btnRegresar);

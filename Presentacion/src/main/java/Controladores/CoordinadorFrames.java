@@ -1,16 +1,21 @@
+package Controladores;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controladores;
+
 
 import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
+import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
 import excepciones.FachadaException;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import java.awt.Component;
 import java.awt.Frame;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -40,6 +45,8 @@ public class CoordinadorFrames {
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
     private DlgModificarIngrediente dlgModificarIngrediente;
+    // --- comandas ---
+    private PnlComandas pnlComandas;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -365,6 +372,22 @@ public class CoordinadorFrames {
         }
     }
     
+    public void mostrarFuncionesComandas(){
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+
+        if(pnlComandas == null){
+            pnlComandas = new PnlComandas(this);
+        }
+
+        frmMenuAdministrador.setNuevoContenido(pnlComandas);
+        pnlComandas.setVisible(true);
+        }
+    
+    
+    
+    
     /**
      * metodo para abrir la pantalla de inicio de sesion de empleados
      */
@@ -381,4 +404,11 @@ public class CoordinadorFrames {
         frmInicioSesionEmpleado.toFront();
         
     }
+    
+    public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws PersistenciaException, NegocioException{
+        return coordinadorN.buscarComandasPorFecha(inicio, fin);
+    }
+    
+    
+    
 }

@@ -32,6 +32,10 @@ public class FrmMenuAdministrador extends FrmPlantillaAdmin{
             coordinadorF.mostrarFuncionesIngredientes();
         
         });
+        
+        btnComandas.addActionListener(e ->{
+            coordinadorF.mostrarFuncionesComandas();
+        });
     }
 
     
