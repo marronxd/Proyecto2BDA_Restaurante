@@ -5,9 +5,12 @@
 package objetosnegocio;
 
 import adaptadores.ComandaAdapter;
+import daos.ClienteDAO;
 import daos.ComandaDAO;
 import daos.MesaDAO;
 import dtos.ComandaDTO;
+import entidades.Cliente;
+import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import entidades.Mesa;
@@ -155,7 +158,30 @@ public class ComandaBO {
         }
         actualizada.setTotal_acumulado(total);
         
-        Comanda resultado = comandaDAO.actualizarComanda(actualizada);       
+        //verifica si se cerro la comanda
+        boolean entregada = buscada.getEstado() == EstadoComanda.ABIERTA && actualizada.getEstado() == EstadoComanda.ENTREGADA;
+        
+        //guarda la comanda
+        Comanda resultado = comandaDAO.actualizarComanda(actualizada); 
+        
+        //si la comanda se entrego y si hay cliente frecuente, actualizara los puntos
+        if (entregada && resultado.getCliente() != null) {
+            Cliente cliente = resultado.getCliente();
+            
+            if (cliente instanceof ClienteFrecuente clienteFrecuente) {
+                double totalGastadoActual = clienteFrecuente.getTotalGastado();
+                double nuevoTotal = totalGastadoActual + resultado.getTotal_acumulado();
+                
+                clienteFrecuente.setTotalGastado(nuevoTotal);
+                
+                double puntosGanados = resultado.getTotal_acumulado() / 20;
+                clienteFrecuente.setPuntos(clienteFrecuente.getPuntos() + puntosGanados);
+                
+                ClienteDAO clienteDAO = new ClienteDAO();
+                clienteDAO.actualizarCliente(clienteFrecuente);
+            }
+        }
+        
         return ComandaAdapter.ComandaADTO(resultado);
     }
 }
