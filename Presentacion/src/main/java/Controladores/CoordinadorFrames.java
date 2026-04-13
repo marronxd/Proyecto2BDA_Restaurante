@@ -6,9 +6,11 @@ package Controladores;
 
 import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
+import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
 import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
+import excepciones.PersistenciaException;
 import java.time.LocalDateTime;
 import utilerias.GenerarReportesUtileria;
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class CoordinadorFrames {
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
     private DlgModificarIngrediente dlgModificarIngrediente;
+    // --- comandas ---
+    private PnlComandas pnlComandas;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -246,7 +250,8 @@ public class CoordinadorFrames {
         try {
             List<ReporteComandaDTO> reporte = coordinadorN.generarReporteComandas(fechaInicio, fechaFin);
             GenerarReportesUtileria.lanzarReporte(reporte);
-            
+            dlgReporteComanda.dispose();
+            frmMenuAdministrador.toFront();
         } catch (NegocioException ex) {
             FramesUtileria.crearOptionPaneError(pnlReportes, ex.getMessage(), "Operaion fallida");
         }
@@ -422,5 +427,22 @@ public class CoordinadorFrames {
         frmInicioSesionEmpleado.setVisible(true);
         frmInicioSesionEmpleado.toFront();
         
+    }
+    
+    public void mostrarFuncionesComandas(){
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+
+        if(pnlComandas == null){
+            pnlComandas = new PnlComandas(this);
+        }
+
+        frmMenuAdministrador.setNuevoContenido(pnlComandas);
+        pnlComandas.setVisible(true);
+    }
+    
+    public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws NegocioException, PersistenciaException {
+        return coordinadorN.buscarComandasPorFecha(inicio, fin);
     }
 }

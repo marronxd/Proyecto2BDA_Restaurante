@@ -11,13 +11,15 @@ import java.time.LocalDateTime;
  */
 public class ReporteComandaDTO {
     
+    private String folio;
     private LocalDateTime fechaHora;
     private String nombreMesa;
     private Double total;
     private String estado;
     private String nombreCliente;
 
-    public ReporteComandaDTO(LocalDateTime fechaHora, String nombreMesa, Double total, String estado, String nombreCliente) {
+    public ReporteComandaDTO(String folio, LocalDateTime fechaHora, String nombreMesa, Double total, String estado, String nombreCliente) {
+        this.folio = folio;
         this.fechaHora = fechaHora;
         this.nombreMesa = nombreMesa;
         this.total = total;
@@ -25,6 +27,18 @@ public class ReporteComandaDTO {
         this.nombreCliente = nombreCliente;
     }
 
+    
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    
+    
     public ReporteComandaDTO() {
     }
 

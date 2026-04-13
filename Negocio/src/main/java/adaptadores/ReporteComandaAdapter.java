@@ -19,7 +19,7 @@ public class ReporteComandaAdapter {
         ReporteComandaDTO reporteDTO = new ReporteComandaDTO();
         
         // --- sacar valores de la entiadad n el objeto dto
-        
+        reporteDTO.setFolio(comanda.getFolio());
         reporteDTO.setFechaHora(comanda.getFechaHora_Creacion());
         if(comanda.getMesa() != null){
             reporteDTO.setNombreMesa(comanda.getMesa().getIdentificador());
