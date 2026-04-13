@@ -108,9 +108,7 @@ public class PnlClienteFrecuente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrarClienteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarClienteBotonActionPerformed
-
-        // cliente guardado
-        JOptionPane.showMessageDialog(this, "Cliente guardado con éxito");
+        coordinadorF.mostrarRegistroCliente();
     }//GEN-LAST:event_registrarClienteBotonActionPerformed
 
     private void regresarMenuBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarMenuBotonActionPerformed

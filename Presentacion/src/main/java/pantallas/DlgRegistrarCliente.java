@@ -7,6 +7,7 @@ package pantallas;
 import Controladores.CoordinadorFrames;
 import dtos.ClienteDTO;
 import java.awt.*;
+import java.time.LocalDate;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.*;
@@ -23,14 +24,14 @@ public class DlgRegistrarCliente extends JDialog{
     private CoordinadorFrames coordinadorF;
     private ClienteDTO clienteActual;
     // Componentes (Cajas de texto) todos junto y ya
-    private JTextField txtNombre, txtApellidoP, txtApellidoM, txtTelefono, txtPuntos;
+    private JTextField txtNombre, txtApellidoP, txtApellidoM, txtTelefono, txtCorreo;
     
     public DlgRegistrarCliente(Frame parent, boolean modal, CoordinadorFrames coordinadorF) {
         super(parent, modal);
         this.coordinadorF = coordinadorF;
         
         // 1. Configuración básica usando tu utilería
-        FramesUtileria.configurarVentanaGestion(this, "egistro de cliente");
+        FramesUtileria.configurarVentanaGestion(this, "Registro de cliente");
         this.setSize(400, 450); // ajuste de tamaño
         this.setLayout(new BorderLayout());
 
@@ -43,8 +44,7 @@ public class DlgRegistrarCliente extends JDialog{
         txtApellidoP = new JTextField();
         txtApellidoM = new JTextField();
         txtTelefono = new JTextField();
-        txtPuntos = new JTextField();
-        txtPuntos.setEditable(false); // Los puntos ae muestran
+        txtCorreo = new JTextField();
 
         panelFormulario.add(new JLabel("Nombres:"));
         panelFormulario.add(txtNombre);
@@ -54,8 +54,8 @@ public class DlgRegistrarCliente extends JDialog{
         panelFormulario.add(txtApellidoM);
         panelFormulario.add(new JLabel("Teléfono:"));
         panelFormulario.add(txtTelefono);
-        panelFormulario.add(new JLabel("Puntos Actuales:"));
-        panelFormulario.add(txtPuntos);
+        panelFormulario.add(new JLabel("Correo (opcional):"));
+        panelFormulario.add(txtCorreo);
 
         add(panelFormulario, BorderLayout.CENTER);
 
@@ -87,32 +87,79 @@ public class DlgRegistrarCliente extends JDialog{
         txtApellidoP.setText(cliente.getApellidoPaterno());
         txtApellidoM.setText(cliente.getApellidoMaterno());
         txtTelefono.setText(cliente.getTelefono());
-        txtPuntos.setText(String.valueOf(cliente.getPuntos()));
+        txtCorreo.setText(cliente.getCorreo());
     }
 
     /**
      * Recolecta los datos de los campos y se los pasa al coordinador
      */
     private void guardarCambios() {
-        // Actualizamos el objeto con lo que hay en los campos
-        if (this.clienteActual == null) {
-        this.clienteActual = new ClienteDTO();
-    }
+        try {
+            
+            //validacioneds que los campso no esten vacios
+            if (txtNombre.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El nombre es obligatorio");
+                return;
+            }
+            
+            if (txtApellidoP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El apellido paterno es obligatorio");
+                return;
+            }
+            
+            if (txtTelefono.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El teléfono es obligatorio");
+                return;
+            }
+            
+            //validaciones para que tengan contendio esperado
+            if (!txtNombre.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras");
+                return;
+            }
 
-        // Ahora ya no lanzará NullPointerException
-        this.clienteActual.setNombres(txtNombre.getText());
-        this.clienteActual.setApellidoPaterno(txtApellidoP.getText());
-        this.clienteActual.setApellidoMaterno(txtApellidoM.getText());
-        this.clienteActual.setTelefono(txtTelefono.getText());
+            if (!txtApellidoP.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                JOptionPane.showMessageDialog(this, "El apellido paterno solo debe contener letras");
+                return;
+            }
 
-        // Si es nuevo, inicializamos puntos en 0
-        if(this.clienteActual.getPuntos() == null) {
-            this.clienteActual.setPuntos(0.0);
+            if (!txtApellidoM.getText().trim().isEmpty() && !txtApellidoM.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                JOptionPane.showMessageDialog(this, "El apellido materno solo debe contener letras");
+                return;
+            }
+            
+            if (!txtTelefono.getText().trim().matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números");
+                return;
+            }
+            
+            ClienteDTO dto = new ClienteDTO();
+            
+            dto.setNombres(txtNombre.getText().trim());
+            dto.setApellidoPaterno(txtApellidoP.getText().trim());
+            dto.setApellidoMaterno(txtApellidoM.getText().trim());
+            dto.setTelefono(txtTelefono.getText().trim());
+            
+            if (!txtCorreo.getText().trim().isEmpty()) {
+                dto.setCorreo(txtCorreo.getText().trim());
+            } else {
+                dto.setCorreo(null);
+            }
+            
+            dto.setFechaRegistro(LocalDate.now());
+            dto.setTipoCliente("Frecuente");
+            dto.setPuntos(0.0);
+            dto.setTotalGastado(0.0);
+            
+            coordinadorF.registrarCliente(dto);
+
+            JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente");
+            this.dispose();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar cliente");
+            e.printStackTrace();
         }
-        
-
-        JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
-        this.setVisible(false);
     }
 
     public ClienteDTO getClienteActual() {

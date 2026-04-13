@@ -216,6 +216,10 @@ public class CoordinadorFrames {
         coordinadorN.modificarClienteFrecuente(cliente);
     }
     
+    public ClienteDTO registrarCliente(ClienteDTO dto){
+        return coordinadorN.registrarCliente(dto);
+    }
+    
     // --- Funciones para modulo de reportes ---
     
     public void mostrarFuncionesReportes(){
