@@ -39,6 +39,10 @@ public class PnlReportes extends javax.swing.JPanel {
         reporteComanda.addActionListener(e->{
             coordinadorF.mostrarDatePicker();
         });
+        
+        reporteClienteFrecuente.addActionListener(e ->{
+            coordinadorFrame.mostrarReporteClientes();
+        });
     }
 
     

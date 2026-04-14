@@ -8,6 +8,7 @@ import java.awt.Frame;
 import dtos.ClienteDTO;
 import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
+import dtos.ReporteClienteDTO;
 import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -163,5 +164,9 @@ public class CoordinadorNegocio {
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws PersistenciaException, NegocioException{
            return comanda.buscarPorRangoFechas(inicio, fin);
        
+    }
+    
+    public List<ReporteClienteDTO> generarReporteClientes(String nombre) throws NegocioException{
+        return cliente.generarReporteClientes(nombre);
     }
 }

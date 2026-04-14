@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package utilerias;
+import dtos.ReporteClienteDTO;
 import dtos.ReporteComandaDTO;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,4 +73,19 @@ public class GenerarReportesUtileria {
              System.err.println(e.getMessage());
          }
      }
+     
+     public static void lanzarReporteClientes(List<ReporteClienteDTO> datos){
+        try{
+            InputStream is = GenerarReportesUtileria.class.getResourceAsStream("/ReporteClientes.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(is);
+            Map<String, Object> params = new HashMap<>();
+            params.put("FechaCreacionReporte", new java.util.Date());
+            JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(datos);
+            JasperPrint jp = JasperFillManager.fillReport(jr, params, ds);
+            JasperViewer.viewReport(jp, false);
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+     
 }

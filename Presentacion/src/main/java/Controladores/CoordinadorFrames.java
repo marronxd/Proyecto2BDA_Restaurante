@@ -8,6 +8,7 @@ import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
 import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
+import dtos.ReporteClienteDTO;
 import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -42,6 +43,7 @@ public class CoordinadorFrames {
     // --- Reportes ---
     private PnlReportes pnlReportes;
     private DlgReporteComanda dlgReporteComanda;
+    private DlgReporteCliente dlgReporteCliente;
     // --- ingredientes ---
     private PnlIngredientes pnlIngredientes;
     private DlgRegistrarIngrediente dlgRegistrarIngrediente;
@@ -258,6 +260,31 @@ public class CoordinadorFrames {
             frmMenuAdministrador.toFront();
         } catch (NegocioException ex) {
             FramesUtileria.crearOptionPaneError(pnlReportes, ex.getMessage(), "Operaion fallida");
+        }
+    }
+    
+    public void mostrarReporteClientes(){
+        if(dlgReporteCliente == null){
+            dlgReporteCliente = new DlgReporteCliente(frmMenuAdministrador, true, this);
+        }
+        dlgReporteCliente.setVisible(true);
+        dlgReporteCliente.toFront();
+    }
+    
+    public void solicitarReporteClientes(String nombreFiltro){
+        try {
+            List<ReporteClienteDTO> reporte = coordinadorN.generarReporteClientes(nombreFiltro);
+            GenerarReportesUtileria.lanzarReporteClientes(reporte);
+            dlgReporteCliente.dispose();
+            frmMenuAdministrador.toFront();
+        } catch (NegocioException ex) {
+            FramesUtileria.crearOptionPaneError(pnlReportes, ex.getMessage(), "Operación fallida");
+        }
+    }
+    
+    public void cancelarReporteClientes(){
+        if(dlgReporteCliente != null){
+            dlgReporteCliente.dispose();
         }
     }
     

@@ -22,30 +22,30 @@
 	</variable>
 	<background splitType="Stretch"/>
 	<title height="80" splitType="Stretch">
-		<element kind="staticText" uuid="4109d0e3-7aed-4c96-83e2-b50058c65b61" x="106" y="0" width="350" height="80" fontName="Roboto Black" fontSize="35.0" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="4109d0e3-7aed-4c96-83e2-b50058c65b61" x="106" y="0" width="350" height="80" fontName="SansSerif" fontSize="35.0" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Reporte de comanda]]></text>
 		</element>
-		<element kind="staticText" uuid="be5c9665-68d8-418d-aeeb-5ebbce31cd33" x="10" y="10" width="100" height="30" fontName="Roboto Black">
+		<element kind="staticText" uuid="be5c9665-68d8-418d-aeeb-5ebbce31cd33" x="10" y="10" width="100" height="30" fontName="SansSerif">
 			<text><![CDATA[Restaurante Baratie]]></text>
 		</element>
 	</title>
 	<pageHeader height="100" splitType="Stretch">
-		<element kind="textField" uuid="e8f556c5-4e47-494f-b7dc-82b23fe86257" x="80" y="10" width="140" height="20" fontName="Roboto">
+		<element kind="textField" uuid="e8f556c5-4e47-494f-b7dc-82b23fe86257" x="80" y="10" width="140" height="20" fontName="SansSerif">
 			<expression><![CDATA["Fecha de emisión: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a").format($P{FechaCreacionReporte})]]></expression>
 		</element>
 		<element kind="line" uuid="5a488e97-8243-4ba3-b102-e98e29d768d5" x="0" y="30" width="560" height="5">
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 			<pen lineStyle="Dashed"/>
 		</element>
-		<element kind="textField" uuid="c355aa2b-0ddf-4b3d-87cd-17d16925b217" x="80" y="50" width="170" height="30" fontName="Roboto">
+		<element kind="textField" uuid="c355aa2b-0ddf-4b3d-87cd-17d16925b217" x="80" y="50" width="170" height="30" fontName="SansSerif">
 			<expression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{Fecha1}) + " al " + new SimpleDateFormat("dd/MM/yyyy").format($P{Fecha2})]]></expression>
 		</element>
-		<element kind="textField" uuid="17684ee7-2dbb-453a-99d1-192b3737bb93" x="380" y="50" width="100" height="30" fontName="Roboto" evaluationTime="Report">
+		<element kind="textField" uuid="17684ee7-2dbb-453a-99d1-192b3737bb93" x="380" y="50" width="100" height="30" fontName="SansSerif" evaluationTime="Report">
 			<expression><![CDATA["Total en ventas: " + $V{TotalVentas}]]></expression>
 		</element>
 	</pageHeader>
 	<columnHeader height="61" splitType="Stretch">
-		<element kind="staticText" uuid="dce7a15f-0519-4003-857f-5a467d4264e7" mode="Opaque" x="56" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="dce7a15f-0519-4003-857f-5a467d4264e7" mode="Opaque" x="56" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Fecha y hora]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -57,7 +57,7 @@
 				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="staticText" uuid="d1e8fd6a-a5b6-4f07-95ed-5025b78820a9" mode="Opaque" x="156" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="d1e8fd6a-a5b6-4f07-95ed-5025b78820a9" mode="Opaque" x="156" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Mesa]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<box>
@@ -68,7 +68,7 @@
 				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="staticText" uuid="ceaa3137-293b-4722-993a-f8e7da931421" mode="Opaque" x="256" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="ceaa3137-293b-4722-993a-f8e7da931421" mode="Opaque" x="256" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Total]]></text>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<box>
@@ -79,7 +79,7 @@
 				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="staticText" uuid="cd94b059-9427-4c2c-9002-1a14a85e685b" mode="Opaque" x="356" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="cd94b059-9427-4c2c-9002-1a14a85e685b" mode="Opaque" x="356" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Estado]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<box>
@@ -90,7 +90,7 @@
 				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="staticText" uuid="b57ea39a-fc0d-4142-8bf8-cfdf28be0249" mode="Opaque" x="456" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="b57ea39a-fc0d-4142-8bf8-cfdf28be0249" mode="Opaque" x="456" y="21" width="100" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Cliente]]></text>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -102,7 +102,7 @@
 				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="staticText" uuid="8f68fb8c-d3c4-4cee-8333-e2368c1e3cc2" mode="Opaque" x="0" y="21" width="56" height="30" backcolor="#DEDEDE" rotation="None" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="8f68fb8c-d3c4-4cee-8333-e2368c1e3cc2" mode="Opaque" x="0" y="21" width="56" height="30" backcolor="#DEDEDE" rotation="None" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Folio]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="616dde95-e6f2-45ea-89a7-3b9283c5e755"/>
 			<box>
@@ -116,7 +116,7 @@
 	</columnHeader>
 	<detail>
 		<band height="45" splitType="Stretch">
-			<element kind="textField" uuid="15c3e474-164f-42eb-b578-6b419291bb86" x="56" y="-1" width="100" height="30" fontName="Roboto" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="15c3e474-164f-42eb-b578-6b419291bb86" x="56" y="-1" width="100" height="30" fontName="SansSerif" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a").format((java.time.temporal.TemporalAccessor)$F{fechaHora})]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -127,7 +127,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="59cc94ae-4575-4bfd-93dc-4661632bf659" x="156" y="-1" width="100" height="30" fontName="Roboto" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="59cc94ae-4575-4bfd-93dc-4661632bf659" x="156" y="-1" width="100" height="30" fontName="SansSerif" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{nombreMesa}]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -138,7 +138,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="954926c1-e034-412b-ae51-96d3e260ade2" x="256" y="-1" width="100" height="30" fontName="Roboto" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="954926c1-e034-412b-ae51-96d3e260ade2" x="256" y="-1" width="100" height="30" fontName="SansSerif" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{total}]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -149,7 +149,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="756e0290-59e1-4111-b097-9079389222b6" x="456" y="-1" width="100" height="30" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="756e0290-59e1-4111-b097-9079389222b6" x="456" y="-1" width="100" height="30" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{nombreCliente}]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -160,7 +160,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="35b00c4c-1326-43a0-8dcc-34597a27f84f" x="356" y="-1" width="100" height="30" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="35b00c4c-1326-43a0-8dcc-34597a27f84f" x="356" y="-1" width="100" height="30" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{estado}]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -171,7 +171,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="313a1562-f844-4704-a3ed-c171bb965e29" x="0" y="-1" width="56" height="30" fontName="Roboto" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="textField" uuid="313a1562-f844-4704-a3ed-c171bb965e29" x="0" y="-1" width="56" height="30" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{folio}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="616dde95-e6f2-45ea-89a7-3b9283c5e755"/>
 				<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -191,15 +191,15 @@
 		</element>
 	</columnFooter>
 	<pageFooter height="33" splitType="Stretch">
-		<element kind="textField" uuid="e34416d7-5eed-405f-a3d4-88bac38ef55c" x="460" y="3" width="60" height="30" fontName="Roboto">
+		<element kind="textField" uuid="e34416d7-5eed-405f-a3d4-88bac38ef55c" x="460" y="3" width="60" height="30" fontName="SansSerif">
 			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></expression>
 		</element>
-		<element kind="textField" uuid="9152e4ac-ba33-4fa5-9b1a-ff45414aa240" x="520" y="3" width="36" height="30" fontName="Roboto" evaluationTime="Report">
+		<element kind="textField" uuid="9152e4ac-ba33-4fa5-9b1a-ff45414aa240" x="520" y="3" width="36" height="30" fontName="SansSerif" evaluationTime="Report">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
 	<summary height="43" splitType="Stretch">
-		<element kind="textField" uuid="0c375c7f-31f8-4ab9-a1a5-1d3a2939be85" x="31" y="8" width="150" height="30" fontName="Roboto" evaluationTime="Report">
+		<element kind="textField" uuid="0c375c7f-31f8-4ab9-a1a5-1d3a2939be85" x="31" y="8" width="150" height="30" fontName="SansSerif" evaluationTime="Report">
 			<expression><![CDATA["Total de comandas: " + $V{totalComanda1}]]></expression>
 		</element>
 	</summary>

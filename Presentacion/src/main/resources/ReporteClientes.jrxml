@@ -1,0 +1,162 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ReportesClientes" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a646c77d-a7d4-41f8-aaab-102057dfa8c2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="FechaCreacionReporte" class="java.util.Date"/>
+	<parameter name="Fecha1" class="java.util.Date"/>
+	<parameter name="Fecha2" class="java.util.Date"/>
+	<parameter name="Totales" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="nombre" class="java.lang.String"/>
+        <field name="totalGastado" class="java.lang.Double"/>
+        <field name="puntos" class="java.lang.Double"/>
+        <field name="fechaRegistro" class="java.time.LocalDate"/>
+	
+	<background splitType="Stretch"/>
+	<title height="80" splitType="Stretch">
+		<element kind="staticText" uuid="4109d0e3-7aed-4c96-83e2-b50058c65b61" x="106" y="0" width="350" height="80" fontName="SansSerif" fontSize="35.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Reporte de clientes frecuentes]]></text>
+		</element>
+		<element kind="staticText" uuid="be5c9665-68d8-418d-aeeb-5ebbce31cd33" x="10" y="10" width="100" height="30" fontName="SansSerif">
+			<text><![CDATA[Restaurante Baratie]]></text>
+		</element>
+	</title>
+	<pageHeader height="100" splitType="Stretch">
+		<element kind="textField" uuid="e8f556c5-4e47-494f-b7dc-82b23fe86257" x="80" y="10" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA[
+        $P{FechaCreacionReporte} == null 
+        ? "Fecha no disponible" 
+        : "Fecha de emisión: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format($P{FechaCreacionReporte})
+    ]]></expression>
+		</element>
+		<element kind="line" uuid="5a488e97-8243-4ba3-b102-e98e29d768d5" x="0" y="30" width="560" height="5">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineStyle="Dashed"/>
+		</element>
+		<element kind="textField" uuid="c355aa2b-0ddf-4b3d-87cd-17d16925b217" x="80" y="50" width="170" height="30" fontName="SansSerif">
+			<expression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{Fecha1}) + " al " + new SimpleDateFormat("dd/MM/yyyy").format($P{Fecha2})]]></expression>
+		</element>
+		
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="dce7a15f-0519-4003-857f-5a467d4264e7" mode="Opaque" x="100" y="21" width="150" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Nombre]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+			<box>
+				<pen lineColor="#9E9E9E"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		
+		<element kind="staticText" uuid="ceaa3137-293b-4722-993a-f8e7da931421" mode="Opaque" x="250" y="21" width="120" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Total gastado]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<pen lineColor="#9E9E9E"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		
+		<element kind="staticText" uuid="b57ea39a-fc0d-4142-8bf8-cfdf28be0249" mode="Opaque" x="370" y="21" width="120" height="30" backcolor="#DEDEDE" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Puntos]]></text>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineColor="#9E9E9E"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="8f68fb8c-d3c4-4cee-8333-e2368c1e3cc2" mode="Opaque" x="0" y="21" width="100" height="30" backcolor="#DEDEDE" rotation="None" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Fecha Registro]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="616dde95-e6f2-45ea-89a7-3b9283c5e755"/>
+			<box>
+				<pen lineColor="#9E9E9E"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			
+			<element kind="textField" uuid="59cc94ae-4575-4bfd-93dc-4661632bf659" x="250" y="-1" width="120" height="30" fontName="SansSerif" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{totalGastado}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="954926c1-e034-412b-ae51-96d3e260ade2" x="0" y="-1" width="100" height="30" fontName="SansSerif" linkType="None" linkTarget="Self" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[
+                java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                .format((java.time.temporal.TemporalAccessor)$F{fechaRegistro})
+            ]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="756e0290-59e1-4111-b097-9079389222b6" x="100" y="-1" width="150" height="30" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{nombre}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+
+                        <element kind="textField" uuid="123e4567-e89b-12d3-a456-426614174000" x="370" y="-1" width="120" height="30" fontName="SansSerif" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{puntos}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			
+			
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch">
+		<element kind="line" uuid="548d271e-3125-46c7-a8ba-043719e92cf7" x="0" y="30" width="561" height="5">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<pen lineWidth="1.0" lineStyle="Dashed"/>
+		</element>
+	</columnFooter>
+	<pageFooter height="33" splitType="Stretch">
+		<element kind="textField" uuid="e34416d7-5eed-405f-a3d4-88bac38ef55c" x="460" y="3" width="60" height="30" fontName="SansSerif">
+			<expression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></expression>
+		</element>
+		<element kind="textField" uuid="9152e4ac-ba33-4fa5-9b1a-ff45414aa240" x="520" y="3" width="36" height="30" fontName="SansSerif" evaluationTime="Report">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="43" splitType="Stretch">
+		
+	</summary>
+</jasperReport>

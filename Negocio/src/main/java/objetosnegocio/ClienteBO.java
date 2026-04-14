@@ -7,10 +7,13 @@ package objetosnegocio;
 import adaptadores.ClienteAdapter;
 import daos.ClienteDAO;
 import dtos.ClienteDTO;
+import dtos.ReporteClienteDTO;
 import entidades.Cliente;
+import entidades.ClienteFrecuente;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -146,4 +149,27 @@ public class ClienteBO {
             throw new NegocioException(e.getMessage());
         }
     } 
+    
+    public List<ReporteClienteDTO> generarReporteClientes(String nombreFiltro) throws NegocioException{
+        try {
+            List<Cliente> clientes;
+            
+            if(nombreFiltro == null || nombreFiltro.isEmpty()){
+                clientes = clienteDAO.obtenerTodos();
+            } else {
+            clientes = clienteDAO.buscarPorNombre(nombreFiltro);
+            }
+            
+            List<ReporteClienteDTO> reporte = new ArrayList<>();
+            for(Cliente c : clientes){
+                if(c instanceof ClienteFrecuente cf){
+                    String nombreCompleto = cf.getNombres() + " " + cf.getApellidoPaterno();
+                    reporte.add(new ReporteClienteDTO(nombreCompleto, cf.getTotalGastado(), cf.getPuntos(), cf.getFechaRegistro()));
+                }
+            }
+            return reporte;
+        } catch(Exception e){
+            throw new NegocioException("Error al generar el reporte: " + e.getMessage());
+        }
+    }
 }
