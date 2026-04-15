@@ -50,6 +50,7 @@ public class CoordinadorFrames {
     private DlgModificarIngrediente dlgModificarIngrediente;
     // --- comandas ---
     private PnlComandas pnlComandas;
+    private FrmMenuMesero frmMenuMesero;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -83,6 +84,25 @@ public class CoordinadorFrames {
         
         frmMenuAdministrador.setVisible(true);
         frmMenuAdministrador.toFront();
+    }
+    
+    /**
+     * metodo para mostrar el menu mesero al iniciar sesion como mesero 
+     */
+    public void mostrarMenuMesero(){
+        //ocultar menu main
+        if(frmInicioSesionEmpleado != null){
+            frmInicioSesionEmpleado.dispose();
+        }
+        
+        if(frmMenuMesero == null){
+            frmMenuMesero = new FrmMenuMesero(this);
+        }
+        
+        // mostrar el nuevo frame enfrente
+        
+        frmMenuMesero.setVisible(true);
+        frmMenuMesero.toFront();
     }
     /**
      * Muestra la pantalla de inicio de sesion donde el usuario valida su usuario

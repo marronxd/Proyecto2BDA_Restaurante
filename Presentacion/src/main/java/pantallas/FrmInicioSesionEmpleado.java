@@ -139,8 +139,7 @@ public class FrmInicioSesionEmpleado extends JFrame {
                 
                 JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso");
                 
-                //aqui pondre la siguiente pantalla
-                //coordinador.mostrarMenuMesero;
+                coordinador.mostrarMenuMesero();
                 dispose();
             }catch(NegocioException ex){
                 JOptionPane.showMessageDialog(this, ex.getMessage());
