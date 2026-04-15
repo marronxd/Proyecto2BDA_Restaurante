@@ -46,6 +46,8 @@ public class Mesero extends Empleado implements Serializable {
         super(nombres, apellidoPaterno, rfc, telefono, fechaRegistro);
         this.codigo_acceso = codigo_acceso;
     }
+    
+    //get y set
 
     public String getCodigo_acceso() {
         return codigo_acceso;
