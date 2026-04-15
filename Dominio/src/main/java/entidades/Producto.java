@@ -34,6 +34,8 @@ public class Producto {
     //relacion con detallecomanda
     @OneToMany(mappedBy = "producto")
     private List<DetalleComanda> detalles;
+    
+    //Set y get
 
     public List<DetalleProducto> getDetalleProducto() {
         return detalleProducto;

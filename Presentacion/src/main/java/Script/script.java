@@ -4,12 +4,25 @@
  */
 package Script;
 
+import conexion.ConexionBD;
 import entidades.Cliente;
 import entidades.ClienteFrecuente;
+import entidades.Comanda;
+import entidades.DetalleComanda;
+import entidades.DetalleProducto;
+import entidades.Ingrediente;
+import entidades.Mesa;
+import entidades.Mesero;
+import entidades.Producto;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import tiposDatosEnums.EstadoComanda;
+import tiposDatosEnums.EstadoIngrediente;
+import tiposDatosEnums.EstadoMesa;
+import tiposDatosEnums.UnidadMedida;
 
 /**
  *
@@ -21,57 +34,63 @@ public class script {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // 1. Conexión (Asegúrate que el nombre "RestaurantePU" sea el de tu persistence.xml)
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RestaurantePU");
-        EntityManager em = emf.createEntityManager();
+        
+        EntityManager em = ConexionBD.crearConexion();
 
         try {
             em.getTransaction().begin();
 
-            // --- REGISTRO 1: Cliente Normal ---
-            Cliente c1 = new Cliente("Ana", "Martínez", "López", "555-1111", "ana@mail.com", LocalDate.now());
+            // 1. CREAR MESA Y MESERO
+            Mesa mesa1 = new Mesa("Mesa-01", EstadoMesa.DISPONIBLE);
+            em.persist(mesa1);
 
-            // --- REGISTRO 2: Cliente Frecuente (Oro) ---
-            ClienteFrecuente cf1 = new ClienteFrecuente(
-                    500.0, // puntos
-                    12500.0, // total gastado
-                    "Roberto", // nombre
-                    "Gómez", // paterno
-                    "Ruiz", // materno
-                    "555-2222", // tel
-                    "roberto@mail.com",
-                    LocalDate.now()
-            );
+            Mesero mesero1 = new Mesero("ACCESO123", "Carlos", "Sánchez", "García", "SAGC900101", "555-0101", LocalDate.now());
+            em.persist(mesero1);
 
-            // --- REGISTRO 3: Cliente Frecuente (Nuevo) ---
-            ClienteFrecuente cf2 = new ClienteFrecuente(
-                    50.0,
-                    200.0,
-                    "Lucía",
-                    "Fernández",
-                    null, // apellido materno null
-                    "555-3333",
-                    "lucia@mail.com",
-                    LocalDate.now()
-            );
+            // 2. CREAR INGREDIENTES
+            Ingrediente carne = new Ingrediente("Carne de Res", UnidadMedida.GRAMOS, 5000.0, EstadoIngrediente.ACTIVO);
+            Ingrediente pan = new Ingrediente("Pan Brioche", UnidadMedida.PIEZAS, 50.0, EstadoIngrediente.ACTIVO);
+            em.persist(carne);
+            em.persist(pan);
 
-            // 2. Guardar todo
-            em.persist(c1);
-            em.persist(cf1);
-            em.persist(cf2);
+            // 3. CREAR PRODUCTO
+            Producto hamburguesa = new Producto();
+            hamburguesa.setPrecio(150.0);
+            em.persist(hamburguesa);
+
+            // 4. CREAR RECETA (DetalleProducto)
+            DetalleProducto receta1 = new DetalleProducto(200.0, carne, hamburguesa);
+            DetalleProducto receta2 = new DetalleProducto(1.0, pan, hamburguesa);
+            em.persist(receta1);
+            em.persist(receta2);
+
+            // 5. CREAR CLIENTE (Frecuente)
+            ClienteFrecuente cliente1 = new ClienteFrecuente(10.0, 0.0, "Maria", "Luna", "Sol", "555-9999", "maria@mail.com", LocalDate.now());
+            em.persist(cliente1);
+
+            // 6. CREAR COMANDA
+            // Constructor: (estado, folio, fecha, mesa, mesero)
+            Comanda comanda1 = new Comanda(EstadoComanda.ABIERTA, "FOLIO-ABC", LocalDateTime.now(), mesa1, mesero1);
+            comanda1.setCliente(cliente1);
+            em.persist(comanda1);
+
+            // 7. CREAR DETALLE DE COMANDA (Lo que pidió el cliente)
+            // Constructor: (cantidad, comentarios, comanda, producto)
+            DetalleComanda pedido1 = new DetalleComanda(2, "Sin cebolla por favor", comanda1, hamburguesa);
+            // El subtotal y precio se calculan solos en tu constructor de DetalleComanda
+            em.persist(pedido1);
 
             em.getTransaction().commit();
-            System.out.println("✅ ¡Registros insertados correctamente!");
+            System.out.println("✅ ¡Base de datos poblada con éxito!");
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println("❌ Error al insertar: " + e.getMessage());
+            System.err.println("❌ Error en el proceso: " + e.getMessage());
             e.printStackTrace();
         } finally {
             em.close();
-            emf.close();
         }
     }
 
