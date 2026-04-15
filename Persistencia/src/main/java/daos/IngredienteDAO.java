@@ -4,6 +4,7 @@
  */
 package daos;
 import conexion.ConexionBD;
+import entidades.DetalleProducto;
 import entidades.Ingrediente;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -214,4 +215,47 @@ public class IngredienteDAO {
         }
     }
 
+    /**
+     * Metodo que descuenta en la base de datos cantidad de stock de un ingrediente cuando un producto
+     * es solicitado y ya se encuentra en preparacion o pagado
+     * @param receta
+     * @param cantidadProductos
+     * @throws PersistenciaException 
+     */
+    public void descontarStockPorProducto(List<DetalleProducto> receta, Double cantidadProductos) throws PersistenciaException {
+        EntityManager em = ConexionBD.crearConexion();
+        try {
+            em.getTransaction().begin();
+
+            for (DetalleProducto detalle : receta) {
+                // --- sacar ID y poner en contexto ---
+                Long idIng = detalle.getIngrediente().getId();
+                Ingrediente ingBD = em.find(Ingrediente.class, idIng);
+
+                if (ingBD == null) throw new Exception("Ingrediente no encontrado: ID " + idIng);
+
+                // --- Calcular cantidad total a descontar ---
+                Double totalARestar = detalle.getCantidad() * cantidadProductos;
+
+                // --- Validar que haya stock suficiente ---
+                if (ingBD.getCantidad_stock() < totalARestar) {
+                    throw new Exception("No hay suficiente " + ingBD.getNombre() + 
+                                       ". Necesario: " + totalARestar + ", Disponible: " + ingBD.getCantidad_stock());
+                }
+
+                // --- Actualizar stock ----
+                ingBD.setCantidad_stock(ingBD.getCantidad_stock() - totalARestar);
+                em.merge(ingBD);
+            }
+
+            // --- ejecutar comando ---
+            em.getTransaction().commit(); 
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw new PersistenciaException(e.getMessage());
+        } finally {
+            em.close();
+        }
+    }
 }
