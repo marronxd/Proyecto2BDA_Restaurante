@@ -96,7 +96,7 @@ public class CoordinadorFrames {
         }
         
         if(frmMenuMesero == null){
-            frmMenuMesero = new FrmMenuMesero(this);
+            frmMenuMesero = new FrmMenuMesero(this, coordinadorN);
         }
         
         // mostrar el nuevo frame enfrente
@@ -495,5 +495,18 @@ public class CoordinadorFrames {
     
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws NegocioException, PersistenciaException {
         return coordinadorN.buscarComandasPorFecha(inicio, fin);
+    }
+    
+    public void mostrarFuncionesComandasMesero(){
+        if(frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+
+        if(pnlComandas == null){
+            pnlComandas = new PnlComandas(this);
+        }
+
+        frmMenuAdministrador.setNuevoContenido(pnlComandas);
+        pnlComandas.setVisible(true);
     }
 }

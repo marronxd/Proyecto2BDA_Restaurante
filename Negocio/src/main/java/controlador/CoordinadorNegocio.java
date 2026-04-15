@@ -8,6 +8,7 @@ import java.awt.Frame;
 import dtos.ClienteDTO;
 import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
+import dtos.MesaDTO;
 import dtos.ReporteClienteDTO;
 import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
@@ -17,6 +18,7 @@ import java.util.List;
 import objetosnegocio.ClienteBO;
 import objetosnegocio.ComandaBO;
 import objetosnegocio.IngredienteBO;
+import objetosnegocio.MesaBO;
 import objetosnegocio.MeseroBO;
 import tiposDatosEnums.EstadoIngrediente;
 import tiposDatosEnums.UnidadMedida;
@@ -32,12 +34,14 @@ public class CoordinadorNegocio {
     private final IngredienteBO ingrediente;
     private final MeseroBO mesero;
     private final ComandaBO comanda;
+    private final MesaBO mesa;
     
     public CoordinadorNegocio() {
         this.cliente = ClienteBO.getInstance();
         this.ingrediente = IngredienteBO.obtenerInstancia();
         this.mesero = MeseroBO.getInstance();
         this.comanda = ComandaBO.getInstance();
+        this.mesa = MesaBO.getInstance();
     }
     
     /**
@@ -168,5 +172,9 @@ public class CoordinadorNegocio {
     
     public List<ReporteClienteDTO> generarReporteClientes(String nombre) throws NegocioException{
         return cliente.generarReporteClientes(nombre);
+    }
+    
+    public List<MesaDTO> obtenerMesas() throws PersistenciaException{
+        return mesa.obtenerTodas();
     }
 }

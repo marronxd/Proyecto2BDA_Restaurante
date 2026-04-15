@@ -30,7 +30,10 @@ public abstract class FrmPlantillaMesero extends JFrame {
     protected JButton btnCrearComandas;
     protected JButton btnVerComandas;
     protected JButton btnVolver;
-
+    //has vuelto al inicio
+    protected JPanel panelMenuInicial;
+    
+    
     public FrmPlantillaMesero(String titulo) {
         FramesUtileria.configurarVentanaPrincipal(this, titulo);
     }
@@ -44,9 +47,9 @@ public abstract class FrmPlantillaMesero extends JFrame {
         panelContenido = new JPanel(new BorderLayout());
         panelContenido.setBackground(ColoresUtileria.getFONDO());
 
-        JPanel panelCentro = new JPanel();
-        panelCentro.setBackground(ColoresUtileria.getFONDO());
-        panelCentro.setLayout(new BoxLayout(panelCentro, BoxLayout.Y_AXIS));
+        panelMenuInicial = new JPanel();
+        panelMenuInicial.setBackground(ColoresUtileria.getFONDO());
+        panelMenuInicial.setLayout(new BoxLayout(panelMenuInicial, BoxLayout.Y_AXIS));
 
         JLabel lblTitulo = new JLabel("Menu Mesero");
         lblTitulo.setFont(new Font(FramesUtileria.getFUENTE(), Font.BOLD, 28));
@@ -65,26 +68,26 @@ public abstract class FrmPlantillaMesero extends JFrame {
         btnVerComandas.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnVerComandas.setMaximumSize(new Dimension(220, 45));
         
-        btnVolver = BotonUtileria.botonUtileriaGenérico("Volver");
+        btnVolver = BotonUtileria.botonUtileriaGenérico("Volver al menu");
         btnVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnVolver.setMaximumSize(new Dimension(220, 45));
 
         
-        panelCentro.add(lblTitulo);
-        panelCentro.add(Box.createRigidArea(new Dimension(0, 20)));
-        panelCentro.add(lblSub);
-        panelCentro.add(Box.createRigidArea(new Dimension(0, 30)));
-        panelCentro.add(btnCrearComandas);
-        panelCentro.add(Box.createRigidArea(new Dimension(0, 30)));
-        panelCentro.add(btnVerComandas);
+        panelMenuInicial.add(lblTitulo);
+        panelMenuInicial.add(Box.createRigidArea(new Dimension(0, 20)));
+        panelMenuInicial.add(lblSub);
+        panelMenuInicial.add(Box.createRigidArea(new Dimension(0, 30)));
+        panelMenuInicial.add(btnCrearComandas);
+        panelMenuInicial.add(Box.createRigidArea(new Dimension(0, 30)));
+        panelMenuInicial.add(btnVerComandas);
 
-        panelContenido.add(panelCentro, BorderLayout.CENTER);
+        panelContenido.add(panelMenuInicial, BorderLayout.CENTER);
 
         this.add(panelContenido, BorderLayout.CENTER);
         
         
         JPanel panelSur = new JPanel();
-        panelCentro.setBackground(ColoresUtileria.getFONDO());
+        panelMenuInicial.setBackground(ColoresUtileria.getFONDO());
         panelSur.add(btnVolver);
         this.add(panelSur, BorderLayout.SOUTH);
     }
@@ -109,6 +112,13 @@ public abstract class FrmPlantillaMesero extends JFrame {
     public void setNuevoContenido(JPanel nuevoPanel) {
         panelContenido.removeAll();
         panelContenido.add(nuevoPanel, BorderLayout.CENTER);
+        panelContenido.revalidate();
+        panelContenido.repaint();
+    }
+    
+    public void mostrarMenuInicial() {
+        panelContenido.removeAll();
+        panelContenido.add(panelMenuInicial, BorderLayout.CENTER);
         panelContenido.revalidate();
         panelContenido.repaint();
     }
