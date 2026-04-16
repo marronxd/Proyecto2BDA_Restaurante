@@ -9,7 +9,7 @@ import entidades.Cliente;
 import entidades.ClienteFrecuente;
 import java.util.ArrayList;
 import java.util.List;
-
+import encriptador.Encriptador;
 /**
  *
  * @author luiscarlosbeltran
@@ -34,6 +34,16 @@ public class ClienteAdapter {
         dto.setFechaRegistro(c.getFechaRegistro());
         //
         dto.setTipoCliente(c.getClass().getSimpleName());
+        
+        // --- LÓGICA DE DESENCRIPTACIÓN ---
+        try {
+            if (c.getTelefono() != null) {
+                dto.setTelefono(Encriptador.desencriptar(c.getTelefono()));
+            }
+        } catch (Exception e) {
+            // Si falla (ej. el dato no estaba encriptado), dejamos el original
+            dto.setTelefono(c.getTelefono());
+        }
         //si es un cliente frecuente se le asignan los atributos
         if (c instanceof ClienteFrecuente cf) {
             dto.setPuntos(cf.getPuntos());
@@ -91,6 +101,13 @@ public class ClienteAdapter {
         cliente.setCorreo(dto.getCorreo());
         cliente.setFechaRegistro(dto.getFechaRegistro());
 
+        try {
+            if (dto.getTelefono() != null) {
+                cliente.setTelefono(Encriptador.encriptar(dto.getTelefono()));
+            }
+        } catch (Exception e) {
+            cliente.setTelefono(dto.getTelefono());
+        }
         return cliente;
     }
     

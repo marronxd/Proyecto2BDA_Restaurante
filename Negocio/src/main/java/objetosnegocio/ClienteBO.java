@@ -15,6 +15,7 @@ import excepciones.PersistenciaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import observer.InventarioObserver;
 
 /**
  *
@@ -26,6 +27,9 @@ public class ClienteBO {
     private static ClienteBO instancia;
 
     private final ClienteDAO clienteDAO;
+    
+    // --- patron observer, la lista ---
+    private final List<InventarioObserver> observadores = new ArrayList<>();
 
     private ClienteBO() {
         this.clienteDAO = new ClienteDAO();
@@ -40,6 +44,24 @@ public class ClienteBO {
         return instancia;
     }
     
+        // --- Métodos para la gestion de  los observadores
+    /**
+     * Este es como una subscripcion de yutu en la que una vez est´´es dentro
+     * recibiras notificaciones de los cambios
+     * @param observador 
+     */
+    public void  suscribir(InventarioObserver observador){
+        this.observadores.add(observador);
+    }
+    
+    /**
+     * esta es la notificacion que se activa cada que se sube un cambio
+     */
+    private void notificar(){
+        for(InventarioObserver obs: observadores){
+            obs.actualizarInventario();
+        }
+    }
     /**
      * metodo para registrar un cliente.
      * recibe un clienteDTO de presentacion, lo pasa a entity con el metodo del adapter y lo manda al dao para persistir en BD
@@ -64,7 +86,7 @@ public class ClienteBO {
             throw new IllegalArgumentException("La fecha no se esta guardando. Al crear el DTO hay que poner su fecha_registro = LocalDate.now()");
         }
 
-
+        notificar();
         Cliente cliente = ClienteAdapter.DTOAEntity(dto);
         Cliente guardado = clienteDAO.guardar(cliente);
 
@@ -139,7 +161,7 @@ public class ClienteBO {
             
             // convertir a entidad
             Cliente actualizado = ClienteAdapter.DTOAEntity(clienteActualizado);
-            
+            notificar();
             // guardar el cleinte modificado
             Cliente guardado = clienteDAO.actualizarCliente(actualizado);
             //mandarlo al dao

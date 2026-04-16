@@ -105,7 +105,16 @@ public class CoordinadorNegocio {
     public void eliminarIngrediente(Long id) throws NegocioException{
         ingrediente.eliminarIngrediente(id);
     }
-    
+    /**
+     * Método para registrar un ingrediente
+     * @param nombre
+     * @param cantidad
+     * @param unidad
+     * @param estado
+     * @param url
+     * @param imagen
+     * @throws NegocioException 
+     */
     public void registrarIngrediente(String nombre, Double cantidad, UnidadMedida unidad, EstadoIngrediente estado, String url, byte[] imagen) throws NegocioException{
         IngredienteDTO  ingredienteDTO = new IngredienteDTO();
         ingredienteDTO.setNombre(nombre);
@@ -117,7 +126,12 @@ public class CoordinadorNegocio {
         System.out.println("url: " + url + "i: " + imagen);
         ingrediente.registrarIngrediente(ingredienteDTO);
     }
-    
+    /**
+     * Método que obtiene un ingrediente de la base de datos en base a un id
+     * @param id
+     * @return
+     * @throws NegocioException 
+     */
     public IngredienteDTO obtenerIngrediente(Long id) throws NegocioException{
         return ingrediente.obtenerIngrediente(id);
     }

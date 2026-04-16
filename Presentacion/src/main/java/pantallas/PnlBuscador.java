@@ -7,11 +7,12 @@ package pantallas;
 import Controladores.CoordinadorFrames;
 import dtos.ClienteDTO;
 import java.util.List;
+import observer.InventarioObserver;
 /**
  *
  * @author aaron
  */
-public class PnlBuscador extends javax.swing.JPanel {
+public class PnlBuscador extends javax.swing.JPanel implements InventarioObserver{
 
     private CoordinadorFrames coordinadorF;
     /**
@@ -23,10 +24,13 @@ public class PnlBuscador extends javax.swing.JPanel {
         tablaBusqueda.setDefaultEditor(Object.class, null);
         // --- solo es para precargar la información
         llenarTabla(coordinadorF.solicitarBusqueda("a", "Todos"));
-
-
     }
-
+    
+    @Override
+    public void actualizarInventario() {
+        // notifica cuando haya cambio
+        refrescarTabla();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,7 +132,18 @@ public class PnlBuscador extends javax.swing.JPanel {
        
         llenarTabla(resultados);
     }//GEN-LAST:event_entradaFiltroKeyReleased
+    // --- Método auxiliar para refrescar la tabla --- nota: esta se usa para el contenedor de ingrediente
+    public void refrescarTabla() {
+        // Obtenemos el texto actual del buscador por si el usuario estaba filtrando algo
+        String texto =  entradaFiltro.getText().equals(entradaFiltro.getText()) ? "" : entradaFiltro.getText();
+        String filtro = FiltroClientes.getSelectedItem().toString();
 
+        // Pedimos los datos actualizados al coordinador
+        List<ClienteDTO> listaActualizada = coordinadorF.solicitarBusqueda(texto, filtro);
+
+         // actualizar tabla
+        llenarTabla(listaActualizada);
+    }
     private void llenarTabla(List<ClienteDTO> lista) {
         // 1. Obtenemos el modelo de la tabla que creó NetBeans
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaBusqueda.getModel();

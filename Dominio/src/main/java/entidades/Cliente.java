@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
     private String apellidoMaterno;
     
     //atributo telefono, not null
-    @Column(name = "telefono", nullable = false, length = 20)
+    @Column(name = "telefono", nullable = false)
     private String telefono;
     
     //atributo correo, si null
