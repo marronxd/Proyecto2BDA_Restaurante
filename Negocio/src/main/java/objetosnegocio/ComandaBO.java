@@ -32,10 +32,12 @@ public class ComandaBO {
 
     private final ComandaDAO comandaDAO;
     private final MesaDAO mesaDAO;
+    private Comanda comanda;
 
     private ComandaBO() {
         this.comandaDAO = new ComandaDAO();
         this.mesaDAO = new MesaDAO();
+        this.comanda = new Comanda();
     }
 
     //el constructor publico y static para que sea solo una instancia en todo el sistema
@@ -94,7 +96,12 @@ public class ComandaBO {
         Comanda guardada = comandaDAO.guardarComanda(comanda);
         
         //cambia el estado de la mesa
-        Mesa mesa = guardada.getMesa();
+        Mesa mesa = mesaDAO.buscarPorId(dto.getIdMesa());
+        
+        System.out.println("ID mesa: " + mesa.getId());
+System.out.println("Identificador: " + mesa.getIdentificador());
+System.out.println("Estado actual: " + mesa.getEstado());
+        
         mesa.setEstado(EstadoMesa.OCUPADA);
         mesaDAO.actualizar(mesa);
         
@@ -179,4 +186,11 @@ public class ComandaBO {
             throw new NegocioException(ex.getMessage());
         }
     }
+    
+    public String crearFolio() throws PersistenciaException{
+        int numFolio = comandaDAO.obtenerNumSigFolio(LocalDateTime.now());
+        String folio = comanda.generarFolio(numFolio);
+        return folio;
+    }
+    
 }

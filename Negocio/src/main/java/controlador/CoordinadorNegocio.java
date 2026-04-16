@@ -177,4 +177,19 @@ public class CoordinadorNegocio {
     public List<MesaDTO> obtenerMesas() throws PersistenciaException{
         return mesa.obtenerTodas();
     }
+    
+    //el metodo para llamar a registrarcomanda del comandaBO
+    public ComandaDTO registrarComanda(ComandaDTO nuevaComanda) throws NegocioException, PersistenciaException {
+        return comanda.registrarComanda(nuevaComanda);
+    }
+    
+    //
+    public String darFolio() throws PersistenciaException{
+        return comanda.crearFolio();
+    }
+    
+    public void ocuparMesa(Long idMesa) throws PersistenciaException {
+    mesa.ocuparMesa(idMesa);
+}
+    
 }

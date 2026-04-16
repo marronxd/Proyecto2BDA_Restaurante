@@ -7,6 +7,10 @@ package pantallas;
 import Controladores.CoordinadorFrames;
 import controlador.CoordinadorNegocio;
 import dtos.ComandaDTO;
+import excepciones.PersistenciaException;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,10 +50,22 @@ public class FrmMenuMesero extends FrmPlantillaMesero {
         //actionlistener del boton para crear comandas
         btnCrearComandas.addActionListener(e -> {
 
-        //la comanda que se va a llenar
+        //se manda desde aqui el comandadto que se va a llenar para persistir al final en bd
         ComandaDTO nuevaComanda = new ComandaDTO();
+        nuevaComanda.setEstado("ABIERTA");
+        nuevaComanda.setFechaHoraCreacion(LocalDateTime.now());
+            try {
+                nuevaComanda.setFolio(coordinadorN.darFolio());
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(FrmMenuMesero.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        FrmSeleccionarMesa frm = new FrmSeleccionarMesa(this, coordinadorN, nuevaComanda);
+        FrmSeleccionarMesa frm = new FrmSeleccionarMesa(
+            this,
+            coordinadorF,
+            coordinadorN,
+            nuevaComanda
+        );
 
         frm.setVisible(true);
         });

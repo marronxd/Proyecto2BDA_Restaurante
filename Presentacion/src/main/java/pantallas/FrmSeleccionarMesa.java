@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import Controladores.CoordinadorFrames;
 import controlador.CoordinadorNegocio;
 import dtos.ComandaDTO;
 import dtos.MesaDTO;
@@ -17,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import sesiones.SesionMesero;
 
 /**
  *
@@ -36,16 +39,19 @@ public class FrmSeleccionarMesa extends JDialog {
 
     private CoordinadorNegocio coordinadorNegocio;
     private ComandaDTO nuevaComanda;
+    private CoordinadorFrames coordinadorF;
 
     private JPanel panelMesas;
     private JButton btnCancelar;
 
     public FrmSeleccionarMesa(JFrame parent,
+                            CoordinadorFrames coordinadorF,
                             CoordinadorNegocio coordinadorNegocio,
                             ComandaDTO nuevaComanda) {
 
         super(parent, "Seleccionar mesa", true);
 
+        this.coordinadorF = coordinadorF;
         this.coordinadorNegocio = coordinadorNegocio;
         this.nuevaComanda = nuevaComanda;
 
@@ -126,14 +132,21 @@ public class FrmSeleccionarMesa extends JDialog {
         if (mesa.getEstado().equalsIgnoreCase("DISPONIBLE")) {
 
             nuevaComanda.setIdMesa(mesa.getId());
+            nuevaComanda.setIdMesero(SesionMesero.getMeseroActual().getId());
 
             JOptionPane.showMessageDialog(this,
                     "Mesa asignada correctamente");
+            
 
             dispose();
-
-            // Aquí después abrirás la siguiente pantalla
-            // productos / cliente / etc
+            
+            //abre la siguiente pantalla para seleccionar productos
+            new FrmSeleccionarProducto(
+            (JFrame)getParent(),
+            coordinadorF,
+            coordinadorNegocio,
+            nuevaComanda
+            );
 
         } else {
 

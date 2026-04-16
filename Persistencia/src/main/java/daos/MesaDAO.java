@@ -113,18 +113,17 @@ public class MesaDAO {
         }
     }
     
-    public Mesa buscarPorId(Long id) throws PersistenciaException{
-        EntityManager em = ConexionBD.crearConexion();
-      
-        try{
-            Mesa buscado = em.find(Mesa.class, id);
-            return buscado;
-        }catch(Exception e){
-            throw new PersistenciaException("Error al buscar la mesa: " + e.getMessage());
-        }finally{
-            em.close();
-        }
-    } 
+    public Mesa buscarPorId(Long id) throws PersistenciaException {
+    EntityManager em = ConexionBD.crearConexion();
+
+    try {
+        return em.find(Mesa.class, id);
+    } catch (Exception e) {
+        throw new PersistenciaException("Error al buscar mesa");
+    } finally {
+        em.close();
+    }
+}
     
     /**
      * Metodo para saber si una mesa esta disponible

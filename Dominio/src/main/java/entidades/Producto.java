@@ -21,6 +21,10 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    //atributo del nombre
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+    
     //atributo del precio
     @Column(name = "precio", nullable = false)
     private Double precio;
@@ -51,6 +55,22 @@ public class Producto {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<DetalleComanda> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleComanda> detalles) {
+        this.detalles = detalles;
     }
 
     

@@ -81,11 +81,13 @@ public class DetalleComanda implements Serializable {
         return cantidad_producto;
     }
 
-    //si se cambia la cantidad de productos, modifica el subtotal en automatico
     public void setCantidad_producto(Integer cantidad_producto) {
-        this.cantidad_producto = cantidad_producto;
+    this.cantidad_producto = cantidad_producto;
+
+    if (this.precio != null && cantidad_producto != null) {
         this.subtotal = this.precio * cantidad_producto;
     }
+}
 
     public String getComentarios() {
         return comentarios;
@@ -100,8 +102,12 @@ public class DetalleComanda implements Serializable {
     }
 
     public void setPrecio(Double precio) {
-        this.precio = precio;
+    this.precio = precio;
+
+    if (this.cantidad_producto != null && precio != null) {
+        this.subtotal = precio * this.cantidad_producto;
     }
+}
 
     public Double getSubtotal() {
         return subtotal;
@@ -127,5 +133,10 @@ public class DetalleComanda implements Serializable {
         this.producto = producto;
     }
     
+    private void recalcularSubtotal() {
+    if (precio != null && cantidad_producto != null) {
+        subtotal = precio * cantidad_producto;
+    }
+}
     
 }

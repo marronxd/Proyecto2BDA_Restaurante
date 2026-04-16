@@ -60,10 +60,10 @@ public class DetalleComandaAdapter {
         if (dto.getId() != null) {
             d.setId(dto.getId());
         }
-
+        
+        d.setPrecio(dto.getPrecio());
         d.setCantidad_producto(dto.getCantidadProducto());
         d.setComentarios(dto.getComentarios());
-        d.setPrecio(dto.getPrecio());
         d.setSubtotal(dto.getSubtotal());
 
         if (dto.getIdProducto() != null) {

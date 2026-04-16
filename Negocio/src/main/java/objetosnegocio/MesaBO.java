@@ -8,8 +8,10 @@ import adaptadores.MesaAdapter;
 import daos.ClienteDAO;
 import daos.MesaDAO;
 import dtos.MesaDTO;
+import entidades.Mesa;
 import excepciones.PersistenciaException;
 import java.util.List;
+import tiposDatosEnums.EstadoMesa;
 
 /**
  *
@@ -41,4 +43,11 @@ public class MesaBO {
     public List<MesaDTO> obtenerTodas() throws PersistenciaException {
         return mesaAdapter.listaEntityADTO(MesaDAO.obtenerTodas());
     }
+    
+    public void ocuparMesa(Long idMesa) throws PersistenciaException {
+    Mesa mesa = MesaDAO.buscarPorId(idMesa);
+    mesa.setEstado(EstadoMesa.OCUPADA);
+    MesaDAO.actualizar(mesa);
+}
+    
 }
