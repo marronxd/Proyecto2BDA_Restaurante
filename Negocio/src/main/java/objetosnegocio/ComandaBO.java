@@ -6,10 +6,13 @@ package objetosnegocio;
 
 import adaptadores.ComandaAdapter;
 import adaptadores.ReporteComandaAdapter;
+import daos.ClienteDAO;
 import daos.ComandaDAO;
 import daos.MesaDAO;
+import dtos.ClienteDTO;
 import dtos.ComandaDTO;
 import dtos.ReporteComandaDTO;
+import entidades.Cliente;
 import entidades.Comanda;
 import entidades.DetalleComanda;
 import entidades.Mesa;
@@ -32,12 +35,14 @@ public class ComandaBO {
 
     private final ComandaDAO comandaDAO;
     private final MesaDAO mesaDAO;
+    private final ClienteDAO clienteDAO;
     private Comanda comanda;
 
     private ComandaBO() {
         this.comandaDAO = new ComandaDAO();
         this.mesaDAO = new MesaDAO();
         this.comanda = new Comanda();
+        this.clienteDAO = new ClienteDAO();
     }
 
     //el constructor publico y static para que sea solo una instancia en todo el sistema
@@ -192,5 +197,91 @@ System.out.println("Estado actual: " + mesa.getEstado());
         String folio = comanda.generarFolio(numFolio);
         return folio;
     }
+    
+    /**
+     * metodo que busca una comanda pro su id y la devuelve como dto
+     * @param id
+     * @return
+     * @throws NegocioException 
+     */
+    public ComandaDTO buscarComandaId(Long id) throws NegocioException {
+        try{
+            ComandaDTO buscada = ComandaAdapter.ComandaADTO(comandaDAO.buscarPorId(id));
+            return buscada;
+        }catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
+    
+    /**
+     * metodo para cerrar una comanda, actualiza comanda, cliente y mesa
+     * @param idComanda
+     * @throws NegocioException
+     * @throws PersistenciaException 
+     */
+    public void cerrarComanda(Long idComanda) throws NegocioException, PersistenciaException {
+
+        if (idComanda == null) {
+            throw new NegocioException("ID de comanda inválido");
+        }
+
+        //busca comanda
+        ComandaDTO comanda = buscarComandaId(idComanda);
+
+        if (comanda == null) {
+            throw new NegocioException("La comanda no existe");
+        }
+
+        if (!comanda.getEstado().equalsIgnoreCase("ABIERTA")) {
+            throw new NegocioException("Solo se pueden cerrar comandas abiertas");
+        }
+
+        //cambia el estado
+        comanda.setEstado("ENTREGADA");
+
+        actualizarComanda(comanda);
+
+
+        //para actualizar cliente si tiene uno
+        if (comanda.getIdCliente() != null) {
+
+            ClienteDTO cliente = ClienteBO.getInstance().buscarClienteId(comanda.getIdCliente());
+
+            //si la comanda tiene cun cliente, le actualiza puntos y total gastado
+            if (cliente != null) {
+                
+                double gastadoActual =
+                    cliente.getTotalGastado() == null
+                    ? 0.0
+                    : cliente.getTotalGastado();
+
+                double nuevoTotal =
+                    gastadoActual + comanda.getTotalAcumulado();
+
+                cliente.setTotalGastado(nuevoTotal);
+
+            
+                double puntosActuales =
+                    cliente.getPuntos() == null
+                    ? 0.0
+                    : cliente.getPuntos();
+
+            //1 punto por cada 20gastado
+                double puntosGanados =
+                    Math.floor(comanda.getTotalAcumulado() / 20.0);
+
+            cliente.setPuntos(
+                    puntosActuales + puntosGanados
+            );
+
+            ClienteBO.getInstance()
+                    .actualizarCliente(cliente);
+        }
+    }
+
+
+    //desocupa la mesa
+    MesaBO.getInstance().desocuparMesa(comanda.getIdMesa());
+}
     
 }

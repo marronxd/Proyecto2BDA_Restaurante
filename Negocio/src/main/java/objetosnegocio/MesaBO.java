@@ -49,5 +49,10 @@ public class MesaBO {
     mesa.setEstado(EstadoMesa.OCUPADA);
     MesaDAO.actualizar(mesa);
 }
+    public void desocuparMesa(Long idMesa) throws PersistenciaException {
+    Mesa mesa = MesaDAO.buscarPorId(idMesa);
+    mesa.setEstado(EstadoMesa.DISPONIBLE);
+    MesaDAO.actualizar(mesa);
+}
     
 }

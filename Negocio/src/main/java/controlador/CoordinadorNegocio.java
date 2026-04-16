@@ -203,7 +203,24 @@ public class CoordinadorNegocio {
     }
     
     public void ocuparMesa(Long idMesa) throws PersistenciaException {
-    mesa.ocuparMesa(idMesa);
-}
+        mesa.ocuparMesa(idMesa);
+    }
+    
+    //metodos que meti mientras hago la parte de cerrar comandas
+    public ComandaDTO buscarComandaPorId(Long id) throws NegocioException {
+        return comanda.buscarComandaId(id);
+    }
+
+    public ComandaDTO actualizarComanda(ComandaDTO dto) throws PersistenciaException, NegocioException {
+        return comanda.actualizarComanda(dto);
+    }
+
+    public void desocuparMesa(Long idMesa) throws PersistenciaException {
+        mesa.desocuparMesa(idMesa);
+    }
+    
+    public void cerrarComanda(Long idComanda) throws NegocioException, PersistenciaException{
+        comanda.cerrarComanda(idComanda);
+    }
     
 }

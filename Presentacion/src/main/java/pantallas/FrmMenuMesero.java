@@ -69,5 +69,16 @@ public class FrmMenuMesero extends FrmPlantillaMesero {
 
         frm.setVisible(true);
         });
+        
+        
+        
+        //actionlistener del boton modificar comandas
+        btnModificarComanda.addActionListener(e -> {
+            FrmModificarComanda frm = new FrmModificarComanda(
+                this,
+                coordinadorF,
+                coordinadorN
+            );
+        });
     }
 }

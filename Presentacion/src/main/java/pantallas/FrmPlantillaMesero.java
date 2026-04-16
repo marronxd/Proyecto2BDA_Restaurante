@@ -30,7 +30,7 @@ public abstract class FrmPlantillaMesero extends JFrame {
     protected JButton btnCrearComandas;
     protected JButton btnVerComandas;
     protected JButton btnVolver;
-    //has vuelto al inicio
+    protected JButton btnModificarComanda;
     protected JPanel panelMenuInicial;
     
     
@@ -71,6 +71,10 @@ public abstract class FrmPlantillaMesero extends JFrame {
         btnVolver = BotonUtileria.botonUtileriaGenérico("Volver al menu");
         btnVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnVolver.setMaximumSize(new Dimension(220, 45));
+        
+        btnModificarComanda = BotonUtileria.botonUtileriaGenérico("Modificar comandas");
+        btnModificarComanda.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnModificarComanda.setMaximumSize(new Dimension(220, 45));
 
         
         panelMenuInicial.add(lblTitulo);
@@ -80,6 +84,8 @@ public abstract class FrmPlantillaMesero extends JFrame {
         panelMenuInicial.add(btnCrearComandas);
         panelMenuInicial.add(Box.createRigidArea(new Dimension(0, 30)));
         panelMenuInicial.add(btnVerComandas);
+        panelMenuInicial.add(Box.createRigidArea(new Dimension(0, 30)));
+        panelMenuInicial.add(btnModificarComanda);
 
         panelContenido.add(panelMenuInicial, BorderLayout.CENTER);
 
