@@ -197,28 +197,62 @@ public class CoordinadorNegocio {
         return comanda.registrarComanda(nuevaComanda);
     }
     
-    //
+    /**
+     * genera un folio para las comandas
+     * @return
+     * @throws PersistenciaException 
+     */
     public String darFolio() throws PersistenciaException{
         return comanda.crearFolio();
     }
     
+    /**
+     * cambia el estado de la mesa a OCUPADA
+     * @param idMesa
+     * @throws PersistenciaException 
+     */
     public void ocuparMesa(Long idMesa) throws PersistenciaException {
         mesa.ocuparMesa(idMesa);
     }
     
     //metodos que meti mientras hago la parte de cerrar comandas
+    
+    /**
+     * metodo para buscar una comanda por su id
+     * @param id
+     * @return
+     * @throws NegocioException 
+     */
     public ComandaDTO buscarComandaPorId(Long id) throws NegocioException {
         return comanda.buscarComandaId(id);
     }
 
+    /**
+     * metodo para actualizar una comanda
+     * @param dto
+     * @return
+     * @throws PersistenciaException
+     * @throws NegocioException 
+     */
     public ComandaDTO actualizarComanda(ComandaDTO dto) throws PersistenciaException, NegocioException {
         return comanda.actualizarComanda(dto);
     }
 
+    /**
+     * metodo que cambia el estado de una mesa a DISPONIBLE
+     * @param idMesa
+     * @throws PersistenciaException 
+     */
     public void desocuparMesa(Long idMesa) throws PersistenciaException {
         mesa.desocuparMesa(idMesa);
     }
     
+    /**
+     * metodo para cerrar una comanda
+     * @param idComanda
+     * @throws NegocioException
+     * @throws PersistenciaException 
+     */
     public void cerrarComanda(Long idComanda) throws NegocioException, PersistenciaException{
         comanda.cerrarComanda(idComanda);
     }

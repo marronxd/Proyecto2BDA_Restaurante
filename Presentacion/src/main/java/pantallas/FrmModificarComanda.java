@@ -45,7 +45,10 @@ public class FrmModificarComanda extends JDialog {
 
         setVisible(true);
     }
-
+    
+    /**
+     * configuracion inicial de la inertfaz
+     */
     private void configurarVentana() {
         setSize(950, 650);
         setLocationRelativeTo(getParent());
@@ -53,6 +56,9 @@ public class FrmModificarComanda extends JDialog {
         setResizable(false);
     }
 
+    /**
+     * metodo para agregarle los componentes a la interfaz
+     */
     private void inicializarComponentes() {
 
         JLabel titulo = new JLabel("Modificar Comanda", SwingConstants.CENTER);

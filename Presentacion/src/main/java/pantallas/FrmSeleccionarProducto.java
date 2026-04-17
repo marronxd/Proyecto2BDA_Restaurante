@@ -38,7 +38,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 /**
- *
+ * frame para seleccionar productos que se incluiran en la comanda
  * @author luiscarlosbeltran
  */
 public class FrmSeleccionarProducto extends JDialog {
@@ -73,7 +73,10 @@ public class FrmSeleccionarProducto extends JDialog {
 
     setVisible(true);
 }
-
+    
+    /**
+     * configuracion inicial de la interfaz
+     */
     private void configurarVentana() {
         setSize(800, 550);
         setLocationRelativeTo(getParent());
@@ -81,6 +84,9 @@ public class FrmSeleccionarProducto extends JDialog {
         setResizable(false);
     }
 
+    /**
+     * metodo para añadir el contenido de la interfaz
+     */
     private void inicializarComponentes() {
 
         JLabel titulo = new JLabel("Seleccione productos", SwingConstants.CENTER);
@@ -110,6 +116,9 @@ public class FrmSeleccionarProducto extends JDialog {
         add(sur, BorderLayout.SOUTH);
     }
 
+    /**
+     * metodo que mete las tarjetas de productos al panel para mostrarlos
+     */
     private void cargarProductos() {
 
         List<ProductoDTO> productos = obtenerProductosDTO();
@@ -124,6 +133,10 @@ public class FrmSeleccionarProducto extends JDialog {
 
     //se que la capa presentacion no debe interactuar con la BD, PEROOO...
     //pero no tenemos nada del modulo productos, el que sabe sabe :(
+    /**
+     * metodo que crea las tarjetas de productos
+     * @return 
+     */
     private List<ProductoDTO> obtenerProductosDTO() {
 
         List<ProductoDTO> lista = new ArrayList<>();
@@ -153,7 +166,12 @@ public class FrmSeleccionarProducto extends JDialog {
 
         return lista;
     }
-
+    
+    /**
+     * metodo que crea las tarjetas de productos con sus detalles
+     * @param producto
+     * @return 
+     */
     private JPanel crearTarjetaProducto(ProductoDTO producto) {
 
     JPanel card = new JPanel();
@@ -207,6 +225,9 @@ public class FrmSeleccionarProducto extends JDialog {
     return card;
 }
 
+    /**
+     * el metodo para guardaar los detallecomanda
+     */
     private void confirmarSeleccion() {
 
         List<DetalleComandaDTO> detalles = new ArrayList<>();

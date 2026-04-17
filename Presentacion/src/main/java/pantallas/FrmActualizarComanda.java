@@ -38,7 +38,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 /**
- *
+ * frame que se abre al actualizar una comanda
  * @author luiscarlosbeltran
  */
 public class FrmActualizarComanda extends JDialog {
@@ -80,6 +80,9 @@ public class FrmActualizarComanda extends JDialog {
         setVisible(true);
     }
     
+    /**
+     * metodo que inicializa los componentes de la interfaz
+     */
     private void init() {
 
         JLabel titulo = new JLabel("Modificar Comanda");
@@ -107,6 +110,9 @@ public class FrmActualizarComanda extends JDialog {
         add(sur, BorderLayout.SOUTH);
     }
     
+    /**
+     * metodo para cargar productos
+     */
     private void cargarProductos() {
 
         List<ProductoDTO> productos = obtenerProductosDTO();
@@ -121,6 +127,11 @@ public class FrmActualizarComanda extends JDialog {
 
     //se que la capa presentacion no debe interactuar con la BD, PEROOO...
     //pero no tenemos nada del modulo productos, el que sabe sabe :(
+    /**
+     * metodo para obtener productos, deberia ir en dao de productos pero pues....
+     * y de paso los convierte de entity a dto, o sea es del dao y adapter combinado
+     * @return 
+     */
     private List<ProductoDTO> obtenerProductosDTO() {
 
         List<ProductoDTO> lista = new ArrayList<>();
@@ -151,6 +162,11 @@ public class FrmActualizarComanda extends JDialog {
         return lista;
     }
 
+    /**
+     * metodo que agarra los detalles de un producto y les crea una tarjeta para 
+     * @param producto
+     * @return 
+     */
     private JPanel crearTarjetaProducto(ProductoDTO producto) {
 
     JPanel card = new JPanel();
@@ -203,6 +219,11 @@ public class FrmActualizarComanda extends JDialog {
 
     return card;
     }
+    
+    /**
+     * este metodo agarra los detalles que ya venian en la comanda que se va a modificar
+     * y los plasma en la interfaz, para que aparezca como se habia guardado el detallecomanda
+     */
     private void precargarDetalles() {
 
         for (DetalleComandaDTO d : comanda.getDetalles()) {
@@ -219,9 +240,12 @@ public class FrmActualizarComanda extends JDialog {
         }
     }
     
-private void modificar() {
+    /**
+     * modifica los detallecomanda segun como se haya dejado en la parte de actualizar una comanda
+     */
+    private void modificar() {
 
-    try {
+        try {
 
         List<DetalleComandaDTO> detalles = new ArrayList<>();
         double total = 0;
@@ -252,31 +276,29 @@ private void modificar() {
                                 id
                         );
 
-                detalles.add(d);
+                    detalles.add(d);
 
-                total += subtotal;
+                    total += subtotal;
+                }
             }
-        }
 
-        if (detalles.isEmpty()) {
+            if(detalles.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un producto");
+                return;
+            }
+
+            comanda.setDetalles(detalles);
+            comanda.setTotalAcumulado(total);
+
+            coordinadorN.actualizarComanda(comanda);
+
             JOptionPane.showMessageDialog(this,
-                    "Debe seleccionar al menos un producto");
-            return;
-        }
-
-        comanda.setDetalles(detalles);
-        comanda.setTotalAcumulado(total);
-
-        coordinadorN.actualizarComanda(comanda);
-
-        JOptionPane.showMessageDialog(this,
                 "Comanda actualizada");
 
-        dispose();
+            dispose();
 
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this,
-                ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
-}
 }
