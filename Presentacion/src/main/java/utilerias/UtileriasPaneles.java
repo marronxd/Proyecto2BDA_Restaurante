@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
+ * Configura paneles y algunos componentes
  * @author aaron
  */
 public class UtileriasPaneles {

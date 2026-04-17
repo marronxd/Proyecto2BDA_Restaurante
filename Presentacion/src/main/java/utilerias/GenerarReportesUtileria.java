@@ -18,7 +18,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 /**
- *
+ * Crea un reporte de una inspeccion, y lo arroja. Puede descargarse dicho reporte
  * @author aaron
  */
 public class GenerarReportesUtileria {
@@ -47,28 +47,6 @@ public class GenerarReportesUtileria {
 
             // 4. Mostramos
             JasperViewer.viewReport(jp, false);
-            System.out.println(datos);
-
-            /**
-            InputStream ruta = GenerarReportesUtileria.class.getResourceAsStream("/ReportesComandas.jasper");
-
-            // convertir la lista de los dto a un lenguaje entendible para jasper
-            JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(datos);
-            
-            
-            // a ver si soluciona el error 
-            // llenar el reporte con los datos
-            JasperPrint jp = JasperFillManager.fillReport(ruta, null, ds);
-            System.out.println("Páginas en el reporte: " + jp.getPages().size());
-            // mostrar en pantalla
-            JasperViewer vista = new JasperViewer(jp, false); // el false es pq sino cierra el sistema en ejecucion
-            vista.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            vista.setVisible(true);
-
-            vista.setAlwaysOnTop(true); // La pone encima de todo
-            vista.toFront();            // La trae al frente
-            vista.requestFocus();       // Le da el foco
-            * */
          }catch(Exception e){
              System.err.println(e.getMessage());
          }

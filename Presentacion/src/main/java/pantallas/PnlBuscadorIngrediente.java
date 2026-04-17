@@ -17,7 +17,7 @@ import utilerias.UtileriasPaneles;
 import observer.InventarioObserver;
 import objetosnegocio.IngredienteBO;
 /**
- *
+ * Es elbuscador que tiene el usuario para buscar ingredientes registrados
  * @author aaron
  */
 public class PnlBuscadorIngrediente extends javax.swing.JPanel implements InventarioObserver{

@@ -19,7 +19,7 @@ import javax.swing.*;
 import utilerias.*;
 
 /**
- *
+ * Frm para que el administrador pueda iniciar sesión 
  * @author aaron
  */
 public class FrmInicioSesion extends JFrame{

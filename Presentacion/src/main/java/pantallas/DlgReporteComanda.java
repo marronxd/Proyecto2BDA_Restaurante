@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import utilerias.FechaUtileria;
 /**
- *
+ * Dialogo que muestra parametros para filtrar una consulta y poder hacer el reporte.
  * @author aaron
  */
 public class DlgReporteComanda extends javax.swing.JDialog {

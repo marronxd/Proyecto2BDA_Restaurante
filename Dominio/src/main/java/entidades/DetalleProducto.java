@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- *
+ * Entidad que representa la cantidad de ingredientes asociados a un producto
  * @author aaron
  */
 

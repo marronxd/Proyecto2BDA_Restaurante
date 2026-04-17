@@ -9,7 +9,8 @@ import javax.swing.*;
 import utilerias.FramesUtileria;
 
 /**
- *
+ * Es la vista que tiene el administrador cuando inicia sesion, almacena todos los apartados de
+ * gestion
  * @author aaron
  */
 public class FrmMenuAdministrador extends FrmPlantillaAdmin{

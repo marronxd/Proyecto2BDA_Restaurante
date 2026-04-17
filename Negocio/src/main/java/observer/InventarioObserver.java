@@ -5,7 +5,8 @@
 package observer;
 
 /**
- *
+ * Contrato que se encarga de notificar cuando surge un cambio en algun momento,
+ * solicita actualizacion mediante suscripciones
  * @author aaron
  */
 public interface InventarioObserver {

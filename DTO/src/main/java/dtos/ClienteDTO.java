@@ -7,7 +7,8 @@ package dtos;
 import java.time.LocalDate;
 
 /**
- *
+ * Clase que se encarga de ser plantilla para los datos no registrados en la base de datos o que
+ * se extraen de ella, es decir, fuera del contexto.
  * @author luiscarlosbeltran
  */
 

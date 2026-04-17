@@ -18,7 +18,8 @@ import java.util.List;
 import observer.InventarioObserver;
 
 /**
- *
+ * Se encarga de validar toda la logica de negocio. Centraliza reglas antes de siquiera acceder a 
+ * la capa de persistencia.
  * @author luiscarlosbeltran
  */
 public class ClienteBO {

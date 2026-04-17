@@ -17,7 +17,7 @@ import utilerias.FramesUtileria;
 import utilerias.UtileriasPaneles;
 
 /**
- * 
+ * dialogo que muestra un formulario para registrar un cliente 
  * @author aaron
  */
 public class DlgRegistrarCliente extends JDialog{

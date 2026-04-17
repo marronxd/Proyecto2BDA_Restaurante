@@ -126,7 +126,7 @@ public class IngredienteDAO {
             if(em.getTransaction().isActive()){
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al guardar el ingrediente en la base de datos, posibles causas: Existencia de ingrediente");
+            throw new PersistenciaException("Error al guardar el ingrediente.");
         }finally{
             em.close();
         }
@@ -179,7 +179,7 @@ public class IngredienteDAO {
             Ingrediente buscado = em.find(Ingrediente.class, id);
             return buscado;
         }catch(Exception e){
-            throw new PersistenciaException("Error al obtener el ingrediente en la BD: " + e.getMessage());
+            throw new PersistenciaException("Error al obtener el ingrediente");
         }finally{
             em.close();
         }

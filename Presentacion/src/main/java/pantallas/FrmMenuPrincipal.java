@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
+ * 
  * @author aaron
  */
 public class FrmMenuPrincipal extends JFrame{

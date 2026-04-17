@@ -7,7 +7,7 @@ package utilerias;
 import java.awt.Color;
 
 /**
- *
+ * Clase que genera colores  para centralizar la logica de su uso
  * @author aaron
  */
 public class ColoresUtileria {

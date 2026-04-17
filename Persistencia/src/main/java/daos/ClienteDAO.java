@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 /**
- *
+ * Clase dao que se encarga de la conexion con la base de datos.
  * @author piña
  */
 public class ClienteDAO {

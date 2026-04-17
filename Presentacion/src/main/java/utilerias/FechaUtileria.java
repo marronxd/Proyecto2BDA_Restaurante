@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 /**
- *
+ * clase en la cual se maneja las horas de los datepicker, convierte una fecha a una que tome desde
+ * el inicio del dia hasta el final
  * @author aaron
  */
 public class FechaUtileria {
