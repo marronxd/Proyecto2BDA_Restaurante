@@ -1,4 +1,3 @@
-
 package pantallas;
 
 import Controladores.CoordinadorFrames;
@@ -18,6 +17,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,6 +37,7 @@ public class PnlProductos extends javax.swing.JPanel {
     // Componentes del Panel Registrar
     private JTextField txtRegNombre, txtRegPrecio;
     private JTextArea txtRegDescripcion;
+    private JComboBox<String> cbTipo;
 
     // Componentes del Panel Buscar
     private JTextField txtBusNombre, txtBusCategoria;
@@ -105,6 +106,8 @@ public class PnlProductos extends javax.swing.JPanel {
                 txtRegNombre = agregarCampo("Nombre");
                 txtRegPrecio = agregarCampo("Precio");
                 txtRegDescripcion = agregarAreaTexto("Descripción");
+                String[] opcionesTipo = {"Seleccione...", "Platillo", "Bebida", "Postre", "Entrada"};
+                cbTipo = agregarCombo("Tipo", opcionesTipo);
 
                 JButton btnRegistrar = crearBotonPersonalizado("Registrar", new Color(210, 180, 140), Color.BLACK);
                 add(Box.createVerticalGlue());
@@ -182,6 +185,21 @@ public class PnlProductos extends javax.swing.JPanel {
             return b;
         }
 
+        private JComboBox<String> agregarCombo(String label, String[] items) {
+            JLabel l = new JLabel(label);
+            l.setForeground(Color.BLACK);
+
+            JComboBox<String> combo = new JComboBox<>(items);
+            combo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+            combo.setBackground(Color.WHITE);
+
+            add(l);
+            add(combo);
+            add(Box.createRigidArea(new Dimension(0, 10)));
+
+            return combo;
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
@@ -211,10 +229,21 @@ public class PnlProductos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "El precio del producto no puede estar vacio");
             return;
         }
-        if (descripcion.isEmpty()){
+        if (descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "la descripcion del producto no puede estar vacio");
             return;
         }
+
+        if (cbTipo.getSelectedIndex() == 0) { 
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un tipo de producto.");
+            cbTipo.requestFocus();
+            return;
+        }
+
+        // Si todo está bien, obtienes el valor así:
+        String tipoSeleccionado = cbTipo.getSelectedItem().toString();
+        System.out.println("Tipo: " + tipoSeleccionado);
+
         try {
             // Intentar convertir a número (double)
             double precio = Double.parseDouble(precioTexto);
@@ -230,10 +259,9 @@ public class PnlProductos extends javax.swing.JPanel {
             // Si el usuario escribió letras o caracteres extraños
             JOptionPane.showMessageDialog(this, "Por favor, ingresa un número válido (ejemplo: 150.50).");
             txtRegPrecio.requestFocus();
-            return ;
+            return;
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
