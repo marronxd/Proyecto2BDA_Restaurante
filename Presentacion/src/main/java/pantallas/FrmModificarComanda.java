@@ -83,10 +83,7 @@ public class FrmModificarComanda extends JDialog {
         //actionlisteners botones
         btnCancelar.addActionListener(e -> dispose());
 
-        btnActualizar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this,
-                    "falta ponerla :P");
-        });
+        btnActualizar.addActionListener(e -> abrirModificar());
 
         btnCerrar.addActionListener(e -> cerrarComanda());
        
@@ -135,13 +132,45 @@ public class FrmModificarComanda extends JDialog {
                 "ID inválido"
         );
 
-    } catch (Exception ex) {
-
-        JOptionPane.showMessageDialog(
-                this,
-                ex.getMessage()
-        );
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
-}
+    
+    /**
+     * metodo para abrir la parte de modificar comandas
+     */
+    private void abrirModificar() {
+        try {
+
+            String texto = JOptionPane.showInputDialog(this, "Ingrese ID de la comanda a modificar:");
+            if (texto == null) return;
+            texto = texto.trim();
+
+            if (texto.isEmpty()) {
+                JOptionPane.showMessageDialog(this,"Debe ingresar un ID");
+                return;
+            }
+            
+            Long id = Long.valueOf(texto);
+
+            ComandaDTO comanda = coordinadorN.buscarComandaPorId(id);
+
+            if (comanda == null) {
+                JOptionPane.showMessageDialog(this, "Comanda no encontrada");
+            return;
+            }
+
+            new FrmActualizarComanda(
+                (JFrame) getParent(),
+                coordinadorF,
+                coordinadorN,
+                comanda
+            );
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+    
     
 }
