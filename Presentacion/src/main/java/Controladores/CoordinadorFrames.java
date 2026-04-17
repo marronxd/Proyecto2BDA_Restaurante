@@ -51,6 +51,8 @@ public class CoordinadorFrames {
     // --- comandas ---
     private PnlComandas pnlComandas;
     private FrmMenuMesero frmMenuMesero;
+    //--- productos ---
+    private PnlProductos pnlProductos;
     
     public CoordinadorFrames(){
         this.coordinadorN = new CoordinadorNegocio();
@@ -491,6 +493,17 @@ public class CoordinadorFrames {
 
         frmMenuAdministrador.setNuevoContenido(pnlComandas);
         pnlComandas.setVisible(true);
+    }
+    
+    public void mostarFuncionesProductos(){
+        if (frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+        if(pnlProductos == null){
+            pnlProductos = new PnlProductos(this);
+        }
+        frmMenuAdministrador.setNuevoContenido(pnlProductos);
+        pnlProductos.setVisible(true);
     }
     
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws NegocioException, PersistenciaException {

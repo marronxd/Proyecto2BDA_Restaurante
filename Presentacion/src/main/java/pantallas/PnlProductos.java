@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import Controladores.CoordinadorFrames;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -32,8 +33,11 @@ import javax.swing.border.EmptyBorder;
  * @author piña
  */
 public class PnlProductos extends javax.swing.JPanel {
+    
+    private CoordinadorFrames coordinadorF;
 
-    public PnlProductos() {
+    public PnlProductos(CoordinadorFrames coordinadorF) {
+        this.coordinadorF = coordinadorF;
         // Configuración del fondo general 
         setBackground(new Color(253, 246, 240));
         setLayout(new GridBagLayout());
