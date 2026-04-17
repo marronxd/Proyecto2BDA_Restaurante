@@ -8,6 +8,7 @@ import controlador.CoordinadorNegocio;
 import dtos.ClienteDTO;
 import dtos.ComandaDTO;
 import dtos.IngredienteDTO;
+import dtos.ProductoDTO;
 import dtos.ReporteClienteDTO;
 import dtos.ReporteComandaDTO;
 import excepciones.NegocioException;
@@ -495,17 +496,6 @@ public class CoordinadorFrames {
         pnlComandas.setVisible(true);
     }
     
-    public void mostarFuncionesProductos(){
-        if (frmMenuAdministrador != null){
-            frmMenuAdministrador.setVisible(true);
-        }
-        if(pnlProductos == null){
-            pnlProductos = new PnlProductos(this);
-        }
-        frmMenuAdministrador.setNuevoContenido(pnlProductos);
-        pnlProductos.setVisible(true);
-    }
-    
     public List<ComandaDTO> buscarComandasPorFecha(LocalDateTime inicio, LocalDateTime fin) throws NegocioException, PersistenciaException {
         return coordinadorN.buscarComandasPorFecha(inicio, fin);
     }
@@ -521,5 +511,21 @@ public class CoordinadorFrames {
 
         frmMenuAdministrador.setNuevoContenido(pnlComandas);
         pnlComandas.setVisible(true);
+    }
+    
+    //PRODUCTOS
+    public ProductoDTO registrarProducto(ProductoDTO dto){
+        return coordinadorN.registrarProducto(dto);
+    }
+    
+     public void mostarFuncionesProductos(){
+        if (frmMenuAdministrador != null){
+            frmMenuAdministrador.setVisible(true);
+        }
+        if(pnlProductos == null){
+            pnlProductos = new PnlProductos(this);
+        }
+        frmMenuAdministrador.setNuevoContenido(pnlProductos);
+        pnlProductos.setVisible(true);
     }
 }

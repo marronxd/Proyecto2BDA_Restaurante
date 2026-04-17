@@ -13,14 +13,41 @@ public class ProductoDTO {
     private Long id;
     private String nombre;
     private Double precio;
+    private String descripcion;
+    private EnumTipoProducto tipo;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(Long id, String nombre, Double precio) {
+    public ProductoDTO(Long id, String nombre, Double precio, String descripcion, EnumTipoProducto tipo) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
+
+    public ProductoDTO(String nombre, Double precio, String descripcion, EnumTipoProducto tipo) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public EnumTipoProducto getTipo() {
+        return tipo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setTipo(EnumTipoProducto tipo) {
+        this.tipo = tipo;
     }
 
     public Long getId() {

@@ -35,6 +35,7 @@ public class CoordinadorNegocio {
     private final MeseroBO mesero;
     private final ComandaBO comanda;
     private final MesaBO mesa;
+    //private final ProductoBO producto;
     
     public CoordinadorNegocio() {
         this.cliente = ClienteBO.getInstance();

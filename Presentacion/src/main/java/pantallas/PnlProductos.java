@@ -1,6 +1,8 @@
 package pantallas;
 
 import Controladores.CoordinadorFrames;
+import dtos.EnumTipoProducto;
+import dtos.ProductoDTO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -37,7 +39,7 @@ public class PnlProductos extends javax.swing.JPanel {
     // Componentes del Panel Registrar
     private JTextField txtRegNombre, txtRegPrecio;
     private JTextArea txtRegDescripcion;
-    private JComboBox<String> cbTipo;
+    private JComboBox<EnumTipoProducto> cbTipo;
 
     // Componentes del Panel Buscar
     private JTextField txtBusNombre, txtBusCategoria;
@@ -106,8 +108,13 @@ public class PnlProductos extends javax.swing.JPanel {
                 txtRegNombre = agregarCampo("Nombre");
                 txtRegPrecio = agregarCampo("Precio");
                 txtRegDescripcion = agregarAreaTexto("Descripción");
-                String[] opcionesTipo = {"Seleccione...", "Platillo", "Bebida", "Postre", "Entrada"};
-                cbTipo = agregarCombo("Tipo", opcionesTipo);
+                cbTipo = new JComboBox<>(EnumTipoProducto.values());
+                cbTipo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+                cbTipo.setBackground(Color.WHITE);
+
+                add(new JLabel("Tipo:"));
+                add(cbTipo);
+                add(Box.createRigidArea(new Dimension(0, 10)));
 
                 JButton btnRegistrar = crearBotonPersonalizado("Registrar", new Color(210, 180, 140), Color.BLACK);
                 add(Box.createVerticalGlue());
@@ -218,49 +225,65 @@ public class PnlProductos extends javax.swing.JPanel {
 
     private void registrar() {
         //validaciones de campos
-        String nombre = txtRegNombre.getText().trim();
-        String precioTexto = txtRegPrecio.getText().trim();
-        String descripcion = txtRegDescripcion.getText().trim();
-        if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El nombre en el panel de registro está vacío");
-            return;
-        }
-        if (precioTexto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El precio del producto no puede estar vacio");
-            return;
-        }
-        if (descripcion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "la descripcion del producto no puede estar vacio");
-            return;
-        }
-
-        if (cbTipo.getSelectedIndex() == 0) { 
-            JOptionPane.showMessageDialog(this, "Por favor, selecciona un tipo de producto.");
-            cbTipo.requestFocus();
-            return;
-        }
-
-        // Si todo está bien, obtienes el valor así:
-        String tipoSeleccionado = cbTipo.getSelectedItem().toString();
-        System.out.println("Tipo: " + tipoSeleccionado);
-
         try {
-            // Intentar convertir a número (double)
-            double precio = Double.parseDouble(precioTexto);
-
-            //Validación lógica (No puede ser gratis o negativo en este contexto)
-            if (precio <= 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un número mayor a 0.");
-                txtRegPrecio.requestFocus();
+            String nombre = txtRegNombre.getText().trim();
+            String precioTexto = txtRegPrecio.getText().trim();
+            String descripcion = txtRegDescripcion.getText().trim();
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El nombre en el panel de registro está vacío");
+                return;
+            }
+            if (precioTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El precio del producto no puede estar vacio");
+                return;
+            }
+            if (descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "la descripcion del producto no puede estar vacio");
                 return;
             }
 
-        } catch (NumberFormatException e) {
-            // Si el usuario escribió letras o caracteres extraños
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa un número válido (ejemplo: 150.50).");
-            txtRegPrecio.requestFocus();
-            return;
+            if (cbTipo.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un tipo de producto.");
+                cbTipo.requestFocus();
+                return;
+            }
+
+            // Si todo está bien, obtienes el valor así:
+            
+            String tipoSeleccionadoTxt = cbTipo.getSelectedItem().toString();
+            System.out.println("Tipo: " + tipoSeleccionadoTxt);
+
+            try {
+                // Intentar convertir a número (double)
+                double precio = Double.parseDouble(precioTexto);
+
+                //Validación lógica (No puede ser gratis o negativo en este contexto)
+                if (precio <= 0) {
+                    JOptionPane.showMessageDialog(this, "El precio debe ser un número mayor a 0.");
+                    txtRegPrecio.requestFocus();
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
+                // Si el usuario escribió letras o caracteres extraños
+                JOptionPane.showMessageDialog(this, "Por favor, ingresa un número válido (ejemplo: 150.50).");
+                txtRegPrecio.requestFocus();
+                return;
+            }
+            double precio = Double.parseDouble(precioTexto);
+            EnumTipoProducto tipoSeleccionado = (EnumTipoProducto) cbTipo.getSelectedItem();
+            ProductoDTO dto = new ProductoDTO();
+
+            dto.setNombre(nombre);
+            dto.setPrecio(precio);
+            dto.setDescripcion(descripcion);
+            dto.setTipo(tipoSeleccionado);
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al reguistrar el producto");
+            e.printStackTrace();
         }
+
     }
 
     @SuppressWarnings("unchecked")
